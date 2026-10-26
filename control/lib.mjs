@@ -271,9 +271,16 @@ export function claimsCheck() {
     }
     for (const { f, text } of docs) if (text !== null && !text.includes(want)) bad.push(`${f} no longer says ${JSON.stringify(want)} (${c.claim})`);
   }
-  const how = `${spec.required.length} claims, each in the sentences control/claims.json names`;
+  // Every line of a doc that holds a digit, hashed together: a number changed anywhere in the doc fails,
+  // not only in the sentences named above.
+  for (const [f, h] of Object.entries(spec.numberLines ?? {})) {
+    const d = docs.find((x) => x.f === f);
+    if (d?.text != null && numberLinesSha256(d.text) !== h) bad.push(`${f}: a line with a number in it is not as control/claims.json recorded it`);
+  }
+  const how = `${spec.required.length} claims, each in the sentences control/claims.json names, and every line with a number in ${Object.keys(spec.numberLines ?? {}).join(", ") || "no doc"}`;
   return { ok: !bad.length, text: bad.length ? `claims: FAIL (${how}): ${bad.join("; ")}` : `claims: ${how} present (the headline numbers, seals and checker hashes; the shipped checker's hash held in control/claims.json and recomputed)` };
 }
+export const numberLinesSha256 = (text) => sha256(Buffer.from(lf(text).split("\n").filter((l) => /\d/.test(l)).join("\n")));
 // The receipts are one archive in two places: rebuild/ carries the same bytes as original/ (CRLF folded).
 export function receiptsCheck() {
   const o = join(REPO, "original", "tests", "receipts"), r = join(REPO, "rebuild", "tests", "receipts");

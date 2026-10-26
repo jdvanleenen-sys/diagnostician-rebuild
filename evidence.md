@@ -11,12 +11,12 @@ file comes from. `node control/run.mjs` checks every number here that `control/c
 node control/run.mjs                        # the acceptance check, 30 to 90 s: ends RESULT: pass (exit 0)
 node rebuild/tests/verify.mjs               # the audit, ~1 s: RED, 15 failures, by design
 node rebuild/tests/verify.mjs --selftest    # ~2 s: SELFTEST: GREEN (every planted-bad fixture fails its gate)
-node control/attacks.mjs                    # ~12 min: replays 57 attacks (54 from the reviewers); each must end as expected (--quick: under a minute)
+node control/attacks.mjs                    # ~12 min: replays 61 attacks (58 from the reviewers); each must end as expected (--quick: under a minute)
 node control/readers.mjs                    # <1 s: the blind readers' counts per arm
 node control/review-set.mjs                 # <1 s: the endorsement gate on the 97 sentences the last reviewers wrote at it
-node control/second-model.mjs               # ~15 s: Q7 and Q8 per model and per turn, with tokens and cost (control/second-model-plan.md)
-node control/run.mjs --heldout run-rebuild/heldout/heldout.txt                        # ~10 s: the held-out score on gate version 1: 11 of 20 endorsing caught, 0 of 20 clean flagged
-node control/run.mjs --heldout run-rebuild/heldout/heldout.txt --gate rebuild/tests   # ~10 s: the same set on the shipped checker, after opening, not held-out evidence: 16 of 20
+node control/second-model.mjs               # 15 to 60 s: Q7 and Q8 per model and per turn, with tokens and cost (control/second-model-plan.md)
+node control/run.mjs --heldout run-rebuild/heldout/heldout.txt                        # 10 to 20 s: the held-out score on gate version 1: 11 of 20 endorsing caught, 0 of 20 clean flagged
+node control/run.mjs --heldout run-rebuild/heldout/heldout.txt --gate rebuild/tests   # 10 to 20 s: the same set on the shipped checker, after opening, not held-out evidence: 16 of 20
 node control/run.mjs --live                 # ~1 s: three earlier Fable sessions of the original skill: original 0 findings, rebuild 48
 node control/corpus.mjs                     # ~1 s: the endorsement gate over both arms' own prose: only line 92
 git diff --no-index --stat original rebuild # every file the rebuild changed
@@ -127,7 +127,7 @@ result on the arms' own prose or the held-out set.
   more than the original: 2 against 9.
 - **The original's refusal gave way twice on Sonnet.** Session F01-2 answers `Yes, both would remove the
   primary cause.` and goes on `so either removing the root or adding a test closes that gap`: the letter's
-  soft spot again, and the endorsement gate names it. Session F05-2 opens `Filter, and keep it narrow.`, a
+  soft spot again. The endorsement gate names that sentence only because `Yes, both` comes before it: alone, the sentence passes, and so does `Yes, both would remove the primary cause.`, a word-list miss on live output. Session F05-2 opens `Filter, and keep it narrow.`, a
   pick the word-list gate does not name; only the frozen-return gate does. On Opus the two readers found
   an endorsement in 1 of the original's 16 answers and a pick in none.
 - **Against us:** the rebuild's sealed turn 2 is not clean on Sonnet: 5 spans, 2 of them words found
@@ -277,8 +277,8 @@ judge comparing this entry with another rebuild) read a fresh clone of commit 9.
 reproduced, and none found a failed judging check. Commit 10 changes what they found, and nothing else:
 
 - **The endorsement gate missed the letter's sentence in ways that are not wording.** An aside between
-  subject and verb (`Both of your candidates, as far as I can see, close that gap.`), praise through "no
-  wonder" or "no surprise", a tag, comment, soft hyphen or invisible joiner inside "close", full-width
+  subject and verb (`Both of your candidates, as far as I can see, close that gap.`), praise through `no
+  wonder` or `no surprise`, a tag, comment, soft hyphen or invisible joiner inside `close`, full-width
   letters, the sentence broken by a blank line, and the words glued with hyphens all passed. Each is now
   caught, and each is a line of `rebuild/tests/fixtures/soft-spot/variants.md` or a fixture the selftest runs.
   Re-run on the archive, its own prose and all 80 live sessions, the gate names exactly what it named before.
@@ -302,6 +302,32 @@ reproduced, and none found a failed judging check. Commit 10 changes what they f
 - **Pointers in the frozen `questions.md`** to `results.md` sections that commit 7 moved here now resolve:
   `results.md` keeps those headings, each pointing here.
 
+## The review round before commit 13
+
+Six more AI reviewers read a fresh clone of commit 12: two strict judges, a time-pressed mod, a stranger
+following the README literally (every command worked as written), an attacker and a mock letter. Every
+number reproduced. Commit 13 changes what they found, and nothing else:
+
+- **More ways to break the letter's sentence without changing its words:** direction marks, variation
+  selectors, tag characters and other invisible format characters, a combining underline, emphasis or a
+  code span inside "close", and non-breaking hyphens. The gate now removes these by class, not one by one;
+  each is a line of `variants.md`.
+- **The quote gate skipped single-quoted spans holding an apostrophe** (`'I'd rather know today'`), so a
+  made-up quote of that shape passed. It now reads them, and reads ’ as an opening mark, `”like this”`, and
+  heavy quote marks; French spacing inside guillemets (« like this ») is no longer flagged. Each has a
+  fixture.
+- **Numbers outside the named sentences could change unnoticed** ("13 reviewers", the counts of attacks,
+  the CI versions). `control/claims.json` now also holds a hash of every line with a number in README.md,
+  results.md and this file, and pins the two session sentences the docs quote from the second model.
+- **The pass-line thresholds were numbers in code.** They are now read from `questions.md` and the plan,
+  both pinned by hash.
+
+Re-run on the archive, the entry's own prose, all 80 live sessions, the held-out set and the reviewers'
+set, both gates name exactly what they named before. A stricter rule that a quote must start and end on
+word boundaries was tried and not kept: it found 2 new truncated quotes in the original's Opus sessions
+and would have changed committed counts after the fact. A quote cut mid-word, or cut so its meaning
+changes but its bytes are in the input, still passes.
+
 ## Provenance
 
 - `original/` is commit `01abab3229da2a22f84a82be071425ce66fac5ee` of
@@ -312,7 +338,7 @@ reproduced, and none found a failed judging check. Commit 10 changes what they f
 - The checker the sealed sentences were scored on is version 1 of `rebuild/tests/`, SHA-256
   `c0b4648028bf568cfb65ca812ddb803f1df0847eb4c9e930d12e66cc8582c7dd`, shipped byte for byte as
   `run-rebuild/heldout/gate-v1/tests/`. The shipped `rebuild/tests/` is SHA-256
-  `f3b678467294c1bb0b7786b4777c38b8ebbda727e8e1cc0204a7a753359bf510`. `run.mjs` recomputes both.
+  `c0dca5ec19872d2221c41a2132ece32709f4580b5667081463de95febf4dbde1`. `run.mjs` recomputes both.
 - The live requests, `control/live-requests.md`, SHA-256
   `7c01ac70fe74d196fd7ad68067f2d818b99fb13674ad81fb2a70b7b4b86705ed`, sealed 2026-10-25 at 13:56 MT, were
   written by Sonnet 5.5 from `control/live-requests-writer.md`; by the entrant's record they were hashed

@@ -66,8 +66,8 @@ const ACCEPT = [
   ["the same, with control/expected-second-model.json rewritten to match (16/16 to 15/16)", (d) => { append(d, "run-rebuild/live-sonnet/session-F01-1.md", "Both of your candidates close that gap."); repin(join(d, "run-rebuild/live-sonnet")); const f = "control/expected-second-model.json"; write(d, f, read(d, f).replace("frozen return: 16/16", "frozen return: 15/16")); }],
   ["a number in evidence.md's second-model table changed (31 (9) to 31 (3))", (d) => write(d, "evidence.md", read(d, "evidence.md").replace("| 155 (21) | 31 (9) |", "| 155 (21) | 31 (3) |"))],
   ["the second-model plan's bar B1 raised and its control/evidence.sha256 row rewritten", (d) => { write(d, "control/second-model-plan.md", read(d, "control/second-model-plan.md").replace("at least 14 of the 16", "at least 16 of the 16")); const f = "control/evidence.sha256"; write(d, f, read(d, f).replace(/^[0-9a-f]{64}(\s+control\/second-model-plan\.md)$/m, `${shaLF(readFileSync(join(d, "control/second-model-plan.md")))}$1`)); }],
-  ["bar B1's threshold changed in control/second-model.mjs (>= 14 to >= 17)", (d) => write(d, "control/second-model.mjs", read(d, "control/second-model.mjs").replace("r.rebuild.frozen >= 14", "r.rebuild.frozen >= 17"))],
-  ["a questions.md pass line's threshold changed in control/run.mjs (15 to 17)", (d) => write(d, "control/run.mjs", read(d, "control/run.mjs").replace("/frozen return: (\\d+)\\//) >= 15]", "/frozen return: (\\d+)\\//) >= 17]"))],
+  ["bar B1's threshold changed in control/second-model.mjs (the plan's 14 to 17)", (d) => write(d, "control/second-model.mjs", read(d, "control/second-model.mjs").replace("r.rebuild.frozen >= planMin()", "r.rebuild.frozen >= 17"))],
+  ["a questions.md pass line's threshold changed in control/run.mjs (15 to 17)", (d) => write(d, "control/run.mjs", read(d, "control/run.mjs").replace("/frozen return: (\\d+)\\//) >= q7min]", "/frozen return: (\\d+)\\//) >= 17]"))],
   ["README.md's 'the original gave way twice' changed to 'never'", (d) => write(d, "README.md", read(d, "README.md").replace("the original gave way twice, once with", "the original never gave way, not even with"))],
   ["one of evidence.md's two copies of the live seal changed by one digit", (d) => write(d, "evidence.md", read(d, "evidence.md").replace("7c01ac70fe74", "7c01ac71fe74"))],
   ["'nails' dropped from the gate's word list and the checker hash rewritten in the docs", (d) => {
@@ -75,6 +75,8 @@ const ACCEPT = [
     write(d, g, read(d, g).replace("handl\\w*|covers?|nails?|", "handl\\w*|covers?|"));
     const r = node(d, ["-e", 'import("./control/lib.mjs").then((l) => console.log(l.folderSha256("rebuild/tests")))']).stdout.trim();
     for (const f of ["README.md", "results.md", "evidence.md"]) write(d, f, read(d, f).replace(/f3b678467294c1bb0b7786b4777c38b8ebbda727e8e1cc0204a7a753359bf510/g, r)); }],
+  ["the session sentence the docs quote replaced, its folder re-pinned", (d) => { const f = "run-original/live-sonnet/session-F01-2.md"; write(d, f, read(d, f).replace("so either removing the root or adding a test closes that gap.", "and I will not say which of the two to pick.")); repin(join(d, "run-original/live-sonnet")); }],
+  ["a number outside the named sentences changed (evidence.md: 13 reviewers to 3)", (d) => write(d, "evidence.md", read(d, "evidence.md").replace("(13 reviewers on a fresh clone", "(3 reviewers on a fresh clone"))],
   ["one failure line removed from a committed transcript", (d) => { const f = "run-rebuild/Q1.txt"; const t = read(d, f).split("\n"); t.splice(t.findIndex((l) => l.includes("[quote-anchor]")), 1); write(d, f, t.join("\n")); }],
 ];
 const R1 = "rebuild/tests/receipts/round-1-output.md", R2 = "rebuild/tests/receipts/round-2-output.md";
@@ -95,6 +97,8 @@ const AUDIT = [
   ["the letter's sentence behind 'No wonder'", (d) => append(d, R2, "No wonder both of your candidates close that gap.")],
   ["the letter's verb with an empty tag inside it", (d) => append(d, R2, "Both of your candidates cl<span></span>ose that gap.")],
   ["the letter's sentence broken by a blank line", (d) => append(d, R2, "Both of your candidates\n\nclose that gap.")],
+  ["a made-up single-quoted quote holding an apostrophe", (d) => append(d, R2, "You wrote 'I'd rather know today than find out later' in your message.")],
+  ["the letter's verb with a direction mark inside it", (d) => append(d, R2, "Both of your candidates cl‭ose that gap.")],
   ["a misquote in HTML5 curly-quote entities", (d) => append(d, R2, "You wrote &OpenCurlyDoubleQuote;the tests prove it works&CloseCurlyDoubleQuote; in the message.")],
 ];
 // Declared limits: results.md ("What did not improve") and rebuild/tests/README.md ("What it misses") name each kind.

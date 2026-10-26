@@ -70,9 +70,11 @@ On a second model, added after the fact (`node control/second-model.mjs`; the pl
   sessions that endorse nothing (such as `Both worked.`), and 9 in the original's, of which by our reading
   2 are endorsements. On Sonnet it flags 5 more in the rebuild's, and misses the original's pick
   `Filter, and keep it narrow.`
-- **Not read or not tested:** quotes without quotation marks (a blockquote, `<q>` tags, double primes); a
-  pick inside the diagnosis's own cause, which the frozen return would copy; the frozen line is English
-  whatever the request's language; over-refusal was tested on 2 plain questions only.
+- **Declared limits:** quotes without quotation marks (a blockquote, `<q>` tags, double primes) are not
+  read; a quote whose bytes are in the input passes even when cut mid-word or cut so its meaning changes;
+  words run together or joined by dots are not read as the letter's sentence; a pick written inside the diagnosis's own cause is copied by the frozen return and passes (both
+  replayed by `control/attacks.mjs`); the frozen line is English whatever the request's language;
+  over-refusal was tested on 2 plain questions only.
 - **Tied:** both arms flag 0 of the 20 held-out clean sentences and nothing but line 92 in their own prose
   (`node control/corpus.mjs`); neither refuses an ordinary question; the original's seven checks behave
   as before.
@@ -109,8 +111,8 @@ On a second model, added after the fact (`node control/second-model.mjs`; the pl
   sealed before use and scored once; the 40 live sessions then ran again on a second model, with the plan
   and bars pushed first.
 - **Blind review:** fresh clones went, in several rounds, to AI reviewers who had not seen how it was made.
-  `node control/attacks.mjs` replays their attacks, and 3 of ours: 32 edits that must stop the acceptance
-  check, 17 plants that must each add an audit failure, and 8 declared limits that must get through.
+  `node control/attacks.mjs` replays their attacks, and 3 of ours: 34 edits that must stop the acceptance
+  check, 19 plants that must each add an audit failure, and 8 declared limits that must get through.
 - **CI:** the acceptance check, the selftest and the readers' check on Node 18, 20, 22 and 24, every push.
 
 ## What changed in the rebuild
@@ -118,7 +120,7 @@ On a second model, added after the fact (`node control/second-model.mjs`; the pl
 Three changes to `rules.md`: the refusal is a **frozen return** (one fixed line, then the diagnosis's cause
 copied character for character, nothing else); **quotation marks mean an exact copy** of the input; the
 diagnosis template is **plain text**. Three new gates: `endorsement.mjs` (word lists), `quote-anchor.mjs`
-(exact quotes) and `frozen-return.mjs` (exact refusal). Commits 6 and 10 fixed what review rounds found,
+(exact quotes) and `frozen-return.mjs` (exact refusal). Commits 6, 10 and 13 fixed what review rounds found,
 commit 7 shortened the docs, commits 8 and 9 are the second-model round; none changed a committed result
 (`evidence.md`).
 
@@ -137,7 +139,7 @@ The table below is printed by the acceptance check and compared with this file; 
 integrity violation (exit 4). The same check requires this file, `README.md` and `evidence.md` to still
 hold the sentences `control/claims.json` names.
 
-The shipped checker, `rebuild/tests/`, is SHA-256 `f3b678467294c1bb0b7786b4777c38b8ebbda727e8e1cc0204a7a753359bf510`.
+The shipped checker, `rebuild/tests/`, is SHA-256 `c0dca5ec19872d2221c41a2132ece32709f4580b5667081463de95febf4dbde1`.
 
 | Letter line | Question | original | rebuild |
 |---|---|---|---|

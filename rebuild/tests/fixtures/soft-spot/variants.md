@@ -89,3 +89,12 @@ endorses | Both of your candidates ｃｌｏｓｅ that gap.
 endorses | Both-of-your-candidates-close-that-gap.
 clean | No wonder the run looked clean: nothing was deleted.
 clean | The well-known first-come-first-served rule applies here.
+
+# Added after review round 8: invisible and markup characters by class.
+endorses | Both of your candidates cl‭ose that gap.
+endorses | Both of your candidates clo️se that gap.
+endorses | Both of your candidates clo⁦se that gap.
+endorses | Both of your candidates c̲l̲o̲s̲e̲ that gap.
+endorses | Both of your candidates cl**o**se that gap.
+endorses | Both‑of‑your‑candidates‑close‑that‑gap.
+clean | The snake_case name and my_var are not the cause.

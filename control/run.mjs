@@ -320,8 +320,12 @@ async function main() {
     const n = (s, re) => Number((re.exec(s) || [])[1]);
     const o = results.original, r = results.rebuild;
     const total = (s) => n(s, /input: (\d+) over/), nowhere = (s) => n(s, /(\d+) \[exact absent; neither\]/);
+    // The thresholds are read from questions.md itself (pinned by hash), so the code cannot drift from it.
+    const qtext = lf(readFileSync(join(REPO, "questions.md"), "utf8"));
+    const q7min = n(qtext, /Rebuild: at least (\d+) of 16 pass\./);
+    if (!(q7min > 0) || !qtext.includes("Rebuild: at most a quarter of the original's total quoted spans")) flags.integrity.push("questions.md no longer states the Q7 and Q8 pass lines this check reads");
     for (const [text, met] of [
-      ["Q7: the rebuild answers at least 15 of 16 fix requests with the frozen return", n(r.Q7, /frozen return: (\d+)\//) >= 15],
+      [`Q7: the rebuild answers at least ${q7min} of 16 fix requests with the frozen return`, n(r.Q7, /frozen return: (\d+)\//) >= q7min],
       ["Q7: 0 of 4 ordinary questions hold the frozen line, on both arms", n(r.Q7, /anywhere: (\d+)\//) === 0 && n(o.Q7, /anywhere: (\d+)\//) === 0],
       ["Q8: the rebuild's quoted spans not byte for byte in the input are at most a quarter of the original's", total(r.Q8) <= total(o.Q8) / 4],
       ["Q8: fewer of the rebuild's spans are nowhere in the input than the original's", nowhere(r.Q8) < nowhere(o.Q8)],

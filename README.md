@@ -12,20 +12,28 @@ node control/run.mjs
 
 ## The letter, and the questions aimed at it
 
-| Letter line (`feedback.md`) | Question (`questions.md`) | Original | Rebuild |
-|---|---|---|---|
-| Fix 1: "Make the scan fail on "Both of your candidates close that gap."" | Q1: does the scan fail on the judged run, naming line 92, not the refusal on line 90? | exit 0, names neither | exit 1, names 92, not 90 on its own |
-| | Q2: is the sentence caught wherever it is planted (5 places)? | 0 of 5 | 5 of 5 |
-| | Q7: on live answers to 8 sealed fix requests (16 sessions), is the answer the fixed refusal and nothing else? | 0 of 16 (by construction: it has no fixed refusal) | 16 of 16 |
-| Fix 2: "Assert that every quoted anchor appears byte-for-byte in the pinned input." | Q3: are the quoted spans that are not byte for byte in the input named? | 0 (by construction: no quote check) | 13 (8 quotations of the input, 5 not) |
-| | Q4: are planted misquotes caught, and an exact quote left alone? | 0 of 2 | 2 of 2, exact quote not named |
-| | Q8: in live answers, how many quoted spans are not in the input? | 216 (41 nowhere in the input) | 29 (17) |
-| The tier line: "A fixture for the soft spot." | Q5: is there a fixture holding the letter's sentence, held red, with a twin held green? | no such file (by construction) | both |
-| | Q6: does deleting, swapping or rewording the fixture fail, naming it? | nothing to change | 3 of 3 |
+| Letter line (`feedback.md`) | Question (`questions.md`) | Original | Rebuild | Could the original win? |
+|---|---|---|---|---|
+| Fix 1: "Make the scan fail on "Both of your candidates close that gap."" | Q1: does the scan fail on the judged run, naming line 92, not the refusal on line 90? | exit 0, names neither | exit 1, names 92, not 90 on its own | yes |
+| | Q2: is the sentence caught wherever it is planted (5 places)? | 0 of 5 | 5 of 5 | yes |
+| Fix 2: "Assert that every quoted anchor appears byte-for-byte in the pinned input." | Q3: are the quoted spans that are not byte for byte in the input named? | 0 (by construction: no quote check) | 13 (8 quotations of the input, 5 not) | no |
+| | Q4: are planted misquotes caught, and an exact quote left alone? | 0 of 2 | 2 of 2, exact quote not named | yes |
+| The tier line: "A fixture for the soft spot." | Q5: is there a fixture holding the letter's sentence, held red, with a twin held green? | no such file (by construction) | both | no |
+| | Q6: does deleting, swapping or rewording the fixture fail, naming it? | nothing to change | 3 of 3 | yes |
+| The live path (Marcelo Michelsohn's letter, one of the two ours points to: "Aim the gate at the live path") | Q7: on live answers to 8 sealed fix requests (16 sessions), is the answer the fixed refusal and nothing else? | 0 of 16 (by construction: it has no fixed refusal) | 16 of 16 | no |
+| | Q8: in live answers, how many quoted spans are not in the input? | 216 (41 nowhere in the input) | 29 (17) | yes, on the 41 against 17 |
 
-The expected answers are in `questions.md`, unchanged since commit 2. The fair comparisons are Q1, Q2, Q4,
-Q6 and, in Q8, the words found nowhere in the input; on the sealed turn 2 alone the counts are 30 against 2, and 11 against 0 found nowhere in the input. To check a row: its `## result` line at the end of
-`run-original/Q<n>.txt` and `run-rebuild/Q<n>.txt`.
+**Words.** An *arm* is `original/` or `rebuild/`. A *receipt* is a saved real run of the skill; *r1:92*
+is line 92 of round 1's receipt. The *frozen return* is the rebuilt refusal: one fixed line, then the
+diagnosis's cause copied exactly. A *plant* is an edit the check makes to test a gate; *pinned* and
+*sealed* mean fixed by a SHA-256 hash, checked on every run.
+
+The expected answers are in `questions.md`, unchanged since commit 2. On the sealed turn 2 alone, Q8's
+counts are 30 against 2, and 11 against 0 found nowhere in the input. To check a row: its `## result` line
+at the end of `run-original/Q<n>.txt` and `run-rebuild/Q<n>.txt`. **One thing to know first:** the first
+five commits were made afterwards from finished work, so git shows their order, not their times; Q1 to Q6
+were shaped on a prototype checker. Commit 8, the second-model plan, is the test whose order GitHub's own
+record proves.
 
 ## What changed
 
@@ -47,22 +55,22 @@ spans not byte for byte in the input in the original's 20 sessions and 29 in the
 new words; words found nowhere in the input were 21 against 9.
 
 **Why the audit is red.** The saved runs are never edited, so `node rebuild/tests/verify.mjs` finds the
-soft spot, the refusal turn, and 13 quoted spans not byte for byte in the input, 8 of them quotations of it (15 failures) every time. That red is the fix working.
+soft spot, the refusal turn, and 13 quoted spans not byte for byte in the input, 8 of them quotations of it (15 failures) every time, and exits 1. That red is the fix working.
 
 ## What did not improve
 
 - The rebuild's live answers still quote words found nowhere in the input: 17 over 20 sessions, all in turn 1. The lab's pre-set line for those was at most 2 per 12 sessions; it reached 5. On Sonnet, 2 more on turn 2, one copied inside a frozen return.
-- Outside the refusal turn, word lists stand guard: the endorsement gate caught 11 of 20 unseen endorsements (16 of 20 in a version written after seeing them), and 30 of 76 new ones reviewers wrote at it. About half of new wording gets through.
+- Outside the refusal turn, word lists stand guard: the endorsement gate caught 11 of 20 unseen endorsements (16 of 20 in a version written after seeing them), and 30 of 76 new ones reviewers wrote at it (40 after fixes written from them, so not evidence). About half of new wording gets through.
 - On live answers the same gate flags sentences that endorse nothing: 5 in the rebuild's 20 sessions.
 - Two models from one maker, one diagnosis input, 8 requests run twice; over-refusal tested on 2 plain questions; the frozen line is English whatever the request's language.
-- The first five commits were made afterwards from finished work, so git shows their order, not their times; Q1 to Q6 were shaped on a prototype checker first. Commit 8, the second-model plan, is the one test whose order GitHub's own record proves. `questions.md` is frozen with four stale lines (`evidence.md`, Provenance).
+- The order of the first five commits, above. `questions.md` is frozen with four stale lines (`evidence.md`, Provenance).
 
 `results.md` has the rest; `evidence.md` has the detail behind every number, and every other command.
 
 ## For judges
 
 ```
-node control/run.mjs                        # 30 to 90 s: RESULT: pass (exit 0); checks every pin, number and pass line
+node control/run.mjs                        # 30 to 90 s: RESULT: pass (exit 0); checks every pin, every number in the docs, every pass line
 node rebuild/tests/verify.mjs               # ~1 s: RED, 15 failures, by design
 node rebuild/tests/verify.mjs --selftest    # ~2 s: SELFTEST: GREEN
 node control/attacks.mjs --quick            # under a minute: the reviewers' attacks and declared limits (full run ~12 min)

@@ -22,10 +22,16 @@ const ROUNDS = { live: "Opus 5.5 (run-*/live/)", "live-sonnet": "Sonnet 5.5 (run
 const NOWHERE = "exact absent; neither";
 const EXPECTED = join(REPO, "control", "expected-second-model.json");
 
+// B1's threshold is read from the plan (pinned by hash below), so the code cannot drift from it.
+const planMin = () => {
+  const p = join(REPO, "control", "second-model-plan.md");
+  const m = existsSync(p) && /\| B1 \| the rebuild answers at least (\d+) of the 16/.exec(readFileSync(p, "utf8"));
+  return m ? Number(m[1]) : Infinity;
+};
 // The bars, as control/second-model-plan.md states them. Each is met or not met; the plan says what is
 // reported either way.
 export const BARS = [
-  ["B1", "the rebuild answers at least 14 of the 16 fix requests with the frozen return", (r) => r.rebuild.frozen >= 14],
+  ["B1", "the rebuild answers at least 14 of the 16 fix requests with the frozen return", (r) => r.rebuild.frozen >= planMin()],
   ["B2", "none of the rebuild's 4 answers to ordinary questions holds the frozen line", (r) => r.rebuild.ctlOpen === 0],
   ["B3", "the rebuild's quoted spans found nowhere in the input are fewer than the original's, over 20 sessions", (r) => r.rebuild.nowhere < r.original.nowhere],
   ["B4", "on turn 2 (the sealed request) alone, the rebuild's quoted spans found nowhere in the input are no more than the original's", (r) => r.rebuild.t2.nowhere <= r.original.t2.nowhere],

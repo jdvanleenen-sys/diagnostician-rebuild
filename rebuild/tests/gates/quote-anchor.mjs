@@ -22,19 +22,21 @@ import { receiptBody, receiptOutputs } from "./common.mjs";
 
 export const LABEL = "quote-anchor";
 export const TAG = "F2";
-export const PAIRS = { '"': ['"'], "“": ["”"], "‟": ["”", "“"], "«": ["»"], "»": ["«"], "‹": ["›"], "＂": ["＂"], "„": ["“", "”"], "「": ["」"], "『": ["』"] };
+// ” opens as well as closes (Swedish and Finnish typography: ”like this”).
+export const PAIRS = { '"': ['"'], "“": ["”"], "‟": ["”", "“"], "”": ["”"], "«": ["»"], "»": ["«"], "‹": ["›"], "＂": ["＂"], "„": ["“", "”"], "「": ["」"], "『": ["』"], "❝": ["❞"] };
 export const NORMALISED = "exact match absent; normalised match present";
 export const RUN3 = "exact absent; 3-word run present";
 export const NEITHER = "exact absent; neither";
 export const KINDS = [NORMALISED, RUN3, NEITHER, "unpaired mark", "empty quote", "no input", "no marker"];
 // This gate's fixture folder, pinned by name: a renamed, missing or unlisted file is a named failure.
 export const FIXTURES = ["input.md", "bad-dropped-word.md", "bad-single-quoted.md", "bad-space.md", "bad-term.md", "bad-unpaired.md",
-                         "bad-words-changed.md", "bad-wrap.md", "bad-corner.md", "bad-low-single.md", "bad-html5-entity.md", "bad-reversed-single.md", "good-curly.md", "good-exact.md", "good-single-quoted.md", "good-wrap.md"];
-const MARKS = new Set([...Object.keys(PAIRS), "”", "›", "」", "』"]);
+                         "bad-words-changed.md", "bad-wrap.md", "bad-corner.md", "bad-low-single.md", "bad-html5-entity.md", "bad-reversed-single.md", "bad-apostrophe.md", "good-curly.md", "good-exact.md", "good-single-quoted.md", "good-typography.md", "good-wrap.md"];
+const MARKS = new Set([...Object.keys(PAIRS), "›", "」", "』", "❞"]);
 const NAMED = { "&quot;": '"', "&ldquo;": "“", "&rdquo;": "”", "&laquo;": "«", "&raquo;": "»",
                 "&lsquo;": "‘", "&rsquo;": "’", "&sbquo;": "‚", "&bdquo;": "„",
                 "&opencurlydoublequote;": "“", "&closecurlydoublequote;": "”", "&opencurlyquote;": "‘", "&closecurlyquote;": "’" };
-const SQ_SPAN = /(?<![\p{L}\p{N}])['‘‚‛＇]([^'‘’‚‛＇\n]+?)['’‘＇](?![\p{L}\p{N}])/gu;
+// A single-quoted span may hold apostrophes inside words ('I'd rather know'); ’ may open it (’like this’).
+const SQ_SPAN = /(?<![\p{L}\p{N}])['‘’‚‛＇]((?:[^'‘’‚‛＇\n]|(?<=\p{L})['’](?=\p{L}))+?)['’‘＇](?![\p{L}\p{N}])/gu;
 const BT_SPAN = /`([^`\n]+)`/g;
 
 const lineOf = (text, idx) => text.slice(0, idx).split("\n").length;
@@ -99,7 +101,8 @@ export function scanOutput({ rel, text, input, baseLine = 1 }) {
     items.push(item(rel, baseLine + lineOf(t, start) - 1, kind, raw,
       `${kind}: ${show(raw)} is not byte-for-byte in the pinned input${hints(inner, inputText)}`));
   };
-  for (const s of spans) check(s.start, s.inner, t.slice(s.start, s.end));
+  // French typography sets a space inside guillemets (« like this »): the space is the mark's, not the quote's.
+  for (const s of spans) check(s.start, /[«»]/.test(t[s.start]) ? s.inner.replace(/^[   ]+|[   ]+$/g, "") : s.inner, t.slice(s.start, s.end));
   for (const u of unpaired) items.push(item(rel, baseLine + lineOf(t, u) - 1, "unpaired mark", t[u],
     `unpaired mark: ${JSON.stringify(t.slice(Math.max(0, u - 12), u + 12))}`));
   for (const m of t.matchAll(SQ_SPAN)) if (/\S\s+\S/.test(m[1])) check(m.index, m[1], m[0]);

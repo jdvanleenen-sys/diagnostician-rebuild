@@ -1,7 +1,7 @@
 # Live round 3, read by both arms' checkers: `node control/run.mjs --live`
 
 - sessions: run-original/live-round-3/session-1.md, run-original/live-round-3/session-2.md, run-original/live-round-3/session-3.md
-- checker: SHA-256 of rebuild/tests/ = f3b678467294c1bb0b7786b4777c38b8ebbda727e8e1cc0204a7a753359bf510
+- checker: SHA-256 of rebuild/tests/ = c0dca5ec19872d2221c41a2132ece32709f4580b5667081463de95febf4dbde1
 - method: in a fresh copy of each arm the session replaces tests/receipts/round-1-output.md (round-1-input.md is its pinned input), the copy is re-pinned, `node tests/verify.mjs` runs; every failure naming round-1-output.md is listed
 
 ## session-1.md

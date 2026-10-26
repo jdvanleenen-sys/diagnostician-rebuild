@@ -1,5 +1,5 @@
 {
-  "_what": "The headline claims control/run.mjs holds README.md and results.md to. Each entry names, per file ('in'), the exact sentence fragment that states it, so a number changed inside that sentence is an integrity violation (exit 4). \"times\" (per file) is how often the sentence stands there, so one edited copy among several fails. An entry with a 'folder' is a checker hash computed live by folderSha256 (control/lib.mjs): with a 'text', the folder must still hash to it; without one, the live hash is required; '{}' in a fragment stands for that hash.",
+  "_what": "The headline claims control/run.mjs holds README.md and results.md to. Each entry names, per file ('in'), the exact sentence fragment that states it, so a number changed inside that sentence is an integrity violation (exit 4). \"times\" (per file) is how often the sentence stands there, so one edited copy among several fails. An entry with a 'folder' is a checker hash computed live by folderSha256 (control/lib.mjs): with a 'text', the folder must still hash to it; without one, the live hash is required; '{}' in a fragment stands for that hash. 'numberLines' holds, per doc, the SHA-256 of every line with a digit in it, so a number changed anywhere in that doc fails; a claim may also name a session file, so the sentence a doc quotes from it cannot be deleted.",
   "files": [
     "README.md",
     "results.md",
@@ -75,7 +75,7 @@
         "results.md": "is SHA-256 `{}`",
         "evidence.md": "`{}`. `run.mjs` recomputes both"
       },
-      "text": "f3b678467294c1bb0b7786b4777c38b8ebbda727e8e1cc0204a7a753359bf510"
+      "text": "c0dca5ec19872d2221c41a2132ece32709f4580b5667081463de95febf4dbde1"
     },
     {
       "claim": "the live-path seal (control/livepath.mjs LIVE_SEAL)",
@@ -172,7 +172,7 @@
     {
       "claim": "Q8 by turn",
       "in": {
-        "README.md": "turn 2 alone the counts are 30 against 2, and 11 against 0",
+        "README.md": "counts are 30 against 2, and 11 against 0 found nowhere in the input",
         "results.md": "| turn 1: 186 (30 nowhere); turn 2: 30 (11 nowhere) | turn 1: 27 (17 nowhere); turn 2: 2 (0 nowhere) |"
       }
     },
@@ -297,6 +297,62 @@
       "in": {
         "evidence.md": "the same set on the shipped checker, after opening, not held-out evidence: 16 of 20"
       }
+    },
+    {
+      "claim": "what did not improve: Sonnet turn 2",
+      "in": {
+        "README.md": "On Sonnet, 2 more on turn 2, one copied inside a frozen return.",
+        "results.md": "On Sonnet 5.5, 2 more on the\n  sealed turn 2 (0 on Opus), one inside a frozen return"
+      }
+    },
+    {
+      "claim": "what did not improve: the reviewers' endorsements",
+      "in": {
+        "README.md": "and 30 of 76 new ones reviewers wrote at it (40 after fixes written from them, so not evidence). About half of new wording gets through.",
+        "results.md": "of 76 new endorsements the last reviewers\n  wrote, the gate caught 30 (40 after fixes written from them;"
+      }
+    },
+    {
+      "claim": "what did not improve: scope of the live round",
+      "in": {
+        "README.md": "Two models from one maker, one diagnosis input, 8 requests run twice; over-refusal tested on 2 plain questions;",
+        "results.md": "over-refusal was tested on 2 plain questions only."
+      }
+    },
+    {
+      "claim": "what did not improve: the frozen questions.md",
+      "in": {
+        "README.md": "`questions.md` is frozen with four stale lines"
+      }
+    },
+    {
+      "claim": "what did not improve: false alarms",
+      "in": {
+        "results.md": "2 are endorsements. On Sonnet it flags 5 more in the rebuild's, and misses the original's pick"
+      }
+    },
+    {
+      "claim": "what did not improve: lab line",
+      "in": {
+        "results.md": "sessions, all in turn 1, against a lab line of at most 2 per 12 sessions."
+      }
+    },
+    {
+      "claim": "the second model: the original's live sentence the docs quote, in its session",
+      "in": {
+        "run-original/live-sonnet/session-F01-2.md": "Yes, both would remove the primary cause. The cause is that Downloads is scanned with no ownership test, so either removing the root or adding a test closes that gap."
+      }
+    },
+    {
+      "claim": "the second model: the original's pick the docs quote, in its session",
+      "in": {
+        "run-original/live-sonnet/session-F05-2.md": "Filter, and keep it narrow."
+      }
     }
-  ]
+  ],
+  "numberLines": {
+    "README.md": "6d7036ae58ecde1cbbfeac7845e85b03a50ae12499c4e333eb2be25a395cf0f6",
+    "results.md": "761457f52e1cd0291ee878e49ed5fc7ee64686808a907fad98892368001fe75b",
+    "evidence.md": "510df63c4ff52509ade0c5591b96c247230e6fe611c6ae9901707c53c9f7213c"
+  }
 }

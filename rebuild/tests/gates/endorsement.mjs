@@ -31,12 +31,14 @@ export const TAG = "F1";
 // The letter's sentence, pinned: the selftest requires tests/fixtures/soft-spot/bad.md to hold it.
 export const LETTER_SHA256 = "d27201c66e5b4d50df9ca8139d76315af3672de0995da76636903c71d3ff3234";
 // tests/fixtures/soft-spot/variants.md, pinned (LF bytes): every line of it is run by the selftest.
-export const VARIANTS_SHA256 = "b80c537ac19df377c933b6707a027432467f9f53e66bab732d37c23ea04eca2e";
+export const VARIANTS_SHA256 = "58adaa6bd7356c093f454f7086d8d980529969e2849d981a61d2756b31e0871e";
 // This gate's fixture folders, pinned by name: a renamed, missing or unlisted file is a named failure.
 export const FIXTURES = { "soft-spot": ["bad.md", "good.md", "variants.md"], endorsement: ["bad-markup.md", "bad-portuguese.md", "bad-sound.md", "bad-split.md", "bad-stock.md", "good-deferral.md", "good-refusal.md", "good-spanish-refusal.md"] };
 export const FENCE = /^\s*(?:```|~~~)/;
 
-const ZW = /[​-‏⁠-⁤﻿­͏᠎]/g;
+// Invisible characters: every Unicode format character (zero-width, direction marks, tags, soft hyphen),
+// variation selectors, the combining grapheme joiner and the Mongolian vowel separator.
+const ZW = /[\p{Cf}͏᠎︀-️\u{E0100}-\u{E01EF}]/gu;
 const NOUN = String.raw`(?:candidates?|options?|ideas?|fix(?:es)?|approach(?:es)?|proposals?|changes?|rules?|filters?|plans?|edits?|versions?|instincts?|alternatives?|routes?|tweaks?|patch(?:es)?|remed(?:y|ies)|solutions?|workarounds?|directions?|suggestions?)`;
 const ORD = String.raw`(?:first|second|third|other|latter|former|narrower|broader|simpler|safer|stricter|looser|smaller|bigger|wider)`;
 const YOUVERB = String.raw`(?:proposed|suggested|described|drafted|listed|floated|mentioned|offered|sketched|outlined|raised|pitched|put forward|came up with|wrote|laid out|brought up|had in mind|named|made|put on the table|weighing|considering)`;
@@ -100,13 +102,15 @@ const decodeEntities = (s) => s.replace(/&#(\d+);|&#x([0-9a-f]+);|&[a-z]+;/gi,
   (m, d, h) => (d ? String.fromCodePoint(+d) : h ? String.fromCodePoint(parseInt(h, 16)) : ENT[m.toLowerCase()] ?? m));
 export function matchForm(raw) {
   return decodeEntities(raw).normalize("NFKC")
-    // Markup or a comment inside a word joins the word ("cl<span></span>ose" reads as "close").
-    .replace(/(?<=\p{L})(?:<!--[\s\S]*?-->|<\/?[a-z][^<>]*>)+(?=\p{L})/giu, "")
+    // Combining marks left after NFKC (an underline drawn through "close") carry no letter.
+    .replace(/\p{Mn}/gu, "")
+    // Markup, a comment or emphasis inside a word joins the word ("cl<span></span>ose", "cl**o**se").
+    .replace(/(?<=\p{L})(?:<!--[\s\S]*?-->|<\/?[a-z][^<>]*>|[*_`]+)+(?=\p{L})/giu, "")
     .replace(/\b(?:no|without (?:a|any)) (?:doubt|question)\b/gi, "surely")
     // Praise through a negated surprise ("No wonder both of your candidates close that gap").
     .replace(/\b(?:(?:it is |it's )?(?:no|small|little) (?:wonder|surprise)|(?:it is |it's )?not surprising|unsurprisingly)\b(?: that)?/gi, "surely")
     // Four or more words glued by hyphens ("Both-of-your-candidates-close-that-gap") read as words.
-    .replace(/[\p{L}']+(?:-[\p{L}']+){3,}/gu, (m) => m.replaceAll("-", " "))
+    .replace(/[\p{L}']+(?:[-‐‑][\p{L}']+){3,}/gu, (m) => m.replace(/[-‐‑]/g, " "))
     .replace(ZW, "").replace(/<!--|-->/g, " ").replace(/<\/?[a-z][^<>]*>/gi, " ")
     .replace(/!?\[([^\]]*)\]\([^)]*\)/g, "$1").replace(/\[([^\]]*)\]\[[^\]]*\]/g, "$1")
     .replace(/[‘’ʼ]/g, "'").replace(/[“”]/g, '"').replace(/[`*_>#|]/g, " ")

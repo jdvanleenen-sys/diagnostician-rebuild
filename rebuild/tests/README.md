@@ -65,11 +65,12 @@ the mid-clause conditional after that set was opened
 of two or more words, or backtick span of two or more words in a receipt
 output that is not byte for byte in that round's pinned input. Double quotes
 are the marks in `PAIRS` (straight, curly, low, guillemets, corner brackets,
-full-width) and their HTML entities; single quotes are straight, curly and
-low. It checks every quoted span, stricter than the letter's wording,
+full-width, heavy) and their HTML entities; single quotes are straight, curly,
+low, reversed and full-width, and may hold apostrophes inside words. It checks every quoted span, stricter than the letter's wording,
 because `rules.md` now says quotation marks mean an exact copy of the input.
 Not checked: a quotation with no quotation marks (a blockquote, `<q>` tags,
-double primes), a single quoted word (apostrophes, identifiers), and
+double primes), a single quoted word (apostrophes, identifiers), a quote whose
+bytes are in the input but cut mid-word or cut so its meaning changes, and
 `examples.md`, which has no pinned input. A receipt with no VERBATIM marker
 fails closed in every gate.
 

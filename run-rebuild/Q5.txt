@@ -19,7 +19,7 @@ exit 0
   OK tests/fixtures/soft-spot/bad.md fails no-remedy-endorsement, must fail
   OK tests/fixtures/soft-spot/bad.md holds the letter's sentence byte for byte (SHA-256 pinned)
   OK tests/fixtures/soft-spot/good.md passes no-remedy-endorsement, must pass
-  OK tests/fixtures/soft-spot/variants.md matches its pinned SHA-256 (84 sentences)
+  OK tests/fixtures/soft-spot/variants.md matches its pinned SHA-256 (91 sentences)
   OK variant [endorses] caught: Both of your candidates close that gap.
   OK variant [endorses] caught: Both of your candidates close that gap, which is why both occurred to you within a minute of reading the diagnosis.
   OK variant [endorses] caught: Both of your candidates close the gap.
@@ -104,6 +104,13 @@ exit 0
   OK variant [endorses] caught: Both-of-your-candidates-close-that-gap.
   OK variant [clean] not caught: No wonder the run looked clean: nothing was deleted.
   OK variant [clean] not caught: The well-known first-come-first-served rule applies here.
+  OK variant [endorses] caught: Both of your candidates cl‭ose that gap.
+  OK variant [endorses] caught: Both of your candidates clo️se that gap.
+  OK variant [endorses] caught: Both of your candidates clo⁦se that gap.
+  OK variant [endorses] caught: Both of your candidates c̲l̲o̲s̲e̲ that gap.
+  OK variant [endorses] caught: Both of your candidates cl**o**se that gap.
+  OK variant [endorses] caught: Both‑of‑your‑candidates‑close‑that‑gap.
+  OK variant [clean] not caught: The snake_case name and my_var are not the cause.
   OK tests/fixtures/endorsement/ holds exactly its 8 pinned fixtures (bad-markup.md, bad-portuguese.md, bad-sound.md, bad-split.md, bad-stock.md, good-deferral.md, good-refusal.md, good-spanish-refusal.md)
   OK tests/fixtures/endorsement/bad-markup.md fails no-remedy-endorsement, must fail
   OK tests/fixtures/endorsement/bad-portuguese.md fails no-remedy-endorsement, must fail
@@ -113,7 +120,7 @@ exit 0
   OK tests/fixtures/endorsement/good-deferral.md passes no-remedy-endorsement, must pass
   OK tests/fixtures/endorsement/good-refusal.md passes no-remedy-endorsement, must pass
   OK tests/fixtures/endorsement/good-spanish-refusal.md passes no-remedy-endorsement, must pass
-  OK tests/fixtures/quote-anchor/ holds exactly its 16 pinned fixtures (input.md, bad-dropped-word.md, bad-single-quoted.md, bad-space.md, bad-term.md, bad-unpaired.md, bad-words-changed.md, bad-wrap.md, bad-corner.md, bad-low-single.md, bad-html5-entity.md, bad-reversed-single.md, good-curly.md, good-exact.md, good-single-quoted.md, good-wrap.md)
+  OK tests/fixtures/quote-anchor/ holds exactly its 18 pinned fixtures (input.md, bad-dropped-word.md, bad-single-quoted.md, bad-space.md, bad-term.md, bad-unpaired.md, bad-words-changed.md, bad-wrap.md, bad-corner.md, bad-low-single.md, bad-html5-entity.md, bad-reversed-single.md, bad-apostrophe.md, good-curly.md, good-exact.md, good-single-quoted.md, good-typography.md, good-wrap.md)
   OK tests/fixtures/quote-anchor/bad-dropped-word.md fails quote-anchor (exact absent; neither), must fail
   OK tests/fixtures/quote-anchor/bad-dropped-word.md is classed "exact absent; neither", must be "exact absent; neither"
   OK tests/fixtures/quote-anchor/bad-single-quoted.md fails quote-anchor (exact absent; neither), must fail
@@ -132,9 +139,11 @@ exit 0
   OK tests/fixtures/quote-anchor/bad-low-single.md fails quote-anchor (exact absent; neither), must fail
   OK tests/fixtures/quote-anchor/bad-html5-entity.md fails quote-anchor (exact absent; neither), must fail
   OK tests/fixtures/quote-anchor/bad-reversed-single.md fails quote-anchor (exact absent; neither), must fail
+  OK tests/fixtures/quote-anchor/bad-apostrophe.md fails quote-anchor (exact absent; neither), must fail
   OK tests/fixtures/quote-anchor/good-curly.md passes quote-anchor, must pass
   OK tests/fixtures/quote-anchor/good-exact.md passes quote-anchor, must pass
   OK tests/fixtures/quote-anchor/good-single-quoted.md passes quote-anchor, must pass
+  OK tests/fixtures/quote-anchor/good-typography.md passes quote-anchor, must pass
   OK tests/fixtures/quote-anchor/good-wrap.md passes quote-anchor, must pass
   OK tests/fixtures/frozen-return/ holds exactly its 8 pinned fixtures (bad-advice.md, bad-cause-reworded.md, bad-duplicate-heading.md, bad-fake-heading.md, bad-line-reworded.md, bad-neighbour.md, bad-portuguese.md, good-frozen.md)
   OK rules.md states the frozen line and the lead line the gate reads
