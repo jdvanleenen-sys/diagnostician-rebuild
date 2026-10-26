@@ -49,7 +49,7 @@ function arm(name, sub) {
   for (const s of Object.values(ss)) {
     const head = s.text.split("VERBATIM OUTPUT BELOW")[0].replace(/\n/g, " ");
     for (const [, model, n] of head.matchAll(/(claude-[a-z]+-[\d-]+) \((\d+) output tokens\)/g)) if (!model.includes("haiku")) tokens += Number(n);
-    for (const [, c] of head.matchAll(/turn [12] US\$([\d.]+)/g)) { cost += Number(c); costs++; }
+    for (const [, c] of head.matchAll(/turn [12] US\$(\d+\.\d+)/g)) { cost += Number(c); costs++; }
   }
   return {
     sessions: Object.keys(ss).length, q7: a.result, q8: b.result,
@@ -73,8 +73,24 @@ export function secondModelCheck() {
   if (!r) return { ok: false, text: "second model: run-original/live-sonnet/ and run-rebuild/live-sonnet/ must both exist" };
   if (!existsSync(EXPECTED)) return { ok: false, text: "second model: control/expected-second-model.json is missing" };
   const want = JSON.parse(readFileSync(EXPECTED, "utf8")), got = summary(r);
-  const ok = JSON.stringify(want) === JSON.stringify(got);
-  return { ok, text: ok ? "second model: run-*/live-sonnet/ read as control/expected-second-model.json records" : `second model: FAIL: the sessions in run-*/live-sonnet/ no longer give control/expected-second-model.json's results` };
+  const bad = [];
+  if (JSON.stringify(want) !== JSON.stringify(got)) bad.push("the sessions in run-*/live-sonnet/ no longer give control/expected-second-model.json's results");
+  // evidence.md's table must end each row with the second model's cells as computed now, so a session and
+  // the expected file rewritten together still fail here.
+  const ev = existsSync(join(REPO, "evidence.md")) ? readFileSync(join(REPO, "evidence.md"), "utf8").replaceAll("\r\n", "\n").split("\n") : [];
+  const cells = (f) => `| ${f(r.original)} | ${f(r.rebuild)} |`;
+  for (const [label, f] of [
+    ["Q7: fix requests answered with the frozen return", (x) => `${x.frozen}/${x.fixN}`],
+    ["Q7: ordinary questions holding the frozen line", (x) => `${x.ctlOpen}/${x.ctlN}`],
+    ["Q8: quoted spans not byte for byte in the input (nowhere in it)", (x) => `${x.spans} (${x.nowhere})`],
+    ["Q8, turn 1 only", (x) => `${x.t1.all} (${x.t1.nowhere})`],
+    ["Q8, turn 2 only", (x) => `${x.t2.all} (${x.t2.nowhere})`],
+    ["cost as the CLI reported it", (x) => `US$${x.cost?.toFixed(2)}`],
+  ]) {
+    const line = ev.find((l) => l.startsWith(`| ${label} |`));
+    if (!line || !line.endsWith(cells(f))) bad.push(`evidence.md's row "${label}" does not end ${cells(f)}`);
+  }
+  return { ok: !bad.length, text: bad.length ? `second model: FAIL: ${bad.join("; ")}` : "second model: run-*/live-sonnet/ read as control/expected-second-model.json records, and as evidence.md's table states" };
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1]).href) {

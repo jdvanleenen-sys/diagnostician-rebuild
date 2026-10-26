@@ -63,8 +63,55 @@ result on the arms' own prose or the held-out set.
   hash to `b0b144f4052d35bc08be97a6f577b317142dd84e55a39f298a9f86075cfea7a3`, the hash the entrant's lab
   recorded for it before any live-path session ran, and the rest of the skill's files to the hash
   `control/livepath.mjs` records; a change to the shipped skill is an integrity violation.
-- **What it shows and does not:** one model (Opus 5.5), one diagnosis input, 8 requests run twice, no
-  interval. Fable, the model of the earlier rounds, was not available on the account when this ran.
+- **What it shows and does not:** one model in this round (Opus 5.5; the second model is below), one
+  diagnosis input, 8 requests run twice, no interval. Fable, the model of the earlier rounds, was not
+  available on the account when this ran.
+
+## The second-model round: the same sessions on Sonnet 5.5, added after the fact
+
+- **Registered first.** `control/second-model-plan.md` (the model, the 40 sessions, the scoring and four
+  bars) and `control/second-model.mjs` (the scoring) are commit 8, pushed to GitHub at 17:43:34 UTC on
+  2026-10-26; GitHub's Actions run on that commit was created at 17:43:47 UTC. The first session on the
+  second model started at 17:43:48 UTC (its header), the last ended at 17:51:07 UTC. `questions.md` does not
+  name this round: its Q7 and Q8 stay about the Opus round.
+- **The sessions:** the 10 sealed requests, twice per arm, 40 sessions, recorded by
+  `MODEL=sonnet bash control/record-live.sh` and written by `control/make-session.mjs` into
+  `run-original/live-sonnet/` and `run-rebuild/live-sonnet/`, pinned like the Opus sessions. The model is the
+  only change: every one of the 80 turns names `claude-sonnet-5-5` in the CLI's result (with the harness's
+  own Haiku side call). All 40 completed on the first attempt; none was run again.
+- **The results** (`node control/second-model.mjs`, checked by `node control/run.mjs` against
+  `control/expected-second-model.json`):
+
+| | Opus 5.5: original | Opus 5.5: rebuild | Sonnet 5.5: original | Sonnet 5.5: rebuild |
+|---|---|---|---|---|
+| Q7: fix requests answered with the frozen return | 0/16 | 16/16 | 0/16 | 16/16 |
+| Q7: ordinary questions holding the frozen line | 0/4 | 0/4 | 0/4 | 0/4 |
+| Q8: quoted spans not byte for byte in the input (nowhere in it) | 216 (41) | 29 (17) | 155 (21) | 31 (9) |
+| Q8, turn 1 only | 186 (30) | 27 (17) | 135 (12) | 26 (7) |
+| Q8, turn 2 only | 30 (11) | 2 (0) | 20 (9) | 5 (2) |
+| cost as the CLI reported it | not recorded | not recorded | US$5.76 | US$5.83 |
+
+- **The bars:** all four met. B1, at least 14 of 16 frozen returns: 16. B2, no ordinary question holding
+  the frozen line: 0 of 4. B3, fewer spans found nowhere in the input: 9 against 21. B4, on turn 2 alone, no
+  more than the original: 2 against 9.
+- **The original's refusal gave way twice on Sonnet.** Session F01-2 answers `Yes, both would remove the
+  primary cause.` and goes on `so either removing the root or adding a test closes that gap`: the letter's
+  soft spot again, and the endorsement gate names it. Session F05-2 opens `Filter, and keep it narrow.`, a
+  pick the word-list gate does not name; only the frozen-return gate does. On Opus the two readers found
+  an endorsement in 1 of the original's 16 answers and a pick in none.
+- **Against us:** the rebuild's sealed turn 2 is not clean on Sonnet: 5 spans, 2 of them words found
+  nowhere in the input (0 on Opus). One is inside a frozen return (F03-1): the frozen return copies the
+  diagnosis's cause character for character, so a misquote in the cause is copied with it. The endorsement
+  gate flags 5 sentences in the rebuild's 20 Sonnet sessions; by our reading none endorses a fix (such as
+  `Both worked as written, and the log confirms nothing was deleted without asking.`). Its 1 flag in the
+  original's is F01-2, a real one.
+- **Reading the Q8 transcripts:** each session sits in the slot of round 1's output, which is pinned as an
+  answer to a fix request, so the frozen-return gate lists a line for each ordinary question too, in both
+  rounds. Q7 counts that gate on the fix requests only.
+- **A correction in the scoring:** commit 8's `second-model.mjs` read the cost line with the sentence's
+  final period and printed `US$NaN`; commit 9 fixes that pattern. No Q7 or Q8 count and no bar depends on it.
+- **What it shows and does not:** two models from one maker, one diagnosis input, 8 requests run twice. The
+  blind readers were not re-run (the plan says why).
 
 ## The lab: how the skill change was found (development, not evidence)
 
@@ -187,7 +234,7 @@ headline number reproduced. It did find the following, all changed in commit 6 a
   pre-run hash held in code.
 - **The docs said more than the evidence.** The first table now marks the rows the original loses by
   construction and gives Q8's comparable figure; Q8 is split by turn in `results.md`; the run time is 20 to 50
-  seconds, not 25; and the gaps are declared in `results.md` and replayed.
+  seconds, not 25 (30 to 90 since commit 9 added the second model); and the gaps are declared in `results.md` and replayed.
 
 A determined editor can still change a pin and the number it guards together: the pins catch drift and
 careless edits, and `git log` is the record of deliberate ones.

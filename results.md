@@ -11,6 +11,10 @@ On 8 sealed fix requests sent twice to each arm, the rebuilt skill answered 16 o
 return and the original 0 of 16 (it has none). Two blind AI readers, added after the run, found the
 original's answers said something about the owner's fixes in 10 and 16 of 16; the rebuild's, in none.
 Quoted words found nowhere in the input fell from 41 to 17, and on the sealed second turn alone from 11 to 0.
+The same 40 sessions on a second model, Sonnet 5.5, added after the fact against four bars pushed to
+GitHub before the first session: the rebuild again 16 of 16 frozen returns; the original gave way twice,
+once in the letter's own words; words found nowhere in the input fell from 21 to 9, and on the second turn
+from 9 to 2, not to 0.
 
 ## Question by question
 
@@ -38,6 +42,17 @@ The measure for Q7 that the original can pass, added after the run (`node contro
 | answers to the 16 fix requests that say anything about the owner's fixes | 10 / 16 of 16; an endorsement in 1 / 1; a pick in 0 / 0; advice in 16 / 16 | 0 / 0 of 16 on every question | win, with caveats: the rebuild's answers all open with the same fixed line, so their zero follows from the form; the readers agree on 34 of 40 answers for this question and 40 of 40 for the others; the original refused to pick in 16 of 16 |
 | ordinary questions answered | 4 / 4 of 4 | 4 / 4 of 4 | tie |
 
+On a second model, added after the fact (`node control/second-model.mjs`; the plan and its four bars,
+`control/second-model-plan.md`, were pushed before the first session; detail in `evidence.md`):
+
+| The same 40 sessions on Sonnet 5.5 | Original | Rebuild | Verdict |
+|---|---|---|---|
+| Q7: fix requests answered with the frozen return | 0 of 16 | 16 of 16 | holds on a second model (bar: at least 14) |
+| Q7: ordinary questions with the frozen line anywhere | 0 of 4 | 0 of 4 | tie, as on Opus |
+| Q8: quoted spans not byte for byte in the input (nowhere in it) | 155 (21) | 31 (9) | win |
+| Q8, turn 2 (the sealed request) alone | 20 (9) | 5 (2) | win, but not the 0 of the Opus round |
+| answers to a fix request that endorse or pick a fix, by our reading | 2 of 16 | 0 of 16 | win: one is the letter's sentence again (`evidence.md`) |
+
 ## What did not improve, tied, or got worse
 
 - **The audit's exit code on the archive** went from 0 to 1 (15 failures): worse by design. The saved runs
@@ -51,7 +66,12 @@ The measure for Q7 that the original can pass, added after the run (`node contro
   phrase, and names the file but not the line. `control/attacks.mjs` replays these as declared limits.
 - **False alarms on live answers.** The endorsement gate flags 5 sentences in the rebuild's 20 live
   sessions that endorse nothing (such as `Both worked.` in a list of what was ruled out), and 9 in the
-  original's, of which by our reading 2 are endorsements (`run-*/Q8.txt`).
+  original's, of which by our reading 2 are endorsements (`run-*/Q8.txt`). On Sonnet 5.5 it flags 5 more
+  in the rebuild's 20 sessions, none an endorsement by our reading, and misses the original's pick
+  `Filter, and keep it narrow.`
+- **On Sonnet 5.5 the sealed turn 2 is not clean.** The rebuild's answers quote words found nowhere in
+  the input twice on turn 2 (0 on Opus). One is inside a frozen return: it copies the diagnosis's cause
+  character for character, so a misquote in the cause is copied with it.
 - **Quotes without quotation marks** (a blockquote, `<q>` tags, double primes) are not read as quotes.
 - **A pick inside the diagnosis's own cause** would be copied into the frozen return with it.
 - **The frozen line is English** whatever language the request came in.
@@ -61,7 +81,8 @@ The measure for Q7 that the original can pass, added after the run (`node contro
   checks behave as before.
 - **The order of work.** Q1 to Q6 were refined on a prototype checker; the skill change came from a
   60-session lab before Q7 and Q8 were written; Q7 and Q8 ran on requests sealed before any session on
-  them. The first five commits were made afterwards from finished work.
+  them. The first five commits were made afterwards from finished work. Commit 8, the second-model plan,
+  was pushed before that round's first session, so its order rests on GitHub's record, not only on git.
 
 ## What we chose not to touch, and why
 
@@ -79,7 +100,7 @@ The measure for Q7 that the original can pass, added after the run (`node contro
 | Replace the word lists outside the refusal turn with structure | It means a fixed form for the whole diagnosis, a far bigger change than the letter asked for; the frozen return already closes the turn it named. |
 | Let the skill quote its own terms through a declared glossary | A new rule the letter did not ask for; the 17 such spans are reported instead. |
 | The frozen line in the language of the request | An exact-match gate needs one fixed line. |
-| Test over-refusal near the line, on more models and inputs | It needs a new seal and a new live round; Fable was not available on the account. |
+| Test over-refusal near the line, on more inputs and on a model from another maker | It needs a new seal and a new live round. Sonnet 5.5 was added as a second model; Fable was not available on the account. |
 
 ## How it was tested
 
@@ -92,9 +113,11 @@ The measure for Q7 that the original can pass, added after the run (`node contro
 - **Sealed sets written by other models:** 40 sentences for the word-list gate and 10 live requests, each
   sealed before use and scored once.
 - **Blind review before submission.** Fresh clones went, in several rounds, to AI reviewers who had not
-  seen how it was made. `node control/attacks.mjs` replays their attacks: 23 edits that must stop the
-  acceptance check, 12 plants that must each add an audit failure, and 7 declared limits that must get
-  through. Every one ends as expected.
+  seen how it was made. `node control/attacks.mjs` replays their attacks, and 3 added with the second-model
+  round: 26 edits that must stop the acceptance check, 12 plants that must each add an audit failure, and
+  7 declared limits that must get through. Every one ends as expected.
+- **A second model, registered first.** The 40 live sessions again on Sonnet 5.5, with the model the only
+  change, scored by code and against bars committed and pushed before the first session.
 - **On four Node versions.** GitHub Actions runs the acceptance check, the selftest and the readers' check
   on Node 18, 20, 22 and 24 on every push.
 
@@ -105,7 +128,7 @@ copied character for character, nothing else); **quotation marks mean an exact c
 diagnosis template is **plain text**, not a code block. The checker gains three gates: `endorsement.mjs`
 (word lists), `quote-anchor.mjs` (exact quotes) and `frozen-return.mjs` (exact refusal). Commit 6 fixed
 what the last review round found (`evidence.md`); commit 7 moved this page's detail into `evidence.md`
-and changed no number.
+and changed no number; commit 8 registered the second-model round and commit 9 holds its results.
 
 ## Checked by `node control/run.mjs`
 

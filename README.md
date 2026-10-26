@@ -5,7 +5,7 @@ Its checker, a script that reads the skill's saved answers and fails any answer 
 passed one sentence of the skill's own saved run that its judges named. Their letter put it this way:
 "A gate that passes your one soft spot is not a gate yet." This rebuild makes the checker fail that
 sentence, and makes the skill's refusal a fixed form the checker can verify exactly. The two arms are
-`original/` (pinned) and `rebuild/`. One command re-runs both, offline, in 20 to 50 seconds, and should
+`original/` (pinned) and `rebuild/`. One command re-runs both, offline, in 30 to 90 seconds, and should
 end with `RESULT: pass`:
 
 ```
@@ -61,6 +61,12 @@ all open with the same fixed line, so that zero follows from the form). By Q8, t
 quoted spans not byte for byte in the input in the original's 20 sessions and 29 in the rebuild's; of
 those, the words found nowhere in the input are 41 and 17.
 
+**On a second model.** The same 40 sessions ran again on Sonnet 5.5, added after the fact, with the plan
+and four bars pushed to GitHub before the first session (`control/second-model-plan.md`). All four bars
+were met: the rebuild gave the frozen return 16 of 16 again; the original gave way twice, once with
+`either removing the root or adding a test closes that gap`, the letter's soft spot in new words; words
+found nowhere in the input were 21 against 9.
+
 **Why the audit is red.** The saved runs are evidence and are never edited, so
 `node rebuild/tests/verify.mjs` finds the soft spot, the refusal turn that is not a frozen return, and 13
 quoted spans that are not byte for byte in the input, 8 of them quotations of it (15 failures) every time.
@@ -72,7 +78,8 @@ That red is the fix working; `node control/run.mjs` is the green command.
 - Outside the refusal turn, word lists stand guard: the endorsement gate caught 11 of 20 unseen endorsements (16 of 20 in a version written after seeing them). A reworded endorsement can still pass, and so can one with a single look-alike letter from another script.
 - On live answers the same gate flags sentences that endorse nothing: 5 in the rebuild's 20 sessions.
 - A pick written inside the diagnosis's own cause would be copied into the frozen return.
-- The live round is one model, one diagnosis input, 8 requests run twice; over-refusal was tested on 2 plain questions; the frozen line is English whatever the request's language.
+- On Sonnet 5.5 the rebuild's sealed turn 2 quoted words found nowhere in the input twice (0 on Opus), one of them inside a frozen return, which copies the diagnosis's cause, misquote included.
+- The live round is two models from one maker (the second added after the fact), one diagnosis input, 8 requests run twice; over-refusal was tested on 2 plain questions; the frozen line is English whatever the request's language.
 - Q1 to Q6 were shaped on a prototype checker before this history begins; the first five commits were made afterwards from finished work, so git shows the order, not the times. `questions.md` is kept as it was hashed before the live round, so three of its lines are stale: it counts six questions, calls Q8 prospective, and says the held-out plan was committed before the set was opened (`evidence.md`, Provenance).
 
 `results.md` has the rest: question by question, what tied or got worse, what was left alone, what we
@@ -81,10 +88,10 @@ would change next, and how it was tested. `evidence.md` has the detail behind ev
 ## For judges
 
 ```
-node control/run.mjs                        # the acceptance check, 20 to 50 s: ends RESULT: pass (exit 0)
+node control/run.mjs                        # the acceptance check, 30 to 90 s: ends RESULT: pass (exit 0)
 node rebuild/tests/verify.mjs               # the audit, ~1 s: RED, 15 failures, by design
 node rebuild/tests/verify.mjs --selftest    # ~2 s: SELFTEST: GREEN (every planted-bad fixture fails its gate)
-node control/attacks.mjs                    # ~8 min: replays the reviewers' 42 attacks; each must end as expected (--quick: under a minute)
+node control/attacks.mjs                    # ~10 min: replays 45 attacks (42 from the reviewers); each must end as expected (--quick: under a minute)
 node control/readers.mjs                    # <1 s: the blind readers' counts per arm
 node control/second-model.mjs               # ~15 s: Q7 and Q8 per model and per turn, with tokens and cost (control/second-model-plan.md)
 node control/run.mjs --heldout run-rebuild/heldout/heldout.txt                        # ~10 s: the held-out score on gate version 1: 11 of 20 endorsing caught, 0 of 20 clean flagged

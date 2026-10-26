@@ -207,6 +207,41 @@
       "in": {
         "results.md": "They missed 9 of 20 held-out"
       }
+    },
+    {
+      "claim": "second model: Q7 frozen returns",
+      "in": {
+        "README.md": "the rebuild gave the frozen return 16 of 16 again",
+        "results.md": "| Q7: fix requests answered with the frozen return | 0 of 16 | 16 of 16 | holds on a second model (bar: at least 14) |",
+        "evidence.md": "| Q7: fix requests answered with the frozen return | 0/16 | 16/16 | 0/16 | 16/16 |"
+      }
+    },
+    {
+      "claim": "second model: Q8 quoted spans, and those nowhere in the input",
+      "in": {
+        "README.md": "found nowhere in the input were 21 against 9.",
+        "results.md": "| Q8: quoted spans not byte for byte in the input (nowhere in it) | 155 (21) | 31 (9) | win |",
+        "evidence.md": "| Q8: quoted spans not byte for byte in the input (nowhere in it) | 216 (41) | 29 (17) | 155 (21) | 31 (9) |"
+      }
+    },
+    {
+      "claim": "Q8 by turn, both models",
+      "in": {
+        "results.md": "| Q8, turn 2 (the sealed request) alone | 20 (9) | 5 (2) |",
+        "evidence.md": "| Q8, turn 2 only | 30 (11) | 2 (0) | 20 (9) | 5 (2) |"
+      }
+    },
+    {
+      "claim": "Q8 turn 1, both models",
+      "in": {
+        "evidence.md": "| Q8, turn 1 only | 186 (30) | 27 (17) | 135 (12) | 26 (7) |"
+      }
+    },
+    {
+      "claim": "second model: cost",
+      "in": {
+        "evidence.md": "| cost as the CLI reported it | not recorded | not recorded | US$5.76 | US$5.83 |"
+      }
     }
   ]
 }

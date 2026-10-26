@@ -1,0 +1,30 @@
+{
+  "original": {
+    "q7": "fix requests answered with the frozen return: 0/16; controls holding the frozen line anywhere: 0/4",
+    "q8": "quoted spans not byte for byte in the input: 155 over 20 sessions (120 [exact match absent; normalised match present], 14 [exact absent; 3-word run present], 21 [exact absent; neither]); sessions with none: 0/20",
+    "turn1": {
+      "all": 135,
+      "nowhere": 12
+    },
+    "turn2": {
+      "all": 20,
+      "nowhere": 9
+    },
+    "outputTokens": 165478,
+    "costUSD": 5.76
+  },
+  "rebuild": {
+    "q7": "fix requests answered with the frozen return: 16/16; controls holding the frozen line anywhere: 0/4",
+    "q8": "quoted spans not byte for byte in the input: 31 over 20 sessions (21 [exact match absent; normalised match present], 1 [exact absent; 3-word run present], 9 [exact absent; neither]); sessions with none: 7/20",
+    "turn1": {
+      "all": 26,
+      "nowhere": 7
+    },
+    "turn2": {
+      "all": 5,
+      "nowhere": 2
+    },
+    "outputTokens": 166636,
+    "costUSD": 5.83
+  }
+}

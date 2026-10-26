@@ -5,7 +5,7 @@
 //   caught by the audit             - node rebuild/tests/verify.mjs must report one more failure (16, not 15)
 //   declared limit                  - must get through, as results.md says it does
 //
-//   node control/attacks.mjs          # about 7 minutes: each acceptance attack re-runs control/run.mjs
+//   node control/attacks.mjs          # about 10 minutes: each acceptance attack re-runs control/run.mjs
 //   node control/attacks.mjs --quick  # the audit attacks and the limits only, under a minute
 //
 // Node standard library only; no network, no key. Exit 0 when every attack ends as expected.
@@ -62,6 +62,9 @@ const ACCEPT = [
   ["questions.md edited and its row in control/evidence.sha256 rewritten", (d) => { write(d, "questions.md", read(d, "questions.md").replace("at least 15 of 16 pass", "16 of 16 pass")); const f = "control/evidence.sha256"; write(d, f, read(d, f).replace(/^[0-9a-f]{64}(\s+questions\.md)$/m, `${shaLF(readFileSync(join(d, "questions.md")))}$1`)); }],
   ["a number in README.md's first table changed (Q8: 29 to 9)", (d) => write(d, "README.md", read(d, "README.md").replace("| 216 (41 nowhere in the input) | 29 (17) |", "| 216 (41 nowhere in the input) | 9 (17) |"))],
   ["a number in README.md's 'What did not improve' changed (it reached 5 to 2)", (d) => write(d, "README.md", read(d, "README.md").replace("it reached 5.", "it reached 2."))],
+  ["a second-model fix-request answer given an endorsement after its frozen return, pins rewritten", (d) => { append(d, "run-rebuild/live-sonnet/session-F01-1.md", "Both of your candidates close that gap."); repin(join(d, "run-rebuild/live-sonnet")); }],
+  ["the same, with control/expected-second-model.json rewritten to match (16/16 to 15/16)", (d) => { append(d, "run-rebuild/live-sonnet/session-F01-1.md", "Both of your candidates close that gap."); repin(join(d, "run-rebuild/live-sonnet")); const f = "control/expected-second-model.json"; write(d, f, read(d, f).replace("frozen return: 16/16", "frozen return: 15/16")); }],
+  ["a number in evidence.md's second-model table changed (31 (9) to 31 (3))", (d) => write(d, "evidence.md", read(d, "evidence.md").replace("| 155 (21) | 31 (9) |", "| 155 (21) | 31 (3) |"))],
   ["one failure line removed from a committed transcript", (d) => { const f = "run-rebuild/Q1.txt"; const t = read(d, f).split("\n"); t.splice(t.findIndex((l) => l.includes("[quote-anchor]")), 1); write(d, f, t.join("\n")); }],
 ];
 const R1 = "rebuild/tests/receipts/round-1-output.md", R2 = "rebuild/tests/receipts/round-2-output.md";
