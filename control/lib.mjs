@@ -262,14 +262,17 @@ export function claimsCheck() {
         const text = docs.find((d) => d.f === f)?.text ?? (existsSync(join(REPO, f)) ? lf(readFileSync(join(REPO, f), "utf8")) : null);
         if (text === null) { bad.push(`${f} is missing (${c.claim})`); continue; }
         const s = want ? sentence.replace("{}", want) : sentence;
-        if (!text.includes(s)) bad.push(`${f} no longer says ${JSON.stringify(s)} (${c.claim})`);
+        // "times" (per file) is how often the sentence stands there, so one copy edited among several fails.
+        const n = text.split(s).length - 1, times = c.times?.[f] ?? 1;
+        if (!n) bad.push(`${f} no longer says ${JSON.stringify(s)} (${c.claim})`);
+        else if (n !== times) bad.push(`${f} says ${JSON.stringify(s)} ${n} time(s), not ${times} (${c.claim})`);
       }
       continue;
     }
     for (const { f, text } of docs) if (text !== null && !text.includes(want)) bad.push(`${f} no longer says ${JSON.stringify(want)} (${c.claim})`);
   }
   const how = `${spec.required.length} claims, each in the sentences control/claims.json names`;
-  return { ok: !bad.length, text: bad.length ? `claims: FAIL (${how}): ${bad.join("; ")}` : `claims: ${how} present (the headline numbers, seals and checker hashes; the shipped checker's hash computed live)` };
+  return { ok: !bad.length, text: bad.length ? `claims: FAIL (${how}): ${bad.join("; ")}` : `claims: ${how} present (the headline numbers, seals and checker hashes; the shipped checker's hash held in control/claims.json and recomputed)` };
 }
 // The receipts are one archive in two places: rebuild/ carries the same bytes as original/ (CRLF folded).
 export function receiptsCheck() {

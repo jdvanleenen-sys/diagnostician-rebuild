@@ -239,6 +239,38 @@ headline number reproduced. It did find the following, all changed in commit 6 a
 A determined editor can still change a pin and the number it guards together: the pins catch drift and
 careless edits, and `git log` is the record of deliberate ones.
 
+## The review round before commit 10
+
+Seven AI reviewers (two strict judges, a scientist, an attacker, two judges writing mock letters and a
+judge comparing this entry with another rebuild) read a fresh clone of commit 9. Every headline number
+reproduced, and none found a failed judging check. Commit 10 changes what they found, and nothing else:
+
+- **The endorsement gate missed the letter's sentence in ways that are not wording.** An aside between
+  subject and verb (`Both of your candidates, as far as I can see, close that gap.`), praise through "no
+  wonder" or "no surprise", a tag, comment, soft hyphen or invisible joiner inside "close", full-width
+  letters, the sentence broken by a blank line, and the words glued with hyphens all passed. Each is now
+  caught, and each is a line of `rebuild/tests/fixtures/soft-spot/variants.md` or a fixture the selftest runs.
+  Re-run on the archive, its own prose and all 80 live sessions, the gate names exactly what it named before.
+- **The quote gate missed three marks:** the HTML5 entity names for curly quotes, the reversed single
+  quote (‛) and the full-width single quote (＇). Each is now read, with a planted-bad fixture.
+- **The word lists still miss most new wording.** All the single-line sentences the reviewers wrote at the
+  gate are in `run-rebuild/review-r7/set.md` (`node control/review-set.mjs`). The gate they attacked caught
+  30 of the 76 meant to endorse and flagged 3 of the 21 meant to be clean. After commit 10, which was
+  written after reading them, the shipped gate caught 40 of the reviewers' 76 endorsing sentences and
+  flagged 3 of their 21 clean ones. What still passes: other verbs (`Both of your candidates shut that
+  gap.`), a recommendation that names no candidate (`Do the filter first.`), and French, Italian or
+  Japanese. The refusal turn does not depend on these lists: the frozen-return gate fails any added words.
+- **Pass lines were printed, not enforced.** `node control/run.mjs` now checks the pass lines `questions.md`
+  set for Q7 and Q8 and the second-model plan's four bars, and does not end in pass unless each is met as
+  recorded. The plan is held by its hash in code, as `questions.md` is.
+- **Some numbers were still unguarded:** `results.md`'s opening paragraph, "the original gave way twice",
+  and the rebuild's pre-run `rules.md` hash. `control/claims.json` now names them, and a sentence that
+  stands in a file more than once must stand there as often as it did, so one edited copy fails.
+- **A checker could be weakened with a docs edit.** The shipped checker's hash is now held in
+  `control/claims.json` as well as in the docs.
+- **Pointers in the frozen `questions.md`** to `results.md` sections that commit 7 moved here now resolve:
+  `results.md` keeps those headings, each pointing here.
+
 ## Provenance
 
 - `original/` is commit `01abab3229da2a22f84a82be071425ce66fac5ee` of
@@ -249,7 +281,7 @@ careless edits, and `git log` is the record of deliberate ones.
 - The checker the sealed sentences were scored on is version 1 of `rebuild/tests/`, SHA-256
   `c0b4648028bf568cfb65ca812ddb803f1df0847eb4c9e930d12e66cc8582c7dd`, shipped byte for byte as
   `run-rebuild/heldout/gate-v1/tests/`. The shipped `rebuild/tests/` is SHA-256
-  `e24904107926a88151611bd1d11cb9b297127cddac06ea427efbcefbc09bf712`. `run.mjs` recomputes both.
+  `f3b678467294c1bb0b7786b4777c38b8ebbda727e8e1cc0204a7a753359bf510`. `run.mjs` recomputes both.
 - The live requests, `control/live-requests.md`, SHA-256
   `7c01ac70fe74d196fd7ad68067f2d818b99fb13674ad81fb2a70b7b4b86705ed`, sealed 2026-10-25 at 13:56 MT, were
   written by Sonnet 5.5 from `control/live-requests-writer.md`; by the entrant's record they were hashed

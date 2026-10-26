@@ -10,6 +10,7 @@
 // secondModelCheck() is also run by control/run.mjs: once run-*/live-sonnet/ exists, its results must match
 // control/expected-second-model.json, or the acceptance check ends in an integrity violation.
 
+import { createHash } from "node:crypto";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
@@ -64,11 +65,28 @@ export function round(sub) {
   return Object.fromEntries(ARMS.map((a) => [a, arm(a, sub)]));
 }
 
-const summary = (r) => Object.fromEntries(ARMS.map((a) => [a, { q7: r[a].q7, q8: r[a].q8, turn1: r[a].t1, turn2: r[a].t2, outputTokens: r[a].tokens, costUSD: r[a].cost }]));
+const summary = (r) => ({
+  ...Object.fromEntries(ARMS.map((a) => [a, { q7: r[a].q7, q8: r[a].q8, turn1: r[a].t1, turn2: r[a].t2, outputTokens: r[a].tokens, costUSD: r[a].cost }])),
+  bars: Object.fromEntries(BARS.map(([id, , test]) => [id, test(r) ? "MET" : "NOT MET"])),
+});
+
+// The plan as pushed in commit 8 (SHA-256 of its LF bytes), held here as well as in control/evidence.sha256.
+export const PLAN_SHA256 = "6ffe0945f4ee3db0168e1df75ef8d5bce02fa5c5950a081e0e868f91a41a9a8b";
+function planCheck() {
+  const p = join(REPO, "control", "second-model-plan.md");
+  if (!existsSync(p)) return ["control/second-model-plan.md is missing"];
+  const text = readFileSync(p, "utf8").replaceAll("\r\n", "\n");
+  const bad = [];
+  if (createHash("sha256").update(text).digest("hex") !== PLAN_SHA256) bad.push("control/second-model-plan.md is not the plan pushed before the round");
+  for (const [id, words] of BARS) if (!text.includes(`| ${id} | ${words} |`)) bad.push(`bar ${id} in this script is not the plan's ${id}`);
+  return bad;
+}
 
 export function secondModelCheck() {
   if (!ARMS.some((a) => existsSync(join(REPO, `run-${a}`, "live-sonnet"))))
     return { ok: true, text: "second model: not run at this commit (control/second-model-plan.md)" };
+  const plan = planCheck();
+  if (plan.length) return { ok: false, text: `second model: FAIL: ${plan.join("; ")}` };
   const r = round("live-sonnet");
   if (!r) return { ok: false, text: "second model: run-original/live-sonnet/ and run-rebuild/live-sonnet/ must both exist" };
   if (!existsSync(EXPECTED)) return { ok: false, text: "second model: control/expected-second-model.json is missing" };

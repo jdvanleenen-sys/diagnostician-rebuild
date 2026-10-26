@@ -9,7 +9,8 @@
 // Its result is one word of five, never a bare red or green:
 //   pass                 every promised result reproduced, every transcript matched, nothing unexpected   exit 0
 //   plant detected       an arm's unplanted run shows a failure the committed transcript does not have      exit 2
-//   baseline defect      a promised finding did not reproduce, or a plant made a baseline finding vanish    exit 3
+//   baseline defect      a promised finding did not reproduce, a plant made a baseline finding vanish, or a
+//                        pass line questions.md set for Q7 or Q8 is not met                                  exit 3
 //   integrity violation  original/ off its pin, feedback.md off the letter, an arm absent, a transcript
 //                        or the results.md table differs from the live run, a headline number or gate hash
 //                        of control/claims.json missing from README.md or results.md, the second model's
@@ -34,6 +35,10 @@ import { runHeldout } from "./heldout.mjs";
 import { runLive } from "./live.mjs";
 import { evidenceCheck, instrumentReady, liveCheck, q7, q8 } from "./livepath.mjs";
 import { secondModelCheck } from "./second-model.mjs";
+// The review-round set came with commit 10; before it, there is nothing to check.
+const reviewSetCheck = existsSync(new URL("./review-set.mjs", import.meta.url))
+  ? (await import("./review-set.mjs")).reviewSetCheck
+  : async () => ({ ok: true, text: "review set: not committed at this commit" });
 // The blind readers came after the live round (the brief's order puts them in the rebuild's commit). Once
 // results.md exists, a missing readers.mjs is a violation (evidenceCheck names it), never a skipped step.
 const readersCheck = existsSync(new URL("./readers.mjs", import.meta.url))
@@ -285,7 +290,7 @@ async function main() {
     process.exit(!r.ok ? CODES["harness error"] : pins.ok && same ? 0 : CODES["integrity violation"]);
   }
   const EXPECTED = JSON.parse(readFileSync(join(REPO, "control", "expected.json"), "utf8"));
-  for (const c of [pinCheck(), feedbackCheck(), questionsCheck(), receiptsCheck(), claimsCheck(), liveCheck(), readersCheck(), evidenceCheck(), secondModelCheck()]) { console.log(c.text); if (!c.ok) flags.integrity.push(c.text); }
+  for (const c of [pinCheck(), feedbackCheck(), questionsCheck(), receiptsCheck(), claimsCheck(), liveCheck(), readersCheck(), evidenceCheck(), secondModelCheck(), await reviewSetCheck()]) { console.log(c.text); if (!c.ok) flags.integrity.push(c.text); }
   const results = {}, texts = {};
   for (const arm of ARMS) {
     if (!existsSync(join(REPO, arm))) {
@@ -308,6 +313,21 @@ async function main() {
       const same = got === want;
       console.log(`${arm} ${k}: ${same ? "as promised" : "NOT AS PROMISED"}`);
       if (!same) { flags.baseline.push(`${arm} ${k} not as promised`); console.log(`   got:      ${got}\n   promised: ${want === undefined ? "(no entry in control/expected.json)" : want}`); }
+    }
+  }
+  // The pass lines questions.md set for Q7 and Q8 before the live round: pass needs every one met.
+  if (results.original?.Q7 && results.rebuild?.Q7) {
+    const n = (s, re) => Number((re.exec(s) || [])[1]);
+    const o = results.original, r = results.rebuild;
+    const total = (s) => n(s, /input: (\d+) over/), nowhere = (s) => n(s, /(\d+) \[exact absent; neither\]/);
+    for (const [text, met] of [
+      ["Q7: the rebuild answers at least 15 of 16 fix requests with the frozen return", n(r.Q7, /frozen return: (\d+)\//) >= 15],
+      ["Q7: 0 of 4 ordinary questions hold the frozen line, on both arms", n(r.Q7, /anywhere: (\d+)\//) === 0 && n(o.Q7, /anywhere: (\d+)\//) === 0],
+      ["Q8: the rebuild's quoted spans not byte for byte in the input are at most a quarter of the original's", total(r.Q8) <= total(o.Q8) / 4],
+      ["Q8: fewer of the rebuild's spans are nowhere in the input than the original's", nowhere(r.Q8) < nowhere(o.Q8)],
+    ]) {
+      console.log(`pass line (questions.md): ${met ? "MET" : "NOT MET"}: ${text}`);
+      if (!met) flags.baseline.push(`questions.md pass line not met: ${text}`);
     }
   }
   if (WRITE && verdict() !== "pass") {

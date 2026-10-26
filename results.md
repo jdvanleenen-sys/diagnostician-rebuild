@@ -64,6 +64,9 @@ On a second model, added after the fact (`node control/second-model.mjs`; the pl
   with one look-alike letter from another script, a trailing conditional, or, in the other languages, a
   negation anywhere in the sentence. The prescription scan flags a negated refusal that uses a listed
   phrase, and names the file but not the line. `control/attacks.mjs` replays these as declared limits.
+  In the last review round, reviewers wrote 76 new endorsements at the gate: it caught 30, and 40 after
+  commit 10's fixes, which were written after reading them (`node control/review-set.mjs`). Outside the
+  refusal turn, about half of new wording gets through.
 - **False alarms on live answers.** The endorsement gate flags 5 sentences in the rebuild's 20 live
   sessions that endorse nothing (such as `Both worked.` in a list of what was ruled out), and 9 in the
   original's, of which by our reading 2 are endorsements (`run-*/Q8.txt`). On Sonnet 5.5 it flags 5 more
@@ -114,8 +117,8 @@ On a second model, added after the fact (`node control/second-model.mjs`; the pl
   sealed before use and scored once.
 - **Blind review before submission.** Fresh clones went, in several rounds, to AI reviewers who had not
   seen how it was made. `node control/attacks.mjs` replays their attacks, and 3 added with the second-model
-  round: 26 edits that must stop the acceptance check, 12 plants that must each add an audit failure, and
-  7 declared limits that must get through. Every one ends as expected.
+  round: 32 edits that must stop the acceptance check, 17 plants that must each add an audit failure, and
+  8 declared limits that must get through. Every one ends as expected.
 - **A second model, registered first.** The 40 live sessions again on Sonnet 5.5, with the model the only
   change, scored by code and against bars committed and pushed before the first session.
 - **On four Node versions.** GitHub Actions runs the acceptance check, the selftest and the readers' check
@@ -128,7 +131,17 @@ copied character for character, nothing else); **quotation marks mean an exact c
 diagnosis template is **plain text**, not a code block. The checker gains three gates: `endorsement.mjs`
 (word lists), `quote-anchor.mjs` (exact quotes) and `frozen-return.mjs` (exact refusal). Commit 6 fixed
 what the last review round found (`evidence.md`); commit 7 moved this page's detail into `evidence.md`
-and changed no number; commit 8 registered the second-model round and commit 9 holds its results.
+and changed no number; commit 8 registered the second-model round and commit 9 holds its results; commit
+10 fixed what the last review round found (`evidence.md`) and changed no result.
+
+## F2: the 13 spans
+
+Moved to `evidence.md`, section "F2: the 13 spans" (the frozen `questions.md` still points here).
+
+## The lab
+
+Moved to `evidence.md`, section "The lab: how the skill change was found" (the frozen `questions.md` still
+points here for the lab's result).
 
 ## Checked by `node control/run.mjs`
 
@@ -136,7 +149,7 @@ The table below is printed by the acceptance check and compared with this file; 
 integrity violation (exit 4). The same check requires this file, `README.md` and `evidence.md` to still
 hold the sentences `control/claims.json` names.
 
-The shipped checker, `rebuild/tests/`, is SHA-256 `e24904107926a88151611bd1d11cb9b297127cddac06ea427efbcefbc09bf712`.
+The shipped checker, `rebuild/tests/`, is SHA-256 `f3b678467294c1bb0b7786b4777c38b8ebbda727e8e1cc0204a7a753359bf510`.
 
 | Letter line | Question | original | rebuild |
 |---|---|---|---|

@@ -1,5 +1,5 @@
 {
-  "_what": "The headline claims control/run.mjs holds README.md and results.md to. Each entry names, per file ('in'), the exact sentence fragment that states it, so a number changed inside that sentence is an integrity violation (exit 4). An entry with a 'folder' is a checker hash computed live by folderSha256 (control/lib.mjs): with a 'text', the folder must still hash to it; without one, the live hash is required; '{}' in a fragment stands for that hash.",
+  "_what": "The headline claims control/run.mjs holds README.md and results.md to. Each entry names, per file ('in'), the exact sentence fragment that states it, so a number changed inside that sentence is an integrity violation (exit 4). \"times\" (per file) is how often the sentence stands there, so one edited copy among several fails. An entry with a 'folder' is a checker hash computed live by folderSha256 (control/lib.mjs): with a 'text', the folder must still hash to it; without one, the live hash is required; '{}' in a fragment stands for that hash.",
   "files": [
     "README.md",
     "results.md",
@@ -65,20 +65,27 @@
       "text": "c0b4648028bf568cfb65ca812ddb803f1df0847eb4c9e930d12e66cc8582c7dd",
       "in": {
         "evidence.md": "`{}`, shipped byte for byte as"
+      },
+      "times": {
+        "evidence.md": 2
       }
     },
     {
-      "claim": "the shipped checker: SHA-256 of rebuild/tests, computed live",
+      "claim": "the shipped checker: SHA-256 of rebuild/tests, held here and in the docs",
       "folder": "rebuild/tests",
       "in": {
         "results.md": "is SHA-256 `{}`",
         "evidence.md": "`{}`. `run.mjs` recomputes both"
-      }
+      },
+      "text": "f3b678467294c1bb0b7786b4777c38b8ebbda727e8e1cc0204a7a753359bf510"
     },
     {
       "claim": "the live-path seal (control/livepath.mjs LIVE_SEAL)",
       "in": {
         "evidence.md": "`7c01ac70fe74d196fd7ad68067f2d818b99fb13674ad81fb2a70b7b4b86705ed`, sealed 2026-10-25 at 13:56 MT"
+      },
+      "times": {
+        "evidence.md": 2
       }
     },
     {
@@ -241,6 +248,44 @@
       "claim": "second model: cost",
       "in": {
         "evidence.md": "| cost as the CLI reported it | not recorded | not recorded | US$5.76 | US$5.83 |"
+      }
+    },
+    {
+      "claim": "results.md summary: Q7 on Opus",
+      "in": {
+        "results.md": "the rebuilt skill answered 16 of 16 with the frozen\nreturn and the original 0 of 16 (it has none)."
+      }
+    },
+    {
+      "claim": "results.md summary: the blind readers",
+      "in": {
+        "results.md": "original's answers said something about the owner's fixes in 10 and 16 of 16; the rebuild's, in none."
+      }
+    },
+    {
+      "claim": "results.md summary: Q8 nowhere in the input, Opus",
+      "in": {
+        "results.md": "Quoted words found nowhere in the input fell from 41 to 17, and on the sealed second turn alone from 11 to 0."
+      }
+    },
+    {
+      "claim": "results.md summary: the second model",
+      "in": {
+        "results.md": "the rebuild again 16 of 16 frozen returns; the original gave way twice,\nonce in the letter's own words; words found nowhere in the input fell from 21 to 9, and on the second turn\nfrom 9 to 2, not to 0."
+      }
+    },
+    {
+      "claim": "second model: the original gave way twice",
+      "in": {
+        "README.md": "the original gave way twice, once with",
+        "evidence.md": "**The original's refusal gave way twice on Sonnet.**",
+        "results.md": "| answers to a fix request that endorse or pick a fix, by our reading | 2 of 16 | 0 of 16 |"
+      }
+    },
+    {
+      "claim": "the rebuild's rules.md as hashed before the live round (held in control/livepath.mjs)",
+      "in": {
+        "evidence.md": "hash to `b0b144f4052d35bc08be97a6f577b317142dd84e55a39f298a9f86075cfea7a3`, the hash the entrant's lab"
       }
     }
   ]

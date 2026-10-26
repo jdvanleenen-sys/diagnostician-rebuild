@@ -31,12 +31,12 @@ export const TAG = "F1";
 // The letter's sentence, pinned: the selftest requires tests/fixtures/soft-spot/bad.md to hold it.
 export const LETTER_SHA256 = "d27201c66e5b4d50df9ca8139d76315af3672de0995da76636903c71d3ff3234";
 // tests/fixtures/soft-spot/variants.md, pinned (LF bytes): every line of it is run by the selftest.
-export const VARIANTS_SHA256 = "e0f64e34b44c5dd0121c0fc66b2e26386e86c7c13b5229948abe9be154995eee";
+export const VARIANTS_SHA256 = "b80c537ac19df377c933b6707a027432467f9f53e66bab732d37c23ea04eca2e";
 // This gate's fixture folders, pinned by name: a renamed, missing or unlisted file is a named failure.
-export const FIXTURES = { "soft-spot": ["bad.md", "good.md", "variants.md"], endorsement: ["bad-markup.md", "bad-portuguese.md", "bad-sound.md", "bad-stock.md", "good-deferral.md", "good-refusal.md", "good-spanish-refusal.md"] };
+export const FIXTURES = { "soft-spot": ["bad.md", "good.md", "variants.md"], endorsement: ["bad-markup.md", "bad-portuguese.md", "bad-sound.md", "bad-split.md", "bad-stock.md", "good-deferral.md", "good-refusal.md", "good-spanish-refusal.md"] };
 export const FENCE = /^\s*(?:```|~~~)/;
 
-const ZW = /[​-‏⁠﻿­]/g;
+const ZW = /[​-‏⁠-⁤﻿­͏᠎]/g;
 const NOUN = String.raw`(?:candidates?|options?|ideas?|fix(?:es)?|approach(?:es)?|proposals?|changes?|rules?|filters?|plans?|edits?|versions?|instincts?|alternatives?|routes?|tweaks?|patch(?:es)?|remed(?:y|ies)|solutions?|workarounds?|directions?|suggestions?)`;
 const ORD = String.raw`(?:first|second|third|other|latter|former|narrower|broader|simpler|safer|stricter|looser|smaller|bigger|wider)`;
 const YOUVERB = String.raw`(?:proposed|suggested|described|drafted|listed|floated|mentioned|offered|sketched|outlined|raised|pitched|put forward|came up with|wrote|laid out|brought up|had in mind|named|made|put on the table|weighing|considering)`;
@@ -71,7 +71,7 @@ const SUBJ = new RegExp(String.raw`^(?:both|either|neither|each)(?:\s+of\s+(?:th
 const BACKREF = /^(?:that|this|it|its|they|either|both|each|one|neither|the (?:first|second|latter|former|other|\w+ one)|only the \w+|so|and|yes|going|sticking|restricting|narrowing|adding)\b/i;
 const NOT_CAND = /\b(?:candidate causes?|surviving candidates?|demoted candidates?|generate candidates|candidate list)\b/i;
 // Filler that carries no claim, removed before the clauses are read.
-const FILLER = /\b(?:not only|honestly|frankly|candidly|to be fair|in my view|in my opinion|i think|i'd say|i would say|as far as i can tell|if you ask(?:ed)?(?: me)?|if asked|unless i am mistaken|unless i'm mistaken|if i am not mistaken|if i'm not mistaken|if i had to (?:say|guess)|as i said|as i see it|as it happens|whether you like it or not|for what it's worth|at the end of the day)\b,?/gi;
+const FILLER = /\b(?:not only|honestly|frankly|candidly|to be fair|in my view|in my opinion|i think|i'd say|i would say|as far as i can tell|as far as i can see|all things considered|if you ask(?:ed)?(?: me)?|if asked|unless i am mistaken|unless i'm mistaken|if i am not mistaken|if i'm not mistaken|if i had to (?:say|guess)|as i said|as i see it|as it happens|whether you like it or not|for what it's worth|at the end of the day)\b,?/gi;
 const QUESTION = /\b(?:whether|which|what|who|how|why|whichever)\b/i;
 // A sentence is a question only when it ends in "?" and opens with an interrogative or an auxiliary verb.
 const OPEN_Q = /^(?:who|whom|whose|what|which|whether|when|where|why|how|whichever|is|are|was|were|do|does|did|will|would|can|could|should|shall|may|might|has|have|had|am)\b/i;
@@ -95,11 +95,18 @@ const anyRe = (list, s) => list.find((r) => r.test(s));
 // Matching form only: zero-width removed, tags and links stripped, quotes folded, whitespace collapsed.
 // HTML character references decoded first (as quote-anchor.mjs does), so "clos&#101;" reads as "close";
 // "no doubt" and "no question" are certainty, not negation, so they are read as "surely".
-const ENT = { "&amp;": "&", "&quot;": '"', "&apos;": "'", "&lt;": "<", "&gt;": ">", "&nbsp;": " ", "&rsquo;": "’", "&lsquo;": "‘", "&ldquo;": "“", "&rdquo;": "”" };
+const ENT = { "&amp;": "&", "&quot;": '"', "&apos;": "'", "&lt;": "<", "&gt;": ">", "&nbsp;": " ", "&rsquo;": "’", "&lsquo;": "‘", "&ldquo;": "“", "&rdquo;": "”", "&shy;": "", "&zwj;": "", "&zwnj;": "" };
 const decodeEntities = (s) => s.replace(/&#(\d+);|&#x([0-9a-f]+);|&[a-z]+;/gi,
   (m, d, h) => (d ? String.fromCodePoint(+d) : h ? String.fromCodePoint(parseInt(h, 16)) : ENT[m.toLowerCase()] ?? m));
 export function matchForm(raw) {
-  return decodeEntities(raw).replace(/\b(?:no|without (?:a|any)) (?:doubt|question)\b/gi, "surely")
+  return decodeEntities(raw).normalize("NFKC")
+    // Markup or a comment inside a word joins the word ("cl<span></span>ose" reads as "close").
+    .replace(/(?<=\p{L})(?:<!--[\s\S]*?-->|<\/?[a-z][^<>]*>)+(?=\p{L})/giu, "")
+    .replace(/\b(?:no|without (?:a|any)) (?:doubt|question)\b/gi, "surely")
+    // Praise through a negated surprise ("No wonder both of your candidates close that gap").
+    .replace(/\b(?:(?:it is |it's )?(?:no|small|little) (?:wonder|surprise)|(?:it is |it's )?not surprising|unsurprisingly)\b(?: that)?/gi, "surely")
+    // Four or more words glued by hyphens ("Both-of-your-candidates-close-that-gap") read as words.
+    .replace(/[\p{L}']+(?:-[\p{L}']+){3,}/gu, (m) => m.replaceAll("-", " "))
     .replace(ZW, "").replace(/<!--|-->/g, " ").replace(/<\/?[a-z][^<>]*>/gi, " ")
     .replace(/!?\[([^\]]*)\]\([^)]*\)/g, "$1").replace(/\[([^\]]*)\]\[[^\]]*\]/g, "$1")
     .replace(/[‘’ʼ]/g, "'").replace(/[“”]/g, '"').replace(/[`*_>#|]/g, " ")
@@ -188,15 +195,19 @@ export function sentenceFails(form, prior) {
   if (foreignFails(form) || stockFails(form)) return true;
   const cl = clauses(form);
   const isQuestion = /\?\s*$/.test(form) && OPEN_Q.test(form);
-  let had = prior, lastBareRef = false, lastChoice = false, failed = false;
+  let had = prior, lastBareRef = false, subjectOnly = false, lastChoice = false, failed = false;
   for (const c of cl) {
     if (lastChoice && BARE.test(c)) return true;
     let kind = refKind(c, had);
     if (!kind && lastBareRef && judgementAt(c, "strong") >= 0) kind = "back";
     lastChoice = new RegExp(String.raw`\b${CHOICE}\b`, "i").test(c) && !/\b(?:not|never|n't|won't|cannot)\b/i.test(c);
-    if (!kind) { lastBareRef = false; continue; }
+    // A short aside ("in my experience") after a clause that is only the reference ("Both of your
+    // candidates, in my experience, close that gap") keeps the reference open for the next clause.
+    // One aside only: the clause after it must judge, or the reference closes.
+    if (!kind) { if (!(subjectOnly && c.split(" ").length <= 6)) lastBareRef = false; subjectOnly = false; continue; }
     if (kind === "strong") had = true; // only an owner reference carries over to "it", "both", "that"
     lastBareRef = judgementAt(removeRefs(c), kind) < 0;
+    subjectOnly = kind === "strong" && /^(?:(?:both|either|each|neither|all|one|any) of )?(?:neither )?REF$/i.test(removeRefs(c));
     if (clauseFails(c, kind, isQuestion)) failed = true;
   }
   return failed;
@@ -240,7 +251,14 @@ export function paragraphs(lines, baseLine = 1) {
   const out = [];
   let buf = [], start = 0;
   const flush = () => { if (buf.length) out.push({ text: buf.join("\n"), line: start + baseLine }); buf = []; };
+  // A blank line inside a sentence (the line before it has no closing punctuation and the next non-blank
+  // line opens in lower case) does not end the paragraph.
+  const midSentence = (i) => {
+    const next = lines.slice(i + 1).find((x) => x.trim());
+    return buf.length && !/[.!?:;)"'”’\]]\s*$/.test(buf[buf.length - 1]) && next !== undefined && /^\s*\p{Ll}/u.test(next);
+  };
   lines.forEach((l, i) => {
+    if (!l.trim() && midSentence(i)) { buf.push(l); return; }
     if (!l.trim() || FENCE.test(l)) { flush(); return; }
     if (!buf.length) start = i;
     buf.push(l);

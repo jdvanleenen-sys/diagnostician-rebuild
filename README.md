@@ -75,12 +75,12 @@ That red is the fix working; `node control/run.mjs` is the green command.
 ## What did not improve
 
 - The rebuild's live answers still quote words found nowhere in the input: 17 over 20 sessions, all in turn 1. The lab's pre-set line for those was at most 2 per 12 sessions; it reached 5.
-- Outside the refusal turn, word lists stand guard: the endorsement gate caught 11 of 20 unseen endorsements (16 of 20 in a version written after seeing them). A reworded endorsement can still pass, and so can one with a single look-alike letter from another script.
+- Outside the refusal turn, word lists stand guard: the endorsement gate caught 11 of 20 unseen endorsements (16 of 20 in a version written after seeing them). A reworded endorsement can still pass, and so can one with a single look-alike letter from another script. Of 76 new endorsements reviewers wrote at it in a last round, it caught 30 (40 after fixes written from them; `node control/review-set.mjs`): outside the refusal turn, about half of new wording gets through.
 - On live answers the same gate flags sentences that endorse nothing: 5 in the rebuild's 20 sessions.
 - A pick written inside the diagnosis's own cause would be copied into the frozen return.
 - On Sonnet 5.5 the rebuild's sealed turn 2 quoted words found nowhere in the input twice (0 on Opus), one of them inside a frozen return, which copies the diagnosis's cause, misquote included.
 - The live round is two models from one maker (the second added after the fact), one diagnosis input, 8 requests run twice; over-refusal was tested on 2 plain questions; the frozen line is English whatever the request's language.
-- Q1 to Q6 were shaped on a prototype checker before this history begins; the first five commits were made afterwards from finished work, so git shows the order, not the times. `questions.md` is kept as it was hashed before the live round, so three of its lines are stale: it counts six questions, calls Q8 prospective, and says the held-out plan was committed before the set was opened (`evidence.md`, Provenance).
+- Q1 to Q6 were shaped on a prototype checker before this history begins; the first five commits were made afterwards from finished work, so git shows the order, not the times. `questions.md` is kept as it was hashed before the live round, so three of its lines are stale: it counts six questions, calls Q8 prospective, and says the held-out plan was committed before the set was opened (`evidence.md`, Provenance); and its opening sentence is garbled ("the line the two letters ours points at share").
 
 `results.md` has the rest: question by question, what tied or got worse, what was left alone, what we
 would change next, and how it was tested. `evidence.md` has the detail behind every number.
@@ -91,8 +91,9 @@ would change next, and how it was tested. `evidence.md` has the detail behind ev
 node control/run.mjs                        # the acceptance check, 30 to 90 s: ends RESULT: pass (exit 0)
 node rebuild/tests/verify.mjs               # the audit, ~1 s: RED, 15 failures, by design
 node rebuild/tests/verify.mjs --selftest    # ~2 s: SELFTEST: GREEN (every planted-bad fixture fails its gate)
-node control/attacks.mjs                    # ~10 min: replays 45 attacks (42 from the reviewers); each must end as expected (--quick: under a minute)
+node control/attacks.mjs                    # ~12 min: replays 57 attacks (54 from the reviewers); each must end as expected (--quick: under a minute)
 node control/readers.mjs                    # <1 s: the blind readers' counts per arm
+node control/review-set.mjs                 # <1 s: the endorsement gate on the 97 sentences the last reviewers wrote at it
 node control/second-model.mjs               # ~15 s: Q7 and Q8 per model and per turn, with tokens and cost (control/second-model-plan.md)
 node control/run.mjs --heldout run-rebuild/heldout/heldout.txt                        # ~10 s: the held-out score on gate version 1: 11 of 20 endorsing caught, 0 of 20 clean flagged
 node control/run.mjs --heldout run-rebuild/heldout/heldout.txt --gate rebuild/tests   # ~10 s: the same set on the shipped checker, after opening, not held-out evidence: 16 of 20

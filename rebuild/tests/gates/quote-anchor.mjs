@@ -12,7 +12,7 @@
 // consecutive words of the span occurs in the input; "exact absent; neither" otherwise (so a two-word span
 // is never in the second bucket). The buckets describe operations, not causes: they do not say whether a
 // span was meant as a quotation of the input or as an illustrative phrase (that reading is a human one,
-// in results.md, section "F2: the 13 spans"). All three fail: rules.md's standing constraints say quotation marks
+// in evidence.md, section "F2: the 13 spans"). All three fail: rules.md's standing constraints say quotation marks
 // mean an exact copy of the input, so a quoted span that is not one breaks the skill's own rule. Receipt outputs only; examples.md has no
 // pinned input. A receipt with no VERBATIM marker fails closed ("no marker"). No excuse list.
 
@@ -29,16 +29,17 @@ export const NEITHER = "exact absent; neither";
 export const KINDS = [NORMALISED, RUN3, NEITHER, "unpaired mark", "empty quote", "no input", "no marker"];
 // This gate's fixture folder, pinned by name: a renamed, missing or unlisted file is a named failure.
 export const FIXTURES = ["input.md", "bad-dropped-word.md", "bad-single-quoted.md", "bad-space.md", "bad-term.md", "bad-unpaired.md",
-                         "bad-words-changed.md", "bad-wrap.md", "bad-corner.md", "bad-low-single.md", "good-curly.md", "good-exact.md", "good-single-quoted.md", "good-wrap.md"];
+                         "bad-words-changed.md", "bad-wrap.md", "bad-corner.md", "bad-low-single.md", "bad-html5-entity.md", "bad-reversed-single.md", "good-curly.md", "good-exact.md", "good-single-quoted.md", "good-wrap.md"];
 const MARKS = new Set([...Object.keys(PAIRS), "”", "›", "」", "』"]);
 const NAMED = { "&quot;": '"', "&ldquo;": "“", "&rdquo;": "”", "&laquo;": "«", "&raquo;": "»",
-                "&lsquo;": "‘", "&rsquo;": "’", "&sbquo;": "‚", "&bdquo;": "„" };
-const SQ_SPAN = /(?<![\p{L}\p{N}])['‘‚]([^'‘’‚\n]+?)['’‘](?![\p{L}\p{N}])/gu;
+                "&lsquo;": "‘", "&rsquo;": "’", "&sbquo;": "‚", "&bdquo;": "„",
+                "&opencurlydoublequote;": "“", "&closecurlydoublequote;": "”", "&opencurlyquote;": "‘", "&closecurlyquote;": "’" };
+const SQ_SPAN = /(?<![\p{L}\p{N}])['‘‚‛＇]([^'‘’‚‛＇\n]+?)['’‘＇](?![\p{L}\p{N}])/gu;
 const BT_SPAN = /`([^`\n]+)`/g;
 
 const lineOf = (text, idx) => text.slice(0, idx).split("\n").length;
 const codePoint = (n, m) => (n <= 0x10ffff ? String.fromCodePoint(n) : m);
-const decode = (text) => text.replace(/&(?:quot|ldquo|rdquo|laquo|raquo|lsquo|rsquo|sbquo|bdquo);|&#(\d+);|&#x([0-9a-f]+);/gi,
+const decode = (text) => text.replace(/&(?:quot|ldquo|rdquo|laquo|raquo|lsquo|rsquo|sbquo|bdquo|OpenCurlyDoubleQuote|CloseCurlyDoubleQuote|OpenCurlyQuote|CloseCurlyQuote);|&#(\d+);|&#x([0-9a-f]+);/gi,
   (m, d, h) => (d ? codePoint(+d, m) : h ? codePoint(parseInt(h, 16), m) : NAMED[m.toLowerCase()] ?? m));
 
 export function doubleSpans(text) {

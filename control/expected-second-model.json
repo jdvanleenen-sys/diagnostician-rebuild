@@ -26,5 +26,11 @@
     },
     "outputTokens": 166636,
     "costUSD": 5.83
+  },
+  "bars": {
+    "B1": "MET",
+    "B2": "MET",
+    "B3": "MET",
+    "B4": "MET"
   }
 }

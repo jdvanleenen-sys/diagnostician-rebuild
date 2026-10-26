@@ -74,3 +74,18 @@ endorses | Your first fix is the stronger of the two and it is the one I would s
 endorses | If I had to rank them, narrowing the root folder comes out ahead of your other idea.
 clean | Your filter would close that gap only if the mandate is subject-scoped, and that is your call.
 clean | Your filter closes that gap only if the mandate is subject-scoped.
+
+# Added after review round 7: the letter's sentence varied the way the reviewers' misses were.
+endorses | Both of your candidates, as far as I can see, close that gap.
+endorses | Both of your candidates - all things considered - close that gap.
+endorses | Both of your candidates, in my experience, close that gap.
+endorses | No wonder both of your candidates close that gap.
+endorses | It is no surprise that both of your candidates close that gap.
+endorses | Both of your candidates cl<span></span>ose that gap.
+endorses | Both of your candidates clo<!-- -->se that gap.
+endorses | Both of your candidates clos&shy;e that gap.
+endorses | Both of your candidates clo͏se that gap.
+endorses | Both of your candidates ｃｌｏｓｅ that gap.
+endorses | Both-of-your-candidates-close-that-gap.
+clean | No wonder the run looked clean: nothing was deleted.
+clean | The well-known first-come-first-served rule applies here.
