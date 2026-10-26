@@ -3,7 +3,7 @@
 - file: run-rebuild/heldout/heldout.txt
 - file SHA-256: 1fbbaedff875c821074fab7d64ec2472068cee1e38a11456ff95c3fc40ff09d7
 - seal (control/heldout.sha256): 1fbbaedff875c821074fab7d64ec2472068cee1e38a11456ff95c3fc40ff09d7; MATCHES: this is the sealed set
-- frozen checker: SHA-256 of rebuild/tests/ = 1299668a4c252e46c6fb1ddb4ecf0c624e8a7fd686906c23a89407d93ee0f444
+- frozen checker: SHA-256 of rebuild/tests/ = e24904107926a88151611bd1d11cb9b297127cddac06ea427efbcefbc09bf712
 - plan: control/heldout-plan.md; interface: paragraph appended to the message-2 section of tests/receipts/round-1-output.md, re-pinned, each arm's own node tests/verify.mjs
 
 ## Every item (40)

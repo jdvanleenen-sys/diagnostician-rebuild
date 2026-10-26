@@ -2,27 +2,28 @@
   "_what": "The headline claims control/run.mjs holds README.md and results.md to. Each entry names, per file ('in'), the exact sentence fragment that states it, so a number changed inside that sentence is an integrity violation (exit 4). An entry with a 'folder' is a checker hash computed live by folderSha256 (control/lib.mjs): with a 'text', the folder must still hash to it; without one, the live hash is required; '{}' in a fragment stands for that hash.",
   "files": [
     "README.md",
-    "results.md"
+    "results.md",
+    "evidence.md"
   ],
   "required": [
     {
       "claim": "held-out set, gate version 1: endorsing caught and clean flagged",
       "in": {
         "README.md": "the held-out score on gate version 1: 11 of 20 endorsing caught, 0 of 20 clean flagged",
-        "results.md": "20 endorsing sentences never seen (gate version 1) | caught 0 | caught 11, missed 9 |"
+        "evidence.md": "20 endorsing sentences never seen (gate version 1) | caught 0 | caught 11, missed 9 |"
       }
     },
     {
       "claim": "held-out set, gate version 1: clean sentences flagged",
       "in": {
-        "results.md": "20 clean sentences never seen (gate version 1) | flagged 0 | flagged 0 |"
+        "evidence.md": "20 clean sentences never seen (gate version 1) | flagged 0 | flagged 0 |"
       }
     },
     {
       "claim": "the same set on the shipped checker, after opening (not held-out evidence)",
       "in": {
         "README.md": "the same set on the shipped checker, after opening, not held-out evidence: 16 of 20",
-        "results.md": "| caught 0; flagged 0 | caught 16 of 20; flagged 0 of 20 |"
+        "evidence.md": "| caught 0; flagged 0 | caught 16 of 20; flagged 0 of 20 |"
       }
     },
     {
@@ -63,41 +64,39 @@
       "folder": "run-rebuild/heldout/gate-v1/tests",
       "text": "c0b4648028bf568cfb65ca812ddb803f1df0847eb4c9e930d12e66cc8582c7dd",
       "in": {
-        "README.md": "`{}`, shipped byte for byte as",
-        "results.md": "`{}`, shipped byte for byte as"
+        "evidence.md": "`{}`, shipped byte for byte as"
       }
     },
     {
       "claim": "the shipped checker: SHA-256 of rebuild/tests, computed live",
       "folder": "rebuild/tests",
       "in": {
-        "README.md": "`{}`. `run.mjs` recomputes both",
-        "results.md": "is SHA-256 `{}`"
+        "results.md": "is SHA-256 `{}`",
+        "evidence.md": "`{}`. `run.mjs` recomputes both"
       }
     },
     {
       "claim": "the live-path seal (control/livepath.mjs LIVE_SEAL)",
       "in": {
-        "README.md": "`7c01ac70fe74d196fd7ad68067f2d818b99fb13674ad81fb2a70b7b4b86705ed`, sealed 2026-10-25 at 13:56 MT",
-        "results.md": "`7c01ac70fe74d196fd7ad68067f2d818b99fb13674ad81fb2a70b7b4b86705ed`, sealed 2026-10-25 at 13:56 MT"
+        "evidence.md": "`7c01ac70fe74d196fd7ad68067f2d818b99fb13674ad81fb2a70b7b4b86705ed`, sealed 2026-10-25 at 13:56 MT"
       }
     },
     {
       "claim": "the letter's SHA-256 (control/lib.mjs feedbackCheck)",
       "in": {
-        "README.md": "`cb689060112d5349bc03d98bf074ffadc33fe638ac427861dce3b88feae77c0e`; `run.mjs` recomputes it."
+        "evidence.md": "`cb689060112d5349bc03d98bf074ffadc33fe638ac427861dce3b88feae77c0e`; `run.mjs` recomputes it."
       }
     },
     {
       "claim": "the original's commit (control/original-tree.txt)",
       "in": {
-        "README.md": "- `original/` is commit `01abab3229da2a22f84a82be071425ce66fac5ee` of"
+        "evidence.md": "- `original/` is commit `01abab3229da2a22f84a82be071425ce66fac5ee` of"
       }
     },
     {
       "claim": "the original's tree",
       "in": {
-        "README.md": "tree `95d9615caafa8f3d2ec00e8167d9b7e6c495d4cd`"
+        "evidence.md": "tree `95d9615caafa8f3d2ec00e8167d9b7e6c495d4cd`"
       }
     },
     {
@@ -116,7 +115,7 @@
     {
       "claim": "questions.md as hashed before the live round (commit 2)",
       "in": {
-        "README.md": "`a75c4a971038958fb46f3b45e1843d01d28636a61c42f6565f37410c8f8682d9`, the hash recorded in the entrant's"
+        "evidence.md": "`a75c4a971038958fb46f3b45e1843d01d28636a61c42f6565f37410c8f8682d9`, the hash recorded in the entrant's"
       }
     },
     {
@@ -142,7 +141,7 @@
       "claim": "Q3, first table",
       "in": {
         "README.md": "| 0 (by construction: no quote check) | 13 (8 quotations of the input, 5 not) |",
-        "results.md": "names 13 (8 quotations of the input, 5 not quotations; read below)"
+        "results.md": "names 13 (8 quotations of the input, 5 not quotations; read in `evidence.md`)"
       }
     },
     {
@@ -187,20 +186,26 @@
     {
       "claim": "live false alarms",
       "in": {
-        "README.md": "5 in the rebuild's 20 sessions",
+        "README.md": "5 in the rebuild's 20 sessions.",
         "results.md": "5 sentences in the rebuild's 20 live"
       }
     },
     {
       "claim": "held-out misses",
       "in": {
-        "results.md": "9 of 20 held-out (version 1), 4 of 20 after the fact"
+        "results.md": "and 4 of 20 after the fact (version 2)"
       }
     },
     {
       "claim": "readers' agreement",
       "in": {
         "results.md": "the readers agree on 34 of 40 answers for this question and 40 of 40 for the others"
+      }
+    },
+    {
+      "claim": "held-out misses, version 1",
+      "in": {
+        "results.md": "They missed 9 of 20 held-out"
       }
     }
   ]
