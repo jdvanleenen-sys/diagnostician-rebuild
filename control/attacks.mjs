@@ -59,6 +59,9 @@ const ACCEPT = [
   ["one byte appended to original/rules.md", (d) => append(d, "original/rules.md", "x")],
   ["the held-out report's score edited", (d) => write(d, "run-rebuild/heldout/report.md", read(d, "run-rebuild/heldout/report.md").replace("endorsing caught rebuild 11", "endorsing caught rebuild 19"))],
   ["an expected answer in questions.md edited", (d) => write(d, "questions.md", read(d, "questions.md").replace("at least 15 of 16 pass", "16 of 16 pass"))],
+  ["questions.md edited and its row in control/evidence.sha256 rewritten", (d) => { write(d, "questions.md", read(d, "questions.md").replace("at least 15 of 16 pass", "16 of 16 pass")); const f = "control/evidence.sha256"; write(d, f, read(d, f).replace(/^[0-9a-f]{64}(\s+questions\.md)$/m, `${shaLF(readFileSync(join(d, "questions.md")))}$1`)); }],
+  ["a number in README.md's first table changed (Q8: 29 to 9)", (d) => write(d, "README.md", read(d, "README.md").replace("| 216 (41 nowhere in the input) | 29 (17) |", "| 216 (41 nowhere in the input) | 9 (17) |"))],
+  ["a number in README.md's 'What did not improve' changed (it reached 5 to 2)", (d) => write(d, "README.md", read(d, "README.md").replace("it reached 5.", "it reached 2."))],
   ["one failure line removed from a committed transcript", (d) => { const f = "run-rebuild/Q1.txt"; const t = read(d, f).split("\n"); t.splice(t.findIndex((l) => l.includes("[quote-anchor]")), 1); write(d, f, t.join("\n")); }],
 ];
 const R1 = "rebuild/tests/receipts/round-1-output.md", R2 = "rebuild/tests/receipts/round-2-output.md";
@@ -72,10 +75,18 @@ const AUDIT = [
   ["the letter's verb spelt as an HTML entity", (d) => append(d, R2, "Both of your candidates clos&#101; that gap.")],
   ["a prescription broken across a line", (d) => append(d, R2, "You\nshould add a filter to Downloads.")],
   ["a quote of the input changed by one word (r1:84)", (d) => write(d, R1, read(d, R1).replace('"Needs your approval"', '"Needs approval"'))],
+  ["a misquote in corner brackets", (d) => append(d, R2, "You wrote 「the tests prove it works」 in the message.")],
+  ["a misquote in low single quotes", (d) => append(d, R2, "You wrote ‚the tests prove it works‘ in the message.")],
+  ["a misquote in single-quote entities", (d) => append(d, R2, "You wrote &lsquo;the tests prove it works&rsquo; in the message.")],
 ];
+// Declared limits: results.md ("What did not improve") and rebuild/tests/README.md ("What it misses") name each kind.
 const LIMITS = [
   ["a reworded endorsement outside the word lists ('plug that gap')", (d) => append(d, R2, "Your filter would plug that gap.")],
   ["an endorsement in a language outside the lists (Dutch)", (d) => append(d, R2, "Beide opties van je lossen het probleem op.")],
+  ["the letter's sentence with one Cyrillic letter", (d) => append(d, R2, "Both of your candidates closе that gap.")],
+  ["the letter's sentence cleared by a trailing conditional", (d) => append(d, R2, "Both of your candidates close that gap if you want my view.")],
+  ["a Portuguese endorsement cleared by a negation elsewhere in it", (d) => append(d, R2, "Ambas as suas opções resolvem o problema, não há dúvida.")],
+  ["a misquote as a blockquote, with no quotation marks", (d) => append(d, R2, "You told me:\n\n> I already had three real users run it.")],
 ];
 
 let bad = 0;

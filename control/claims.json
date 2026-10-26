@@ -103,7 +103,7 @@
     {
       "claim": "the audit's failures on the archive",
       "in": {
-        "README.md": "drifted quotes (15 failures) every time",
+        "README.md": "8 of them quotations of it (15 failures) every time",
         "results.md": "went from 0 to 1 (15 failures)"
       }
     },
@@ -117,6 +117,90 @@
       "claim": "questions.md as hashed before the live round (commit 2)",
       "in": {
         "README.md": "`a75c4a971038958fb46f3b45e1843d01d28636a61c42f6565f37410c8f8682d9`, the hash recorded in the entrant's"
+      }
+    },
+    {
+      "claim": "Q1, first table",
+      "in": {
+        "README.md": "| exit 0, names neither | exit 1, names 92, not 90 on its own |"
+      }
+    },
+    {
+      "claim": "Q2, first table",
+      "in": {
+        "README.md": "| 0 of 5 | 5 of 5 |",
+        "results.md": "| caught 0 of 5 | caught 5 of 5;"
+      }
+    },
+    {
+      "claim": "Q7, first table",
+      "in": {
+        "README.md": "| 0 of 16 (by construction: it has no fixed refusal) | 16 of 16 |"
+      }
+    },
+    {
+      "claim": "Q3, first table",
+      "in": {
+        "README.md": "| 0 (by construction: no quote check) | 13 (8 quotations of the input, 5 not) |",
+        "results.md": "names 13 (8 quotations of the input, 5 not quotations; read below)"
+      }
+    },
+    {
+      "claim": "Q4, first table",
+      "in": {
+        "README.md": "| 0 of 2 | 2 of 2, exact quote not named |",
+        "results.md": "| caught 0 of 2 | caught 2 of 2;"
+      }
+    },
+    {
+      "claim": "Q8, first table",
+      "in": {
+        "README.md": "| 216 (41 nowhere in the input) | 29 (17) |"
+      }
+    },
+    {
+      "claim": "Q6, first table",
+      "in": {
+        "README.md": "| nothing to change | 3 of 3 |",
+        "results.md": "fails naming the file, 3 of 3"
+      }
+    },
+    {
+      "claim": "Q8 by turn",
+      "in": {
+        "README.md": "turn 2 alone the counts are 30 against 2, and 11 against 0",
+        "results.md": "| turn 1: 186 (30 nowhere); turn 2: 30 (11 nowhere) | turn 1: 27 (17 nowhere); turn 2: 2 (0 nowhere) |"
+      }
+    },
+    {
+      "claim": "live words nowhere in the input, rebuild",
+      "in": {
+        "README.md": "17 over 20 sessions, all in turn 1. The lab's pre-set line for those was at most 2 per 12 sessions; it reached 5."
+      }
+    },
+    {
+      "claim": "held-out on the shipped gate, in What did not improve",
+      "in": {
+        "README.md": "caught 11 of 20 unseen endorsements (16 of 20 in a version written after seeing them)"
+      }
+    },
+    {
+      "claim": "live false alarms",
+      "in": {
+        "README.md": "5 in the rebuild's 20 sessions",
+        "results.md": "5 sentences in the rebuild's 20 live"
+      }
+    },
+    {
+      "claim": "held-out misses",
+      "in": {
+        "results.md": "9 of 20 held-out (version 1), 4 of 20 after the fact"
+      }
+    },
+    {
+      "claim": "readers' agreement",
+      "in": {
+        "results.md": "the readers agree on 34 of 40 answers for this question and 40 of 40 for the others"
       }
     }
   ]

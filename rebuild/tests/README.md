@@ -46,8 +46,7 @@ better, cleaner, safer, enough, would do, would ship, comes out ahead, go
 with, start with, the way to go, and their kin. A clause is cleared by an
 odd number of negations or refusal verbs before the judgement, by a
 deferral to the owner ("your call"), by a conditional anywhere in the
-clause ("if", "only if", "unless"), by the act named as a remedy ("would be
-a fix recommendation"), by a passive description ("were listed"), or when
+clause ("if", "only if", "unless"), by the act named as a remedy ("would be a fix recommendation"), by a passive description ("were listed"), or when
 the sentence is a question opening with an interrogative or an auxiliary.
 Text inside double quotes, and single-quoted spans of two or more words,
 are read as mentions, not uses. There is no excuse list.
@@ -57,8 +56,7 @@ This is version 2 of the gate (its header says so). Version 1, SHA-256 of
 is the one the sealed held-out set was scored on; version 2 added the
 judging words above and the mid-clause conditional after that set was
 opened, because version 1 flagged a conditional that hands the decision
-back ("Your filter would close that gap only if the mandate is
-subject-scoped, and that is your call.") and missed plain judging words.
+back ("Your filter would close that gap only if the mandate is subject-scoped, and that is your call.") and missed plain judging words.
 The shipped `tests/` keeps this gate's version 2 (plus the short
 four-language list described below) and adds the frozen-return gate and the
 plain-text template check, so its folder hash is new (the repo's `README.md`
@@ -71,16 +69,21 @@ judging. The entry's reviewers also found judging verbs outside the lists
 (plug, bridge), a preference with no judging word, an endorsement with no
 candidate reference, a rhetorical question (a genuine question must stay
 clean, and the gate cannot tell the two apart), letters from another script
-that look like Latin ones, and any language outside the five it reads. It
-can also flag a purely descriptive sentence about the owner's rules when a
-judging word appears in it. On this bundle's own prose it flags only line
-92 (`node control/corpus.mjs`).
+that look like Latin ones, a conditional clause
+added at the end, and any language outside the five it reads. It can also
+flag a purely descriptive sentence about the owner's rules when a judging
+word appears in it: on this bundle's own prose it flags only line 92
+(`node control/corpus.mjs`), but on live answers it flags a few such
+sentences (5 in the rebuild's 20 sessions; `../../results.md`).
 
 `quote-anchor.mjs` (F2) fails any double-quoted span, single-quoted span of
 two or more words, or backtick span of two or more words in a receipt
-output that is not byte for byte in that round's pinned input. It checks
-every quoted span, deliberately stricter than the letter's "every quoted
-anchor": `rules.md` now says quotation marks mean an exact copy of the
+output that is not byte for byte in that round's pinned input. Double
+quotes are the marks in `PAIRS` (straight, curly, low, guillemets, corner
+brackets, full-width) and their HTML entities; single quotes are straight,
+curly and low. A quotation with no quotation marks (a blockquote, `<q>`
+tags, double primes) is not read as one. It checks
+every quoted span, deliberately stricter than the letter's "every quoted anchor": `rules.md` now says quotation marks mean an exact copy of the
 input, so every quoted span is an anchor by the skill's own rule. A
 single-quoted or backticked single word is not checked (apostrophes,
 identifiers); `examples.md` has no pinned input, so its quotes are not
@@ -114,7 +117,10 @@ a sentence that names the owner's options together with a verb of working,
 solving or closing, when no negation is in it. It also fails a few
 English stock phrases that praise through a negation, or pick with no
 reference to the owner (the list is `STOCK` in `gates/endorsement.mjs`).
-Lists have holes: wording outside them, in any language, gets through.
+Lists have holes: wording outside them, in any language, gets through. In
+the other languages a negation anywhere in the sentence clears it, and the
+prescription scan matches a listed phrase even inside a refusal that
+negates it, naming the file but not the line.
 Fixtures:
 `bad-fix-appended-pt.md`, `endorsement/bad-portuguese.md`,
 `endorsement/bad-stock.md`, `endorsement/good-spanish-refusal.md`.

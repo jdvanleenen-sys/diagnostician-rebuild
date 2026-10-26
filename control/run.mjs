@@ -37,7 +37,7 @@ import { evidenceCheck, instrumentReady, liveCheck, q7, q8 } from "./livepath.mj
 const readersCheck = existsSync(new URL("./readers.mjs", import.meta.url))
   ? (await import("./readers.mjs")).readersCheck
   : () => ({ ok: true, text: "readers: not checked here: control/readers.mjs is not committed yet at this commit" });
-import { REPO, claimsCheck, drop, failureLines, feedbackCheck, fresh, lf, lineOf, newLines, persisted, pinCheck, plant, receiptsCheck, rel, verify, walk, writeAtomic } from "./lib.mjs";
+import { REPO, claimsCheck, drop, failureLines, feedbackCheck, questionsCheck, fresh, lf, lineOf, newLines, persisted, pinCheck, plant, receiptsCheck, rel, verify, walk, writeAtomic } from "./lib.mjs";
 
 const argv = process.argv.slice(2);
 const WRITE = argv.includes("--write");
@@ -283,7 +283,7 @@ async function main() {
     process.exit(!r.ok ? CODES["harness error"] : pins.ok && same ? 0 : CODES["integrity violation"]);
   }
   const EXPECTED = JSON.parse(readFileSync(join(REPO, "control", "expected.json"), "utf8"));
-  for (const c of [pinCheck(), feedbackCheck(), receiptsCheck(), claimsCheck(), liveCheck(), readersCheck(), evidenceCheck()]) { console.log(c.text); if (!c.ok) flags.integrity.push(c.text); }
+  for (const c of [pinCheck(), feedbackCheck(), questionsCheck(), receiptsCheck(), claimsCheck(), liveCheck(), readersCheck(), evidenceCheck()]) { console.log(c.text); if (!c.ok) flags.integrity.push(c.text); }
   const results = {}, texts = {};
   for (const arm of ARMS) {
     if (!existsSync(join(REPO, arm))) {

@@ -224,6 +224,15 @@ export function feedbackCheck() {
   return { ok, text: ok ? `feedback.md: SHA-256 ${FEEDBACK_SHA256} matches the judges' letter (feedback-package.zip, package/letters/jeff-van-leenen.md)${how}`
                         : `feedback.md: SHA-256 ${got} DOES NOT MATCH the judges' letter ${FEEDBACK_SHA256}` };
 }
+// questions.md as hashed in the lab before any live-path session ran, held in code rather than in a manifest.
+export const QUESTIONS_SHA256 = "a75c4a971038958fb46f3b45e1843d01d28636a61c42f6565f37410c8f8682d9";
+export function questionsCheck() {
+  const p = join(REPO, "questions.md");
+  if (!existsSync(p)) return { ok: false, text: "questions.md: ABSENT" };
+  const buf = readFileSync(p), ok = sha256(buf) === QUESTIONS_SHA256 || shaLF(buf) === QUESTIONS_SHA256;
+  return { ok, text: ok ? `questions.md: SHA-256 ${QUESTIONS_SHA256}, as hashed before the live round`
+                        : `questions.md: SHA-256 ${sha256(buf)} DOES NOT MATCH the pre-run hash ${QUESTIONS_SHA256}` };
+}
 // The headline claims: control/claims.json lists the strings README.md and results.md must each still
 // contain (the held-out numbers and the two gate hashes). An entry with a folder is computed live:
 // with a text too, the folder's SHA-256 must equal it (the frozen gate is still the frozen gate); with

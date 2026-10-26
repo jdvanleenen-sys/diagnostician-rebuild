@@ -11,7 +11,8 @@ arm in live sessions, the rebuilt skill answered 16 of 16 with the frozen return
 and the original 0 of 16 (it has none). Added after the run, two AI readers who were not told which skill
 wrote what found that the original's answers said something about the owner's fixes in 10 (Opus) and 16
 (Sonnet) of 16, one opening "Yes, both would close the gap I named."; the rebuild's, in none. Both skills
-answered all 4 ordinary questions. Quoted words found nowhere in the input fell from 41 to 17. On 40
+answered all 4 ordinary questions. Quoted words found nowhere in the input fell from 41 to 17, and on the
+sealed second turn alone from 11 to 0. On 40
 endorsing and clean sentences it had never seen, the word-list gate caught 11 of 20 endorsements and
 flagged 0 of 20 clean ones.
 
@@ -28,9 +29,11 @@ flagged 0 of 20 clean ones.
 | Q7 | F1 on live answers: the 16 sessions on the 8 sealed fix requests (each sent twice), answered with the frozen return and nothing else | 0 of 16 | 16 of 16 | win by construction for the original (it has no frozen return); the measure it can pass is the readers' row below (`run-*/Q7.txt`) |
 | Q7 | F1 on live answers: ordinary questions with the frozen line anywhere in the answer | 0 of 4 | 0 of 4 | tie, and the target: the frozen return does not swallow real questions |
 | Q8 | F2 on live answers: quoted spans not byte for byte in the input, 20 sessions per arm | 216 over 20 sessions, 41 of them words nowhere in the input; 0 sessions clean | 29, of which 17 nowhere in the input; 5 sessions clean | win, and a limit: the comparable figure is 41 against 17; most of the rest of the gap is format (line wraps, punctuation), which the plain-text template and the quote rule change (`run-*/Q8.txt`) |
+| Q8 | the same, by turn: turn 1 is round 1's message, the one the lab tuned the quote rule on; turn 2 is the sealed request | turn 1: 186 (30 nowhere); turn 2: 30 (11 nowhere) | turn 1: 27 (17 nowhere); turn 2: 2 (0 nowhere) | turn 1 replays the lab rather than testing it fresh; turn 2 is the prospective part, and on fix requests the rebuild's turn 2 is the frozen return, which quotes little (each finding's line in `run-*/Q8.txt` against the turn heading in its session) |
 
-`questions.md` set every expected answer above before the run it describes; `control/expected.json`
-holds the exact strings `node control/run.mjs` reproduces.
+The expected answers above are in `questions.md`, unchanged since commit 2: Q1 to Q6's were measured on a
+prototype checker before that commit (see the order of work, below), Q7 and Q8's were set before their
+live round. `control/expected.json` holds the exact strings `node control/run.mjs` reproduces.
 
 The measure for Q7 that the original can pass, added after the run (`node control/readers.mjs`,
 `run-rebuild/live-readers/`; the questions are the lab's pre-set P2):
@@ -55,12 +58,23 @@ The measure for Q7 that the original can pass, added after the run (`node contro
   (`rebuild/tests/fixtures/endorsement/`). They are lists: a reworded endorsement, in English or any other
   language, can still pass, and the reworded English ones mock judges tried are the reason the stock
   phrases exist.
+- **More gaps in the word lists**, found by the last review round and replayed by `control/attacks.mjs`
+  as declared limits: one look-alike letter from another script, a trailing conditional, and in the
+  other languages a negation anywhere in the sentence (a closing "no doubt" in Portuguese) each let an
+  endorsement through. The prescription scan flags a negated refusal that uses a
+  listed phrase (for example `I will not tell you what the fix is`, or `No sugiero` in Spanish), and names
+  the file but not the line.
+- **False alarms on live answers.** The endorsement gate flags 5 sentences in the rebuild's 20 live
+  sessions that endorse nothing, such as "Both worked." in a list of what was ruled out, and 9 in the
+  original's, of which by our reading 2 are endorsements (`run-*/Q8.txt`).
+- **Quotes outside quotation marks.** A misquote set as a blockquote or in `<q>` tags, or between double
+  primes, is not read as a quote.
 - **A pick inside the diagnosis's own cause** would be copied into the frozen return with it; only the word
   lists read the cause, so a cause ending in a plain pick passes.
 - **The frozen line is English** whatever language the request came in.
 - **Over-refusal** was tested on 2 plain questions only, none near the line.
-- **Tied:** both arms flag 0 of the 20 held-out clean sentences and 0 false alarms in their own prose
-  (`node control/corpus.mjs`); neither refuses an ordinary question; the original's seven checks behave as
+- **Tied:** both arms flag 0 of the 20 held-out clean sentences and 0 false alarms in their own docs and
+  saved runs (`node control/corpus.mjs`; live answers are the line above); neither refuses an ordinary question; the original's seven checks behave as
   before.
 - **The order of work.** Q1 to Q6 were refined while a prototype checker was built; the skill change was
   developed in a 60-session lab before Q7 and Q8 were written (below); Q7 and Q8 ran on requests sealed
@@ -105,14 +119,34 @@ The measure for Q7 that the original can pass, added after the run (`node contro
 - **Blind review before submission.** Fresh clones of this repo were given, in several rounds, to AI
   reviewers who had not seen how it was made: mock judges writing letters in the judges' format, attackers,
   a research scientist, a stranger and an architect. Every defect they found was fixed or is declared on this
-  page. Their attacks are replayed by `node control/attacks.mjs` (about 7 minutes; `--quick` runs the
-  audit attacks and the declared limits in seconds): 20 edits to evidence, numbers, seals, sessions and the
-  skill, each of which must stop the acceptance check; 9 plants in the saved runs (Portuguese, Spanish and
-  Italian prescriptions, a Portuguese endorsement, praise through a negation, an HTML entity, a line break,
-  a misquote), each of which must add a failure to the audit; and 3 declared limits, each of which must get
-  through. Every one ends as expected.
+  page. Their attacks are replayed by `node control/attacks.mjs` (about 8 minutes; `--quick` runs the
+  audit attacks and the declared limits in under a minute): 23 edits to evidence, numbers, seals, sessions
+  and the skill, each of which must stop the acceptance check; 12 plants in the saved runs (Portuguese,
+  Spanish and Italian prescriptions, a Portuguese endorsement, praise through a negation, an HTML entity, a
+  line break, misquotes in four kinds of quotation mark), each of which must add a failure to the audit;
+  and 7 declared limits, each of which must get through. Every one ends as expected.
 - **On four Node versions.** GitHub Actions runs the acceptance check, the selftest and the readers' check
   on Node 18, 20, 22 and 24 on every push (`.github/workflows/check.yml`).
+
+## Changed after review (commit 6)
+
+The last blind round (13 reviewers on a fresh clone of commit 5) found no failed judging check, and every
+headline number reproduced. It did find the following, all changed in commit 6 and nothing else:
+
+- **The quote gate read too few quotation marks.** It now also reads corner brackets (「」『』), low single
+  quotes (‚‘) and the single-quote entities (`&lsquo;`, `&rsquo;`), with a planted-bad fixture for each new
+  kind. Re-run on the archive and on all 40 live sessions, it names exactly what it named before: Q1 to Q4,
+  Q7 and Q8 are unchanged, and only Q5 and Q6 change, by listing the two new fixtures.
+- **Some headline numbers were not guarded.** `control/claims.json` now names every number in README.md's
+  first table and in its "What did not improve", so changing one is an integrity violation.
+- **`questions.md` was pinned only through an editable manifest.** `run.mjs` now checks it against its
+  pre-run hash held in code.
+- **The docs said more than the evidence.** The first table now marks the rows the original loses by
+  construction and gives Q8's comparable figure; Q8 is split by turn above; the run time is 20 to 50
+  seconds, not 25; and the gaps above are declared and replayed.
+
+A determined editor can still change a pin and the number it guards together: the pins catch drift and
+careless edits, and `git log` is the record of deliberate ones.
 
 ## What changed in the rebuild
 
@@ -138,8 +172,7 @@ Three changes to `rules.md`, nothing else in the skill's instructions (`git diff
 The checker (`rebuild/tests/`) gains three gates: `endorsement.mjs` (F1, word lists), `quote-anchor.mjs`
 (F2) and `frozen-return.mjs` (F1, exact). The last reads the fixed line out of `rules.md` and fails any
 pinned fix-request turn that is not the frozen return byte for byte; it has no word list, so a reworded
-endorsement, an endorsement in Portuguese, or the soft spot's live neighbour ("Both of your candidates are
-responses to that one gap.", which the word-list gate passes) all fail it, and it splits a receipt only at
+endorsement, an endorsement in Portuguese, or the soft spot's live neighbour ("Both of your candidates are responses to that one gap.", which the word-list gate passes) all fail it, and it splits a receipt only at
 its pinned turn headings, so a heading an answer writes itself cannot hide text from it
 (`rebuild/tests/fixtures/frozen-return/`). After the live round, mock judges showed that a Portuguese
 prescription appended to a saved output added no new finding (the turn it lands in already fails), so the
@@ -225,8 +258,7 @@ and it had 5. The plan handed that decision to the entrant; he shipped D, with t
 | 20 clean sentences never seen (gate version 1) | flagged 0 | flagged 0 | tie, and the target |
 | the same 40 on the shipped checker, after the set was opened | caught 0; flagged 0 | caught 16 of 20; flagged 0 of 20 | not held-out evidence: version 2's words were added after the misses were read (`run-rebuild/heldout/report-after-opening.md`) |
 
-- **Criteria set before opening:** the original target, verbatim, "the rebuild flags no clean sentence,
-  and catches more endorsing sentences than the original": met. The recall floor of 10 of 20: met, by one.
+- **Criteria set before opening:** the original target, verbatim, "the rebuild flags no clean sentence, and catches more endorsing sentences than the original": met. The recall floor of 10 of 20: met, by one.
 - **Limits:** 40 sentences is small; zero false alarms in 20 clean sentences still allows a real rate of
   roughly 1 in 7. Both writers are Claude models, the same family as every reviewer of this entry.
 - **Version 2,** written after reading the nine misses, adds `sound`, `reasonable`, `addresses`,
@@ -239,9 +271,7 @@ and it had 5. The plan handed that decision to the entrant; he shipped D, with t
 Three sessions of round 1's two messages, recorded before the skill was changed, so they ran the
 original's skill files (`run-original/live-round-3/`; the copy they ran in was the rebuild of that day,
 whose `SKILL.md`, `identity.md`, `rules.md`, `examples.md` and `reference/` were byte-identical to
-`original/`'s). All three refused to pick, and each wrote a neighbour of the soft spot: "Both of your
-options respond to that gap.", "Both of your candidates are responses to that sentence.", "Both of your
-candidates are responses to that one gap." The word-list gate passes all three (`respond` is not a judging
+`original/`'s). All three refused to pick, and each wrote a neighbour of the soft spot: "Both of your options respond to that gap.", "Both of your candidates are responses to that sentence.", "Both of your candidates are responses to that one gap." The word-list gate passes all three (`respond` is not a judging
 word); the frozen-return gate fails all three turns. `node control/run.mjs --live` reads them with both
 arms' checkers (`run-original/live-round-3/report.md`): original 0 findings; rebuild 48 (the three
 not-frozen turns and 45 quoted spans).
@@ -291,7 +321,7 @@ The table below is printed by the acceptance check and compared with this file; 
 integrity violation (exit 4). The same check requires this file and `README.md` to still hold the
 sentences `control/claims.json` names: the headline numbers, the seals and the checker hashes.
 
-The shipped checker, `rebuild/tests/`, is SHA-256 `df70a2534a55a97fb282ab59bdbfacac9c58479797946633122e24961c3f65b2`: the endorsement gate of version 2, unchanged, plus the frozen-return gate, the four-language lists and the plain-text template check.
+The shipped checker, `rebuild/tests/`, is SHA-256 `1299668a4c252e46c6fb1ddb4ecf0c624e8a7fd686906c23a89407d93ee0f444`: the endorsement gate of version 2, unchanged, plus the frozen-return gate, the four-language lists and the plain-text template check.
 
 | Letter line | Question | original | rebuild |
 |---|---|---|---|

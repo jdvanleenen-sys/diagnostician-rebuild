@@ -22,22 +22,23 @@ import { receiptBody, receiptOutputs } from "./common.mjs";
 
 export const LABEL = "quote-anchor";
 export const TAG = "F2";
-export const PAIRS = { '"': ['"'], "“": ["”"], "‟": ["”", "“"], "«": ["»"], "»": ["«"], "‹": ["›"], "＂": ["＂"], "„": ["“", "”"] };
+export const PAIRS = { '"': ['"'], "“": ["”"], "‟": ["”", "“"], "«": ["»"], "»": ["«"], "‹": ["›"], "＂": ["＂"], "„": ["“", "”"], "「": ["」"], "『": ["』"] };
 export const NORMALISED = "exact match absent; normalised match present";
 export const RUN3 = "exact absent; 3-word run present";
 export const NEITHER = "exact absent; neither";
 export const KINDS = [NORMALISED, RUN3, NEITHER, "unpaired mark", "empty quote", "no input", "no marker"];
 // This gate's fixture folder, pinned by name: a renamed, missing or unlisted file is a named failure.
 export const FIXTURES = ["input.md", "bad-dropped-word.md", "bad-single-quoted.md", "bad-space.md", "bad-term.md", "bad-unpaired.md",
-                         "bad-words-changed.md", "bad-wrap.md", "good-curly.md", "good-exact.md", "good-single-quoted.md", "good-wrap.md"];
-const MARKS = new Set([...Object.keys(PAIRS), "”", "›"]);
-const NAMED = { "&quot;": '"', "&ldquo;": "“", "&rdquo;": "”", "&laquo;": "«", "&raquo;": "»" };
-const SQ_SPAN = /(?<![\p{L}\p{N}])['‘]([^'‘’\n]+?)['’](?![\p{L}\p{N}])/gu;
+                         "bad-words-changed.md", "bad-wrap.md", "bad-corner.md", "bad-low-single.md", "good-curly.md", "good-exact.md", "good-single-quoted.md", "good-wrap.md"];
+const MARKS = new Set([...Object.keys(PAIRS), "”", "›", "」", "』"]);
+const NAMED = { "&quot;": '"', "&ldquo;": "“", "&rdquo;": "”", "&laquo;": "«", "&raquo;": "»",
+                "&lsquo;": "‘", "&rsquo;": "’", "&sbquo;": "‚", "&bdquo;": "„" };
+const SQ_SPAN = /(?<![\p{L}\p{N}])['‘‚]([^'‘’‚\n]+?)['’‘](?![\p{L}\p{N}])/gu;
 const BT_SPAN = /`([^`\n]+)`/g;
 
 const lineOf = (text, idx) => text.slice(0, idx).split("\n").length;
 const codePoint = (n, m) => (n <= 0x10ffff ? String.fromCodePoint(n) : m);
-const decode = (text) => text.replace(/&(?:quot|ldquo|rdquo|laquo|raquo);|&#(\d+);|&#x([0-9a-f]+);/gi,
+const decode = (text) => text.replace(/&(?:quot|ldquo|rdquo|laquo|raquo|lsquo|rsquo|sbquo|bdquo);|&#(\d+);|&#x([0-9a-f]+);/gi,
   (m, d, h) => (d ? codePoint(+d, m) : h ? codePoint(parseInt(h, 16), m) : NAMED[m.toLowerCase()] ?? m));
 
 export function doubleSpans(text) {
