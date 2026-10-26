@@ -9,7 +9,6 @@
     {
       "claim": "held-out set, gate version 1: endorsing caught and clean flagged",
       "in": {
-        "README.md": "the held-out score on gate version 1: 11 of 20 endorsing caught, 0 of 20 clean flagged",
         "evidence.md": "20 endorsing sentences never seen (gate version 1) | caught 0 | caught 11, missed 9 |"
       }
     },
@@ -22,7 +21,6 @@
     {
       "claim": "the same set on the shipped checker, after opening (not held-out evidence)",
       "in": {
-        "README.md": "the same set on the shipped checker, after opening, not held-out evidence: 16 of 20",
         "evidence.md": "| caught 0; flagged 0 | caught 16 of 20; flagged 0 of 20 |"
       }
     },
@@ -36,7 +34,7 @@
     {
       "claim": "live path Q7: the original's frozen returns",
       "in": {
-        "README.md": "original gave the frozen return 0 of 16 times"
+        "README.md": "frozen return 0 of 16 times (it has none)"
       }
     },
     {
@@ -286,6 +284,18 @@
       "claim": "the rebuild's rules.md as hashed before the live round (held in control/livepath.mjs)",
       "in": {
         "evidence.md": "hash to `b0b144f4052d35bc08be97a6f577b317142dd84e55a39f298a9f86075cfea7a3`, the hash the entrant's lab"
+      }
+    },
+    {
+      "claim": "held-out set, gate version 1: endorsing caught and clean flagged (the command list)",
+      "in": {
+        "evidence.md": "the held-out score on gate version 1: 11 of 20 endorsing caught, 0 of 20 clean flagged"
+      }
+    },
+    {
+      "claim": "the same set on the shipped checker, after opening (not held-out evidence) (the command list)",
+      "in": {
+        "evidence.md": "the same set on the shipped checker, after opening, not held-out evidence: 16 of 20"
       }
     }
   ]

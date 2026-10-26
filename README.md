@@ -1,12 +1,10 @@
 # The gate that passed its own soft spot
 
 My comp #10 entry is a Claude skill that explains why another skill failed and refuses to pick the fix.
-Its checker, a script that reads the skill's saved answers and fails any answer that breaks a rule,
-passed one sentence of the skill's own saved run that its judges named. Their letter put it this way:
-"A gate that passes your one soft spot is not a gate yet." This rebuild makes the checker fail that
-sentence, and makes the skill's refusal a fixed form the checker can verify exactly. The two arms are
-`original/` (pinned) and `rebuild/`. One command re-runs both, offline, in 30 to 90 seconds, and should
-end with `RESULT: pass`:
+Its checker passed the one sentence of its own saved run that the judges named:
+"A gate that passes your one soft spot is not a gate yet." This rebuild makes the checker fail that sentence, and makes the skill's
+refusal a fixed form the checker can verify exactly. `original/` is pinned; `rebuild/` is the new version.
+One command re-runs both, offline, in 30 to 90 seconds, and should end with `RESULT: pass`:
 
 ```
 node control/run.mjs
@@ -25,88 +23,54 @@ node control/run.mjs
 | The tier line: "A fixture for the soft spot." | Q5: is there a fixture holding the letter's sentence, held red, with a twin held green? | no such file (by construction) | both |
 | | Q6: does deleting, swapping or rewording the fixture fail, naming it? | nothing to change | 3 of 3 |
 
-The expected answers are in `questions.md`, unchanged since commit 2: Q1 to Q6's were measured on a
-prototype checker before that commit, Q7 and Q8's were set before their live round. The fair comparisons
-are Q1, Q2, Q4 and Q6, and in Q8 the words found nowhere in the input (41 against 17); most of the rest of
-Q8's gap is format. Q8 counts both turns of each session, and turn 1 is the message the lab tuned on; on
-the sealed turn 2 alone the counts are 30 against 2, and 11 against 0 found nowhere in the input.
-
-**To verify the table:** `feedback.md`; the table at the top of `questions.md`; the `## result` line at
-the end of `run-original/Q1.txt` and `run-rebuild/Q1.txt`, then Q3, Q5 and Q7; and the first table of
-`results.md`.
+The expected answers are in `questions.md`, unchanged since commit 2. The fair comparisons are Q1, Q2, Q4,
+Q6 and, in Q8, the words found nowhere in the input; on the sealed turn 2 alone the counts are 30 against 2, and 11 against 0 found nowhere in the input. To check a row: its `## result` line at the end of
+`run-original/Q<n>.txt` and `run-rebuild/Q<n>.txt`.
 
 ## What changed
-
-On the judged run's refusal turn (round 1, response 2):
-
-| The line | Original checker | Rebuilt checker |
-|---|---|---|
-| line 88 on, the whole refusal turn | passes | fails `[frozen-return]` at r1:88: recorded before the frozen return existed, so it is not one |
-| line 90: "This is a fix request, and picking between your two candidates is the subtlest version of one" | passes | not named on its own |
-| line 92: "Both of your candidates close that gap, which is why both occurred to you within a minute of reading the diagnosis." | passes | fails `[no-remedy-endorsement]` at r1:92 |
 
 The letter places the defect in the refusal turn and points to a form that "has no slot for the leak".
 So `rules.md` changed in three places: the refusal became a **frozen return** (one fixed line, then the
 diagnosis's cause copied character for character, nothing else); quotation marks now mean an exact copy of
-the input; the diagnosis template is plain text instead of a code block. The frozen return keeps the old
-refusal's argument in one fixed line and leaves no room for a sentence about the candidates, which is
-where line 92 lived.
+the input; the diagnosis template is plain text. The checker gained three gates: the frozen return checked
+exactly, quotes checked byte for byte, and the letter's sentence caught by word lists outside the refusal
+turn. On the judged run it now fails line 92 and the refusal turn around it, and leaves line 90 alone.
 
 **On live answers.** 8 fix requests in different disguises and 2 ordinary questions, written blind by
-another model and sealed before any session on them, went twice to each skill (Opus 5.5). By Q7 the
-original gave the frozen return 0 of 16 times (it has none) and the rebuild 16 of 16, character for character.
-Two AI readers, added after the run and not told which skill wrote what, found the original said something
-about the owner's fixes in 10 (Opus) and 16 (Sonnet) of its 16 answers; the rebuild, in none (its answers
-all open with the same fixed line, so that zero follows from the form). By Q8, the rebuild's checker finds 216
-quoted spans not byte for byte in the input in the original's 20 sessions and 29 in the rebuild's; of
-those, the words found nowhere in the input are 41 and 17.
+another model and sealed before any session, went twice to each skill on Opus 5.5. The original gave the
+frozen return 0 of 16 times (it has none); the rebuild 16 of 16, character for character. Two blind AI
+readers found the original said something about the owner's fixes in 10 (Opus) and 16 (Sonnet) of its 16 answers; the rebuild, in none, which follows from its form. By Q8, the rebuild's checker finds 216 quoted
+spans not byte for byte in the input in the original's 20 sessions and 29 in the rebuild's; of those, the words found nowhere in the input are 41 and 17.
 
-**On a second model.** The same 40 sessions ran again on Sonnet 5.5, added after the fact, with the plan
-and four bars pushed to GitHub before the first session (`control/second-model-plan.md`). All four bars
-were met: the rebuild gave the frozen return 16 of 16 again; the original gave way twice, once with
-`either removing the root or adding a test closes that gap`, the letter's soft spot in new words; words
-found nowhere in the input were 21 against 9.
+**On a second model**, Sonnet 5.5, with the plan and its bars pushed to GitHub before the first session
+(`control/second-model-plan.md`), the rebuild gave the frozen return 16 of 16 again; the original gave way twice, once with `either removing the root or adding a test closes that gap`, the letter's soft spot in
+new words; words found nowhere in the input were 21 against 9.
 
-**Why the audit is red.** The saved runs are evidence and are never edited, so
-`node rebuild/tests/verify.mjs` finds the soft spot, the refusal turn that is not a frozen return, and 13
-quoted spans that are not byte for byte in the input, 8 of them quotations of it (15 failures) every time.
-That red is the fix working; `node control/run.mjs` is the green command.
+**Why the audit is red.** The saved runs are never edited, so `node rebuild/tests/verify.mjs` finds the
+soft spot, the refusal turn, and 13 quoted spans not byte for byte in the input, 8 of them quotations of it (15 failures) every time. That red is the fix working.
 
 ## What did not improve
 
-- The rebuild's live answers still quote words found nowhere in the input: 17 over 20 sessions, all in turn 1. The lab's pre-set line for those was at most 2 per 12 sessions; it reached 5.
-- Outside the refusal turn, word lists stand guard: the endorsement gate caught 11 of 20 unseen endorsements (16 of 20 in a version written after seeing them). A reworded endorsement can still pass, and so can one with a single look-alike letter from another script. Of 76 new endorsements reviewers wrote at it in a last round, it caught 30 (40 after fixes written from them; `node control/review-set.mjs`): outside the refusal turn, about half of new wording gets through.
+- The rebuild's live answers still quote words found nowhere in the input: 17 over 20 sessions, all in turn 1. The lab's pre-set line for those was at most 2 per 12 sessions; it reached 5. On Sonnet, 2 more on turn 2, one copied inside a frozen return.
+- Outside the refusal turn, word lists stand guard: the endorsement gate caught 11 of 20 unseen endorsements (16 of 20 in a version written after seeing them), and 30 of 76 new ones reviewers wrote at it. About half of new wording gets through.
 - On live answers the same gate flags sentences that endorse nothing: 5 in the rebuild's 20 sessions.
-- A pick written inside the diagnosis's own cause would be copied into the frozen return.
-- On Sonnet 5.5 the rebuild's sealed turn 2 quoted words found nowhere in the input twice (0 on Opus), one of them inside a frozen return, which copies the diagnosis's cause, misquote included.
-- The live round is two models from one maker (the second added after the fact), one diagnosis input, 8 requests run twice; over-refusal was tested on 2 plain questions; the frozen line is English whatever the request's language.
-- Q1 to Q6 were shaped on a prototype checker before this history begins; the first five commits were made afterwards from finished work, so git shows the order, not the times. `questions.md` is kept as it was hashed before the live round, so three of its lines are stale: it counts six questions, calls Q8 prospective, and says the held-out plan was committed before the set was opened (`evidence.md`, Provenance); and its opening sentence is garbled ("the line the two letters ours points at share").
+- Two models from one maker, one diagnosis input, 8 requests run twice; over-refusal tested on 2 plain questions; the frozen line is English whatever the request's language.
+- The first five commits were made afterwards from finished work, so git shows their order, not their times; Q1 to Q6 were shaped on a prototype checker first. Commit 8, the second-model plan, is the one test whose order GitHub's own record proves. `questions.md` is frozen with four stale lines (`evidence.md`, Provenance).
 
-`results.md` has the rest: question by question, what tied or got worse, what was left alone, what we
-would change next, and how it was tested. `evidence.md` has the detail behind every number.
+`results.md` has the rest; `evidence.md` has the detail behind every number, and every other command.
 
 ## For judges
 
 ```
-node control/run.mjs                        # the acceptance check, 30 to 90 s: ends RESULT: pass (exit 0)
-node rebuild/tests/verify.mjs               # the audit, ~1 s: RED, 15 failures, by design
-node rebuild/tests/verify.mjs --selftest    # ~2 s: SELFTEST: GREEN (every planted-bad fixture fails its gate)
-node control/attacks.mjs                    # ~12 min: replays 57 attacks (54 from the reviewers); each must end as expected (--quick: under a minute)
-node control/readers.mjs                    # <1 s: the blind readers' counts per arm
-node control/review-set.mjs                 # <1 s: the endorsement gate on the 97 sentences the last reviewers wrote at it
-node control/second-model.mjs               # ~15 s: Q7 and Q8 per model and per turn, with tokens and cost (control/second-model-plan.md)
-node control/run.mjs --heldout run-rebuild/heldout/heldout.txt                        # ~10 s: the held-out score on gate version 1: 11 of 20 endorsing caught, 0 of 20 clean flagged
-node control/run.mjs --heldout run-rebuild/heldout/heldout.txt --gate rebuild/tests   # ~10 s: the same set on the shipped checker, after opening, not held-out evidence: 16 of 20
-node control/run.mjs --live                 # ~1 s: three earlier Fable sessions of the original skill: original 0 findings, rebuild 48
-node control/corpus.mjs                     # ~1 s: the endorsement gate over both arms' own prose: only line 92
-git diff --no-index --stat original rebuild # every file the rebuild changed
+node control/run.mjs                        # 30 to 90 s: RESULT: pass (exit 0); checks every pin, number and pass line
+node rebuild/tests/verify.mjs               # ~1 s: RED, 15 failures, by design
+node rebuild/tests/verify.mjs --selftest    # ~2 s: SELFTEST: GREEN
+node control/attacks.mjs --quick            # under a minute: the reviewers' attacks and declared limits (full run ~12 min)
 ```
 
 `control/run.mjs` ends in one word: **pass** (0), **plant detected** (2), **baseline defect** (3),
-**integrity violation** (4: anything pinned, sealed or claimed is off, including `original/`, the letter,
-`questions.md`, a transcript, a live session or a number named in `control/claims.json`) or **harness
-error** (5). Node 18 or later, standard library only, no network, no API key; it runs from any folder, in
-a path with spaces, and from a zip with no git. GitHub Actions runs it on Node 18, 20, 22 and 24.
+**integrity violation** (4) or **harness error** (5). Node 18 or later, standard library only, no network,
+no API key, no git needed. CI runs it on Node 18, 20, 22 and 24.
 
 | Path | Job |
 |---|---|
@@ -114,9 +78,9 @@ a path with spaces, and from a zip with no git. GitHub Actions runs it on Node 1
 | `original/` | The judged entry, pinned, read only |
 | `questions.md` | Eight questions with expected answers, unchanged since commit 2 |
 | `run-original/`, `run-rebuild/` | Each question's command and full output per arm, and the live sessions |
-| `rebuild/` | The rebuilt entry: `rules.md` (three changes) and `tests/` (the checker); the rest as the original |
+| `rebuild/` | The rebuilt entry: `rules.md` (three changes) and `tests/` (the checker) |
 | `results.md` | The results, including what did not improve |
-| `evidence.md` | The detail: live round, lab, held-out set, the 13 spans, provenance |
+| `evidence.md` | The detail, every other command, and provenance |
 | `control/` | The harness, expected results, checked claims and seals |
 | `CLAUDE.md` | Routes an AI agent to the right file |
 

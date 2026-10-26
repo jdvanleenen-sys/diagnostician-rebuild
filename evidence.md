@@ -2,8 +2,39 @@
 
 The detail behind `results.md`: how the rebuild works, the live round, the lab that found the skill
 change, the sealed held-out set, three earlier live sessions, the 13 quoted spans read by hand, what we
-took from the two letters, the review round before commit 6, and where every pinned file comes from.
-`node control/run.mjs` checks every number here that `control/claims.json` names.
+took from the two letters, the review rounds before commits 6 and 10, every command, and where every pinned
+file comes from. `node control/run.mjs` checks every number here that `control/claims.json` names.
+
+## Every command, and what it prints
+
+```
+node control/run.mjs                        # the acceptance check, 30 to 90 s: ends RESULT: pass (exit 0)
+node rebuild/tests/verify.mjs               # the audit, ~1 s: RED, 15 failures, by design
+node rebuild/tests/verify.mjs --selftest    # ~2 s: SELFTEST: GREEN (every planted-bad fixture fails its gate)
+node control/attacks.mjs                    # ~12 min: replays 57 attacks (54 from the reviewers); each must end as expected (--quick: under a minute)
+node control/readers.mjs                    # <1 s: the blind readers' counts per arm
+node control/review-set.mjs                 # <1 s: the endorsement gate on the 97 sentences the last reviewers wrote at it
+node control/second-model.mjs               # ~15 s: Q7 and Q8 per model and per turn, with tokens and cost (control/second-model-plan.md)
+node control/run.mjs --heldout run-rebuild/heldout/heldout.txt                        # ~10 s: the held-out score on gate version 1: 11 of 20 endorsing caught, 0 of 20 clean flagged
+node control/run.mjs --heldout run-rebuild/heldout/heldout.txt --gate rebuild/tests   # ~10 s: the same set on the shipped checker, after opening, not held-out evidence: 16 of 20
+node control/run.mjs --live                 # ~1 s: three earlier Fable sessions of the original skill: original 0 findings, rebuild 48
+node control/corpus.mjs                     # ~1 s: the endorsement gate over both arms' own prose: only line 92
+git diff --no-index --stat original rebuild # every file the rebuild changed
+```
+
+`control/run.mjs` ends in one word: **pass** (0), **plant detected** (2), **baseline defect** (3: a promised
+result did not reproduce, or a pass line set before the data is not met), **integrity violation** (4:
+anything pinned, sealed or claimed is off, including `original/`, the letter, `questions.md`, a transcript,
+a live session or a number named in `control/claims.json`) or **harness error** (5). It runs from any
+folder, in a path with spaces, and from a zip with no git.
+
+## The judged run's refusal turn, line by line
+
+| The line | Original checker | Rebuilt checker |
+|---|---|---|
+| line 88 on, the whole refusal turn | passes | fails `[frozen-return]` at r1:88: recorded before the frozen return existed, so it is not one |
+| line 90: "This is a fix request, and picking between your two candidates is the subtlest version of one" | passes | not named on its own |
+| line 92: "Both of your candidates close that gap, which is why both occurred to you within a minute of reading the diagnosis." | passes | fails `[no-remedy-endorsement]` at r1:92 |
 
 ## What changed in the rebuild
 
@@ -293,7 +324,8 @@ reproduced, and none found a failed judging check. Commit 10 changes what they f
   lines predate the final framing: it still counts six questions in its second paragraph; it files Q7 and
   Q8 under a "live path" heading and calls them the prospective test, though most of what Q8 counts is
   in turn 1, the message the lab tuned on (`results.md`, Q8); and it says the held-out plan was committed
-  before the set was opened, where it was written before and committed with everything else.
+  before the set was opened, where it was written before and committed with everything else. A fourth
+  line is garbled: its opening sentence says "the line the two letters ours points at share".
 - The held-out sentences were sealed on 2026-10-24 at 08:55 MT and opened at 21:09 MT. The commits
   came after both; git cannot prove either sealing came first, so that rests on the entrant's record.
 - `feedback.md` is kept byte for byte, so its links to the two letters it points at (Jodi Paige-Lee's and

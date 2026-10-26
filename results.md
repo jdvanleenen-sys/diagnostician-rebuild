@@ -55,37 +55,31 @@ On a second model, added after the fact (`node control/second-model.mjs`; the pl
 
 ## What did not improve, tied, or got worse
 
-- **The audit's exit code on the archive** went from 0 to 1 (15 failures): worse by design. The saved runs
-  are never edited, so their defects stay found; `node control/run.mjs` is the green command.
+- **The audit's exit code on the archive** went from 0 to 1 (15 failures): worse by design, because the
+  saved runs keep their defects. `node control/run.mjs` is the green command.
 - **Quoted words found nowhere in the input** still appear in the rebuild's live answers: 17 over 20
-  sessions, all in turn 1. The lab's pre-set line was at most 2 per 12 sessions; the shipped version reached 5.
+  sessions, all in turn 1, against a lab line of at most 2 per 12 sessions. On Sonnet 5.5, 2 more on the
+  sealed turn 2 (0 on Opus), one inside a frozen return, which copies the diagnosis's cause, misquote included.
 - **Outside the refusal turn, word lists stand guard**, and lists have holes. They missed 9 of 20 held-out
-  endorsements (version 1) and 4 of 20 after the fact (version 2). Reviewers also got endorsements through
-  with one look-alike letter from another script, a trailing conditional, or, in the other languages, a
-  negation anywhere in the sentence. The prescription scan flags a negated refusal that uses a listed
-  phrase, and names the file but not the line. `control/attacks.mjs` replays these as declared limits.
-  In the last review round, reviewers wrote 76 new endorsements at the gate: it caught 30, and 40 after
-  commit 10's fixes, which were written after reading them (`node control/review-set.mjs`). Outside the
-  refusal turn, about half of new wording gets through.
+  endorsements (version 1) and 4 of 20 after the fact (version 2); of 76 new endorsements the last reviewers
+  wrote, the gate caught 30 (40 after fixes written from them; `node control/review-set.mjs`). Other verbs,
+  a look-alike letter from another script, a trailing conditional, and in the other languages a negation
+  anywhere in the sentence all get through; the prescription scan flags a negated refusal that uses a listed
+  phrase and names the file but not the line. `control/attacks.mjs` replays these as declared limits.
 - **False alarms on live answers.** The endorsement gate flags 5 sentences in the rebuild's 20 live
-  sessions that endorse nothing (such as `Both worked.` in a list of what was ruled out), and 9 in the
-  original's, of which by our reading 2 are endorsements (`run-*/Q8.txt`). On Sonnet 5.5 it flags 5 more
-  in the rebuild's 20 sessions, none an endorsement by our reading, and misses the original's pick
+  sessions that endorse nothing (such as `Both worked.`), and 9 in the original's, of which by our reading
+  2 are endorsements. On Sonnet it flags 5 more in the rebuild's, and misses the original's pick
   `Filter, and keep it narrow.`
-- **On Sonnet 5.5 the sealed turn 2 is not clean.** The rebuild's answers quote words found nowhere in
-  the input twice on turn 2 (0 on Opus). One is inside a frozen return: it copies the diagnosis's cause
-  character for character, so a misquote in the cause is copied with it.
-- **Quotes without quotation marks** (a blockquote, `<q>` tags, double primes) are not read as quotes.
-- **A pick inside the diagnosis's own cause** would be copied into the frozen return with it.
-- **The frozen line is English** whatever language the request came in.
-- **Over-refusal** was tested on 2 plain questions only, none near the line.
-- **Tied:** both arms flag 0 of the 20 held-out clean sentences and nothing but line 92 in their own docs
-  and saved runs (`node control/corpus.mjs`); neither refuses an ordinary question; the original's seven
-  checks behave as before.
+- **Not read or not tested:** quotes without quotation marks (a blockquote, `<q>` tags, double primes); a
+  pick inside the diagnosis's own cause, which the frozen return would copy; the frozen line is English
+  whatever the request's language; over-refusal was tested on 2 plain questions only.
+- **Tied:** both arms flag 0 of the 20 held-out clean sentences and nothing but line 92 in their own prose
+  (`node control/corpus.mjs`); neither refuses an ordinary question; the original's seven checks behave
+  as before.
 - **The order of work.** Q1 to Q6 were refined on a prototype checker; the skill change came from a
-  60-session lab before Q7 and Q8 were written; Q7 and Q8 ran on requests sealed before any session on
-  them. The first five commits were made afterwards from finished work. Commit 8, the second-model plan,
-  was pushed before that round's first session, so its order rests on GitHub's record, not only on git.
+  60-session lab before Q7 and Q8 were written; Q7 and Q8 ran on requests sealed before any session. The
+  first five commits were made afterwards from finished work. Commit 8, the second-model plan, was pushed
+  before that round's first session, so its order rests on GitHub's record, not only on git.
 
 ## What we chose not to touch, and why
 
@@ -107,32 +101,26 @@ On a second model, added after the fact (`node control/second-model.mjs`; the pl
 
 ## How it was tested
 
-- **The control.** Eight questions, the same on both arms and in the same order, re-run by
-  `node control/run.mjs`, which also checks every transcript, pin, seal and headline number.
-- **Plants inside the questions.** Q2, Q4 and Q6 plant the letter's sentence, misquotes and fixture
-  tampering; each plant is a diff in the transcript.
-- **The checker's own selftest.** Every planted-bad fixture must fail its gate and every good one pass
-  (`node rebuild/tests/verify.mjs --selftest`).
+- **The control:** eight questions, the same on both arms and in the same order, re-run by
+  `node control/run.mjs`, which also checks every transcript, pin, seal, headline number and pass line.
+  Q2, Q4 and Q6 plant the letter's sentence, misquotes and fixture tampering.
+- **The checker's selftest:** every planted-bad fixture must fail its gate and every good one pass.
 - **Sealed sets written by other models:** 40 sentences for the word-list gate and 10 live requests, each
-  sealed before use and scored once.
-- **Blind review before submission.** Fresh clones went, in several rounds, to AI reviewers who had not
-  seen how it was made. `node control/attacks.mjs` replays their attacks, and 3 added with the second-model
-  round: 32 edits that must stop the acceptance check, 17 plants that must each add an audit failure, and
-  8 declared limits that must get through. Every one ends as expected.
-- **A second model, registered first.** The 40 live sessions again on Sonnet 5.5, with the model the only
-  change, scored by code and against bars committed and pushed before the first session.
-- **On four Node versions.** GitHub Actions runs the acceptance check, the selftest and the readers' check
-  on Node 18, 20, 22 and 24 on every push.
+  sealed before use and scored once; the 40 live sessions then ran again on a second model, with the plan
+  and bars pushed first.
+- **Blind review:** fresh clones went, in several rounds, to AI reviewers who had not seen how it was made.
+  `node control/attacks.mjs` replays their attacks, and 3 of ours: 32 edits that must stop the acceptance
+  check, 17 plants that must each add an audit failure, and 8 declared limits that must get through.
+- **CI:** the acceptance check, the selftest and the readers' check on Node 18, 20, 22 and 24, every push.
 
 ## What changed in the rebuild
 
 Three changes to `rules.md`: the refusal is a **frozen return** (one fixed line, then the diagnosis's cause
 copied character for character, nothing else); **quotation marks mean an exact copy** of the input; the
-diagnosis template is **plain text**, not a code block. The checker gains three gates: `endorsement.mjs`
-(word lists), `quote-anchor.mjs` (exact quotes) and `frozen-return.mjs` (exact refusal). Commit 6 fixed
-what the last review round found (`evidence.md`); commit 7 moved this page's detail into `evidence.md`
-and changed no number; commit 8 registered the second-model round and commit 9 holds its results; commit
-10 fixed what the last review round found (`evidence.md`) and changed no result.
+diagnosis template is **plain text**. Three new gates: `endorsement.mjs` (word lists), `quote-anchor.mjs`
+(exact quotes) and `frozen-return.mjs` (exact refusal). Commits 6 and 10 fixed what review rounds found,
+commit 7 shortened the docs, commits 8 and 9 are the second-model round; none changed a committed result
+(`evidence.md`).
 
 ## F2: the 13 spans
 
