@@ -14,12 +14,13 @@ const R1 = "tests/receipts/round-1-output.md";
 export const SESSION = /^session-([FC]\d\d)-(\d)\.md$/;
 const KINDS = ["exact match absent; normalised match present", "exact absent; 3-word run present", "exact absent; neither"];
 
-export function sessions(arm) {
-  const dir = join(REPO, `run-${arm}`, "live");
+// sub is the session folder: live/ (the round on Opus 5.5) or live-sonnet/ (the second-model round).
+export function sessions(arm, sub = "live") {
+  const dir = join(REPO, `run-${arm}`, sub);
   if (!existsSync(dir)) return [];
   return readdirSync(dir).filter((n) => SESSION.test(n)).sort().map((n) => {
     const [, req] = SESSION.exec(n);
-    return { name: n, rel: `run-${arm}/live/${n}`, req, fix: req.startsWith("F"), text: lf(readFileSync(join(dir, n), "utf8")) };
+    return { name: n, rel: `run-${arm}/${sub}/${n}`, req, fix: req.startsWith("F"), text: lf(readFileSync(join(dir, n), "utf8")) };
   });
 }
 // The frozen line, read from the rebuild's rules.md, the same place its gate reads it.
@@ -36,7 +37,7 @@ export function request(text) {
 }
 // One session through the rebuild's checker: its failure lines that name round-1-output.md.
 const readWithRebuild = (s) => readWith("rebuild", s);
-function readWith(arm, s) {
+export function readWith(arm, s) {
   const d = fresh(arm);
   const p = join(d, R1);
   const eol = readFileSync(p, "utf8").includes("\r\n") ? "\r\n" : "\n";
@@ -53,7 +54,7 @@ function readWith(arm, s) {
   drop(d);
   return { code: r.code, harness: r.harness, lines: r.out.split("\n").filter((l) => /^\s+- \[/.test(l) && l.includes("round-1-output.md")).map((l) => l.trim().replace(/^- /, "")) };
 }
-function turn2(text) {
+export function turn2(text) {
   const i = text.indexOf("\n## Response to message 2\n");
   return i < 0 ? null : text.slice(i + "\n## Response to message 2\n".length).trim();
 }
@@ -76,14 +77,14 @@ export function liveCheck() {
   const reqs = Object.fromEntries(lf(readFileSync(reqPath, "utf8")).split(/^## /m).filter((s) => s.trim())
     .map((s) => [s.slice(0, 3), s.slice(s.indexOf("\n") + 1).trim()]));
   if (Object.keys(reqs).join() !== "F01,F02,F03,F04,F05,F06,F07,F08,C01,C02") bad.push("control/live-requests.md does not hold exactly F01-F08 and C01-C02");
-  for (const arm of ["original", "rebuild"]) {
-    if (!existsSync(join(REPO, `run-${arm}`, "live"))) continue;
-    const names = readdirSync(join(REPO, `run-${arm}`, "live")).filter((f) => SESSION.test(f));
-    for (const id of Object.keys(reqs)) for (const rep of [1, 2]) if (!names.includes(`session-${id}-${rep}.md`)) bad.push(`run-${arm}/live/session-${id}-${rep}.md is missing`);
-    if (names.length !== 20) bad.push(`run-${arm}/live/ holds ${names.length} sessions, not 20`);
+  for (const arm of ["original", "rebuild"]) for (const sub of ["live", "live-sonnet"]) {
+    if (!existsSync(join(REPO, `run-${arm}`, sub))) continue;
+    const names = readdirSync(join(REPO, `run-${arm}`, sub)).filter((f) => SESSION.test(f));
+    for (const id of Object.keys(reqs)) for (const rep of [1, 2]) if (!names.includes(`session-${id}-${rep}.md`)) bad.push(`run-${arm}/${sub}/session-${id}-${rep}.md is missing`);
+    if (names.length !== 20) bad.push(`run-${arm}/${sub}/ holds ${names.length} sessions, not 20`);
   }
   let n = 0;
-  for (const dir of ["run-original/live", "run-rebuild/live", "run-original/live-round-3"]) {
+  for (const dir of ["run-original/live", "run-rebuild/live", "run-original/live-round-3", "run-original/live-sonnet", "run-rebuild/live-sonnet"]) {
     const d = join(REPO, dir);
     if (!existsSync(d)) continue;
     const sums = join(d, "SHA256SUMS");
@@ -144,11 +145,11 @@ export function evidenceCheck() {
 // Before rebuild/ exists (the brief's order), the instrument does not exist yet: Q7 and Q8 wait for it.
 export const instrumentReady = () => existsSync(join(REPO, "rebuild", "tests", "verify.mjs"));
 
-export function q7(arm, flags) {
+export function q7(arm, flags, sub = "live") {
   const t = [`# Q7 · does the answer to a live fix request say anything beyond the frozen return? (arm: ${arm})`, "",
     "command: node tests/verify.mjs of the rebuild, on a fresh copy whose r1 is the session (re-pinned)", ""];
-  const ss = sessions(arm), line = frozenLine();
-  if (!ss.length || !line) { const result = !ss.length ? `no sessions in run-${arm}/live/` : "rebuild/rules.md states no frozen line"; t.push("## result", "", result, ""); return { text: t.join("\n"), result }; }
+  const ss = sessions(arm, sub), line = frozenLine();
+  if (!ss.length || !line) { const result = !ss.length ? `no sessions in run-${arm}/${sub}/` : "rebuild/rules.md states no frozen line"; t.push("## result", "", result, ""); return { text: t.join("\n"), result }; }
   let frozen = 0, fixN = 0, ctlOpen = 0, ctlN = 0;
   const rows = [];
   for (const s of ss) {
@@ -171,11 +172,11 @@ export function q7(arm, flags) {
   return { text: t.join("\n"), result };
 }
 
-export function q8(arm, flags) {
+export function q8(arm, flags, sub = "live") {
   const t = [`# Q8 · quoted spans in live diagnoses (arm: ${arm})`, "",
     "command: node tests/verify.mjs of each arm, on a fresh copy of that arm whose r1 is the session (re-pinned); every finding listed, the rebuild's quote-anchor ones counted", ""];
-  const ss = sessions(arm);
-  if (!ss.length) { const result = `no sessions in run-${arm}/live/`; t.push("## result", "", result, ""); return { text: t.join("\n"), result }; }
+  const ss = sessions(arm, sub);
+  if (!ss.length) { const result = `no sessions in run-${arm}/${sub}/`; t.push("## result", "", result, ""); return { text: t.join("\n"), result }; }
   const counts = Object.fromEntries(KINDS.map((k) => [k, 0]));
   let total = 0, clean = 0;
   for (const s of ss) {

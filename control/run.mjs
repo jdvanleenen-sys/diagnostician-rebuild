@@ -12,7 +12,8 @@
 //   baseline defect      a promised finding did not reproduce, or a plant made a baseline finding vanish    exit 3
 //   integrity violation  original/ off its pin, feedback.md off the letter, an arm absent, a transcript
 //                        or the results.md table differs from the live run, a headline number or gate hash
-//                        of control/claims.json missing from README.md or results.md, or (--heldout) the
+//                        of control/claims.json missing from README.md or results.md, the second model's
+//                        sessions not giving control/expected-second-model.json, or (--heldout) the
 //                        file off its seal                                                                  exit 4
 //   harness error        an arm's checker hung (per-run timeout), crashed, or could not be spawned          exit 5
 //
@@ -32,6 +33,7 @@ import { corpus } from "./corpus.mjs";
 import { runHeldout } from "./heldout.mjs";
 import { runLive } from "./live.mjs";
 import { evidenceCheck, instrumentReady, liveCheck, q7, q8 } from "./livepath.mjs";
+import { secondModelCheck } from "./second-model.mjs";
 // The blind readers came after the live round (the brief's order puts them in the rebuild's commit). Once
 // results.md exists, a missing readers.mjs is a violation (evidenceCheck names it), never a skipped step.
 const readersCheck = existsSync(new URL("./readers.mjs", import.meta.url))
@@ -283,7 +285,7 @@ async function main() {
     process.exit(!r.ok ? CODES["harness error"] : pins.ok && same ? 0 : CODES["integrity violation"]);
   }
   const EXPECTED = JSON.parse(readFileSync(join(REPO, "control", "expected.json"), "utf8"));
-  for (const c of [pinCheck(), feedbackCheck(), questionsCheck(), receiptsCheck(), claimsCheck(), liveCheck(), readersCheck(), evidenceCheck()]) { console.log(c.text); if (!c.ok) flags.integrity.push(c.text); }
+  for (const c of [pinCheck(), feedbackCheck(), questionsCheck(), receiptsCheck(), claimsCheck(), liveCheck(), readersCheck(), evidenceCheck(), secondModelCheck()]) { console.log(c.text); if (!c.ok) flags.integrity.push(c.text); }
   const results = {}, texts = {};
   for (const arm of ARMS) {
     if (!existsSync(join(REPO, arm))) {

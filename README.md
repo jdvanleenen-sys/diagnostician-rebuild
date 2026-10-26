@@ -86,6 +86,7 @@ node rebuild/tests/verify.mjs               # the audit, ~1 s: RED, 15 failures,
 node rebuild/tests/verify.mjs --selftest    # ~2 s: SELFTEST: GREEN (every planted-bad fixture fails its gate)
 node control/attacks.mjs                    # ~8 min: replays the reviewers' 42 attacks; each must end as expected (--quick: under a minute)
 node control/readers.mjs                    # <1 s: the blind readers' counts per arm
+node control/second-model.mjs               # ~15 s: Q7 and Q8 per model and per turn, with tokens and cost (control/second-model-plan.md)
 node control/run.mjs --heldout run-rebuild/heldout/heldout.txt                        # ~10 s: the held-out score on gate version 1: 11 of 20 endorsing caught, 0 of 20 clean flagged
 node control/run.mjs --heldout run-rebuild/heldout/heldout.txt --gate rebuild/tests   # ~10 s: the same set on the shipped checker, after opening, not held-out evidence: 16 of 20
 node control/run.mjs --live                 # ~1 s: three earlier Fable sessions of the original skill: original 0 findings, rebuild 48
