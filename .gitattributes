@@ -1,0 +1,4 @@
+* text=auto eol=lf
+original/** -text
+rebuild/** -text
+run-*/** -text
