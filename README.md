@@ -69,8 +69,8 @@ node control/attacks.mjs --quick            # under a minute: the reviewers' att
 ```
 
 `control/run.mjs` ends in one word: **pass** (0), **plant detected** (2), **baseline defect** (3),
-**integrity violation** (4) or **harness error** (5). Node 18 or later, standard library only, no network,
-no API key, no git needed. CI runs it on Node 18, 20, 22 and 24.
+**integrity violation** (4) or **harness error** (5). Node 18 or later, standard library only,
+no network, no API key, no git needed. CI runs it on Node 18, 20, 22 and 24.
 
 | Path | Job |
 |---|---|
