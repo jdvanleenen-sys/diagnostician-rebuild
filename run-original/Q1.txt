@@ -1,0 +1,14 @@
+# Q1 · does the scan fail on the judged bundle? (arm: original)
+
+command: node tests/verify.mjs
+plant: none
+
+## unplanted run
+
+exit 0
+GREEN - all checks passed. Scope: artifacts only; the runtime is prose-governed and its live evidence is tests/receipts/.
+
+## result
+
+exit 0; names r1:92: no; names r1:90: no
+

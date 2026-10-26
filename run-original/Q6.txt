@@ -1,0 +1,14 @@
+# Q6 · is the fixture real? (arm: original)
+
+command: node tests/verify.mjs --selftest
+plants: one at a time on (no fixture: nothing to change)
+
+## selftest run, nothing to plant
+
+exit 0
+SELFTEST: GREEN - every planted-bad fixture fails its check, so a pass on the real bundle means something.
+
+## result
+
+nothing to change; selftest exit 0
+

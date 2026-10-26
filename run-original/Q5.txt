@@ -1,0 +1,19 @@
+# Q5 · is there a fixture for the soft spot, held red? (arm: original)
+
+command: node tests/verify.mjs --selftest
+plant: none
+
+## fixture search (by bytes, not by name)
+
+letter's sentence: no file
+refusal (r1:90): no file
+
+## selftest run
+
+exit 0
+SELFTEST: GREEN - every planted-bad fixture fails its check, so a pass on the real bundle means something.
+
+## result
+
+no such file; selftest exit 0
+

@@ -1,0 +1,77 @@
+# Q4 · misquotes planted at capture time, and one exact quote that must pass (arm: original)
+
+command: node tests/verify.mjs
+plants: one at a time, each re-pinned; each lands on the first line of r1 that holds the quoted text
+
+## unplanted run
+
+exit 0
+GREEN - all checks passed. Scope: artifacts only; the runtime is prose-governed and its live evidence is tests/receipts/.
+
+## plant (a): r1:84 "Needs your approval" -> "Needs approval"
+
+--- a/tests/receipts/round-1-output.md
++++ b/tests/receipts/round-1-output.md
+@@ -82,5 +82,5 @@
+ report the skill's own step 5 wrote to _hygiene\YYYY-MM-DD-hygiene.md.
+ The transcript is gone, but that file should still exist, and its
+-"Needs your approval" section would confirm the proposals were non-AI
++"Needs approval" section would confirm the proposals were non-AI
+ Downloads files entering through the unfiltered Rank 5 root.
+ ```
+
+## planted run (a)
+
+exit 0
+GREEN - all checks passed. Scope: artifacts only; the runtime is prose-governed and its live evidence is tests/receipts/.
+
+## baseline findings under plant (a)
+
+0 of 0 persist
+
+## plant (b): r1:66 "Copy of" -> "Copy  of"
+
+--- a/tests/receipts/round-1-output.md
++++ b/tests/receipts/round-1-output.md
+@@ -64,5 +64,5 @@
+   byte-identical"). This ambiguity is real: one reads like a ban, the
+   other licenses proposing it. Inversion: tighten NEVER to cover
+-  proposals too, and near-duplicates, "Copy of" files, and naming
++  proposals too, and near-duplicates, "Copy  of" files, and naming
+   finds in Downloads still flood the approval list. Co-factor, not
+   cause.
+
+## planted run (b)
+
+exit 0
+GREEN - all checks passed. Scope: artifacts only; the runtime is prose-governed and its live evidence is tests/receipts/.
+
+## baseline findings under plant (b)
+
+0 of 0 persist
+
+## plant (c): r1:66 "Copy of" -> 'Copy of'
+
+--- a/tests/receipts/round-1-output.md
++++ b/tests/receipts/round-1-output.md
+@@ -64,5 +64,5 @@
+   byte-identical"). This ambiguity is real: one reads like a ban, the
+   other licenses proposing it. Inversion: tighten NEVER to cover
+-  proposals too, and near-duplicates, "Copy of" files, and naming
++  proposals too, and near-duplicates, 'Copy of' files, and naming
+   finds in Downloads still flood the approval list. Co-factor, not
+   cause.
+
+## planted run (c)
+
+exit 0
+GREEN - all checks passed. Scope: artifacts only; the runtime is prose-governed and its live evidence is tests/receipts/.
+
+## baseline findings under plant (c)
+
+0 of 0 persist
+
+## result
+
+caught 0/2; (c) exact single-quoted: not named; (a) r1:84 "Needs your approval" -> "Needs approval": not named; (b) r1:66 "Copy of" -> "Copy  of": not named; (c) r1:66 "Copy of" -> 'Copy of': not named
+

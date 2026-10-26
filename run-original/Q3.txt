@@ -1,0 +1,14 @@
+# Q3 · the 13 quoted spans that are not in the input (arm: original)
+
+command: node tests/verify.mjs
+plant: none
+
+## unplanted run
+
+exit 0
+GREEN - all checks passed. Scope: artifacts only; the runtime is prose-governed and its live evidence is tests/receipts/.
+
+## result
+
+names 0 (0 [exact match absent; normalised match present], 0 [exact absent; 3-word run present], 0 [exact absent; neither]); matches control/expected-quotes.json: NO
+
