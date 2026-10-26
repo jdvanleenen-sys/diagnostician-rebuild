@@ -1,0 +1,80 @@
+[
+  {
+    "file": "tests/receipts/round-1-output.md",
+    "line": 15,
+    "kind": "exact absent; 3-word run present",
+    "text": "\"did not build it to police personal downloads\""
+  },
+  {
+    "file": "tests/receipts/round-1-output.md",
+    "line": 26,
+    "kind": "exact match absent; normalised match present",
+    "text": "\"Sweep Jeff's AI system for entropy,\""
+  },
+  {
+    "file": "tests/receipts/round-1-output.md",
+    "line": 33,
+    "kind": "exact match absent; normalised match present",
+    "text": "\"Sweep Jeff's AI system for entropy.\""
+  },
+  {
+    "file": "tests/receipts/round-1-output.md",
+    "line": 36,
+    "kind": "exact match absent; normalised match present",
+    "text": "\"The junk drawer. Always the loser.\""
+  },
+  {
+    "file": "tests/receipts/round-1-output.md",
+    "line": 39,
+    "kind": "exact absent; neither",
+    "text": "\"only files related to roots 1-4,\""
+  },
+  {
+    "file": "tests/receipts/round-1-output.md",
+    "line": 41,
+    "kind": "exact match absent; normalised match present",
+    "text": "\"Classify every finding as AUTO-FIX or\n   APPROVAL-REQUIRED.\""
+  },
+  {
+    "file": "tests/receipts/round-1-output.md",
+    "line": 43,
+    "kind": "exact absent; neither",
+    "text": "\"out of scope, not our business,\""
+  },
+  {
+    "file": "tests/receipts/round-1-output.md",
+    "line": 46,
+    "kind": "exact match absent; normalised match present",
+    "text": "\"Anything you are less\n   than certain about. When in doubt, report, don't act.\""
+  },
+  {
+    "file": "tests/receipts/round-1-output.md",
+    "line": 59,
+    "kind": "exact absent; neither",
+    "text": "\"part of the AI\n  system\""
+  },
+  {
+    "file": "tests/receipts/round-1-output.md",
+    "line": 62,
+    "kind": "exact match absent; normalised match present",
+    "text": "\"never delete a file that exists in only ONE\n  location\""
+  },
+  {
+    "file": "tests/receipts/round-1-output.md",
+    "line": 63,
+    "kind": "exact absent; 3-word run present",
+    "text": "\"deleting anything that is NOT\n  byte-identical\""
+  },
+  {
+    "file": "tests/receipts/round-2-output.md",
+    "line": 34,
+    "kind": "exact absent; neither",
+    "text": "\"the edits felt generic but I can't say why\""
+  },
+  {
+    "file": "tests/receipts/round-2-output.md",
+    "line": 35,
+    "kind": "exact absent; neither",
+    "text": "\"Never fired\""
+  }
+]

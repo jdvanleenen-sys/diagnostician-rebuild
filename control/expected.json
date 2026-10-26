@@ -1,0 +1,18 @@
+{
+  "original": {
+    "Q1": "exit 0; names r1:92: no; names r1:90: no",
+    "Q2": "caught 0/5: (a) tests/receipts/round-1-output.md:93: not caught; (b) tests/receipts/round-1-output.md:15: not caught; (c) tests/receipts/round-1-output.md:99: not caught; (d) examples.md:367: not caught; (e) examples.md:223: not caught",
+    "Q3": "names 0 (0 [exact match absent; normalised match present], 0 [exact absent; 3-word run present], 0 [exact absent; neither]); matches control/expected-quotes.json: NO",
+    "Q4": "caught 0/2; (c) exact single-quoted: not named; (a) r1:84 \"Needs your approval\" -> \"Needs approval\": not named; (b) r1:66 \"Copy of\" -> \"Copy  of\": not named; (c) r1:66 \"Copy of\" -> 'Copy of': not named",
+    "Q5": "no such file; selftest exit 0",
+    "Q6": "nothing to change; selftest exit 0"
+  },
+  "rebuild": {
+    "Q1": "exit 1; names r1:92: yes; names r1:90: no",
+    "Q2": "caught 5/5: (a) tests/receipts/round-1-output.md:93: caught; (b) tests/receipts/round-1-output.md:15: caught; (c) tests/receipts/round-1-output.md:99: caught; (d) examples.md:367: caught; (e) examples.md:223: caught",
+    "Q3": "names 13 (6 [exact match absent; normalised match present], 2 [exact absent; 3-word run present], 5 [exact absent; neither]); matches control/expected-quotes.json: yes",
+    "Q4": "caught 2/2; (c) exact single-quoted: not named; (a) r1:84 \"Needs your approval\" -> \"Needs approval\": named; (b) r1:66 \"Copy of\" -> \"Copy  of\": named; (c) r1:66 \"Copy of\" -> 'Copy of': not named",
+    "Q5": "fixture tests/fixtures/soft-spot/bad.md held red: yes; twin tests/fixtures/soft-spot/good.md held green: yes; selftest exit 0",
+    "Q6": "exit non-zero naming the file 3/3; (a) exit 1, names the file: yes; (b) exit 1, names the file: yes; (c) exit 1, names the file: yes"
+  }
+}

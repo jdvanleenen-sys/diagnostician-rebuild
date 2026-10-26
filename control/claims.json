@@ -1,0 +1,90 @@
+{
+  "_what": "The headline claims control/run.mjs holds README.md and results.md to. Each entry names, per file ('in'), the exact sentence fragment that states it, so a number changed inside that sentence is an integrity violation (exit 4). An entry with a 'folder' is a checker hash computed live by folderSha256 (control/lib.mjs): with a 'text', the folder must still hash to it; without one, the live hash is required; '{}' in a fragment stands for that hash.",
+  "files": [
+    "README.md",
+    "results.md"
+  ],
+  "required": [
+    {
+      "claim": "held-out set, gate version 1: endorsing caught and clean flagged",
+      "in": {
+        "README.md": "the held-out score on gate version 1: 11 of 20 endorsing caught, 0 of 20 clean flagged",
+        "results.md": "20 endorsing sentences never seen (gate version 1) | caught 0 | caught 11, missed 9 |"
+      }
+    },
+    {
+      "claim": "held-out set, gate version 1: clean sentences flagged",
+      "in": {
+        "results.md": "20 clean sentences never seen (gate version 1) | flagged 0 | flagged 0 |"
+      }
+    },
+    {
+      "claim": "the same set on the shipped checker, after opening (not held-out evidence)",
+      "in": {
+        "README.md": "the same set on the shipped checker, after opening, not held-out evidence: 16 of 20",
+        "results.md": "| caught 0; flagged 0 | caught 16 of 20; flagged 0 of 20 |"
+      }
+    },
+    {
+      "claim": "gate version 1, the frozen checker: SHA-256 of run-rebuild/heldout/gate-v1/tests",
+      "folder": "run-rebuild/heldout/gate-v1/tests",
+      "text": "c0b4648028bf568cfb65ca812ddb803f1df0847eb4c9e930d12e66cc8582c7dd",
+      "in": {
+        "README.md": "`{}`, shipped byte for byte as",
+        "results.md": "`{}`, shipped byte for byte as"
+      }
+    },
+    {
+      "claim": "the shipped checker: SHA-256 of rebuild/tests, computed live",
+      "folder": "rebuild/tests",
+      "in": {
+        "README.md": "`{}`. `run.mjs` recomputes both",
+        "results.md": "is SHA-256 `{}`"
+      }
+    },
+    {
+      "claim": "the live-path seal (control/livepath.mjs LIVE_SEAL)",
+      "in": {
+        "README.md": "`7c01ac70fe74d196fd7ad68067f2d818b99fb13674ad81fb2a70b7b4b86705ed`, sealed 2026-10-25 at 13:56 MT",
+        "results.md": "`7c01ac70fe74d196fd7ad68067f2d818b99fb13674ad81fb2a70b7b4b86705ed`, sealed 2026-10-25 at 13:56 MT"
+      }
+    },
+    {
+      "claim": "the letter's SHA-256 (control/lib.mjs feedbackCheck)",
+      "in": {
+        "README.md": "`cb689060112d5349bc03d98bf074ffadc33fe638ac427861dce3b88feae77c0e`; `run.mjs` recomputes it."
+      }
+    },
+    {
+      "claim": "the original's commit (control/original-tree.txt)",
+      "in": {
+        "README.md": "- `original/` is commit `01abab3229da2a22f84a82be071425ce66fac5ee` of"
+      }
+    },
+    {
+      "claim": "the original's tree",
+      "in": {
+        "README.md": "tree `95d9615caafa8f3d2ec00e8167d9b7e6c495d4cd`"
+      }
+    },
+    {
+      "claim": "the audit's failures on the archive",
+      "in": {
+        "README.md": "drifted quotes (15 failures) every time",
+        "results.md": "went from 0 to 1 (15 failures)"
+      }
+    },
+    {
+      "claim": "Q8: all quoted spans not in the input, original arm (README)",
+      "in": {
+        "README.md": "By Q8, the rebuild's checker finds 216"
+      }
+    },
+    {
+      "claim": "questions.md as hashed before the live round (commit 2)",
+      "in": {
+        "README.md": "`a75c4a971038958fb46f3b45e1843d01d28636a61c42f6565f37410c8f8682d9`, the hash recorded in the entrant's"
+      }
+    }
+  ]
+}
