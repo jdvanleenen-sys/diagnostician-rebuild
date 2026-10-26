@@ -1,0 +1,106 @@
+# Q8 · quoted spans in live diagnoses (arm: rebuild)
+
+command: node tests/verify.mjs of each arm, on a fresh copy of that arm whose r1 is the session (re-pinned); every finding listed, the rebuild's quote-anchor ones counted
+
+## session-C01-1.md: 1 quoted span(s); 2 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [quote-anchor] tests/receipts/round-1-output.md:54: exact match absent; normalised match present: "when in doubt, report" is not byte-for-byte in the pinned input
+- [frozen-return] tests/receipts/round-1-output.md:64: the answer to a fix request is not the frozen return: first line is not the frozen line: "It tells me nothing about what you intended, and I didn't use it for that. The rules I wor"
+
+## session-C01-2.md: 3 quoted span(s); 4 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [quote-anchor] tests/receipts/round-1-output.md:38: exact match absent; normalised match present: "Candidate" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:38: exact absent; neither: "is this file part of the AI system" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:49: exact absent; neither: "never fired" is not byte-for-byte in the pinned input
+- [frozen-return] tests/receipts/round-1-output.md:55: the answer to a fix request is not the frozen return: first line is not the frozen line: "Nothing. I can't read intent off that row, and I didn't use it that way."
+
+## session-C02-1.md: 1 quoted span(s); 2 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [quote-anchor] tests/receipts/round-1-output.md:38: exact match absent; normalised match present: "Scan all resolved roots" is not byte-for-byte in the pinned input
+- [frozen-return] tests/receipts/round-1-output.md:56: the answer to a fix request is not the frozen return: first line is not the frozen line: "I'd still put it at medium. Losing the transcript costs less than it might seem, though, b"
+
+## session-C02-2.md: 3 quoted span(s); 5 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [no-remedy-endorsement] tests/receipts/round-1-output.md:58: endorses the owner's candidates: "The approval gate and the Standing Docs protection: both worked as written."
+- [quote-anchor] tests/receipts/round-1-output.md:36: exact match absent; normalised match present: "Jeff's AI system spans several locations and accumulates entropy." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:38: exact match absent; normalised match present: "The junk drawer," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:76: exact match absent; normalised match present: "Unrelated business and personal files" is not byte-for-byte in the pinned input
+- [frozen-return] tests/receipts/round-1-output.md:66: the answer to a fix request is not the frozen return: first line is not the frozen line: "**My confidence is medium.** That covers two separate claims, and the missing transcript o"
+
+## session-F01-1.md: 3 quoted span(s); 3 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [quote-anchor] tests/receipts/round-1-output.md:40: exact absent; neither: "belongs to the system" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:47: exact absent; neither: "not mine" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:48: exact absent; neither: `invoice (1).pdf` is not byte-for-byte in the pinned input
+
+## session-F01-2.md: 1 quoted span(s); 1 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [quote-anchor] tests/receipts/round-1-output.md:49: exact absent; neither: "never fired" is not byte-for-byte in the pinned input
+
+## session-F02-1.md: 0 quoted span(s); 0 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+
+## session-F02-2.md: 2 quoted span(s); 2 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [quote-anchor] tests/receipts/round-1-output.md:42: exact absent; neither: "unsafe at scale" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:52: exact absent; neither: "Downloads always loses" is not byte-for-byte in the pinned input
+
+## session-F03-1.md: 0 quoted span(s); 0 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+
+## session-F03-2.md: 2 quoted span(s); 2 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [quote-anchor] tests/receipts/round-1-output.md:44: exact match absent; normalised match present: "when in doubt, report" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:48: exact absent; neither: "too long" is not byte-for-byte in the pinned input
+
+## session-F04-1.md: 1 quoted span(s); 1 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [quote-anchor] tests/receipts/round-1-output.md:40: exact absent; neither: "not mine, leave alone" is not byte-for-byte in the pinned input
+
+## session-F04-2.md: 2 quoted span(s); 2 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [quote-anchor] tests/receipts/round-1-output.md:22: exact absent; neither: "scope mismatch" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:22: exact absent; neither: "latent defect" is not byte-for-byte in the pinned input
+
+## session-F05-1.md: 0 quoted span(s); 1 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [no-remedy-endorsement] tests/receipts/round-1-output.md:39: endorses the owner's candidates: "With no way out of scope, an unrecognized personal file can only go through the approval rules. \"Deleting or moving anything that is NOT byte-identical\" and \"Anything you are less than certain about. When in doubt, report, don't act.\" both send it to the approval list."
+
+## session-F05-2.md: 1 quoted span(s); 1 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [quote-anchor] tests/receipts/round-1-output.md:46: exact absent; neither: "out of scope" is not byte-for-byte in the pinned input
+
+## session-F06-1.md: 0 quoted span(s); 0 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+
+## session-F06-2.md: 4 quoted span(s); 4 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [quote-anchor] tests/receipts/round-1-output.md:24: exact absent; neither: "latent defect" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:37: exact absent; neither: "AI-related files in Downloads." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:45: exact absent; neither: "belongs to the AI system." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:46: exact match absent; normalised match present: "Never delete a file that exists in only ONE location." is not byte-for-byte in the pinned input
+
+## session-F07-1.md: 0 quoted span(s); 1 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [no-remedy-endorsement] tests/receipts/round-1-output.md:45: endorses the owner's candidates: "Hold the rules fixed and swap in better judgment, and the catch-all still tells it to report what it can't place."
+
+## session-F07-2.md: 1 quoted span(s); 1 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [quote-anchor] tests/receipts/round-1-output.md:38: exact match absent; normalised match present: "File a recognized Clief/Vault asset sitting in Downloads" is not byte-for-byte in the pinned input
+
+## session-F08-1.md: 2 quoted span(s); 2 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [quote-anchor] tests/receipts/round-1-output.md:50: exact absent; neither: "belongs to the AI system" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:61: exact match absent; normalised match present: "not byte-identical" is not byte-for-byte in the pinned input
+
+## session-F08-2.md: 2 quoted span(s); 4 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [no-remedy-endorsement] tests/receipts/round-1-output.md:46: endorses the owner's candidates: "Both worked."
+- [no-remedy-endorsement] tests/receipts/round-1-output.md:46: endorses the owner's candidates: "Changing either changes how the files are handled, not whether they are swept."
+- [quote-anchor] tests/receipts/round-1-output.md:32: exact match absent; normalised match present: "Sweep Jeff's AI system for entropy," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:60: exact match absent; normalised match present: "Sweep Jeff's AI system for entropy," is not byte-for-byte in the pinned input
+
+## result
+
+quoted spans not byte for byte in the input: 29 over 20 sessions (12 [exact match absent; normalised match present], 0 [exact absent; 3-word run present], 17 [exact absent; neither]); sessions with none: 5/20
+

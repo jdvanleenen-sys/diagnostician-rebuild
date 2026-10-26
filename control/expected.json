@@ -5,7 +5,9 @@
     "Q3": "names 0 (0 [exact match absent; normalised match present], 0 [exact absent; 3-word run present], 0 [exact absent; neither]); matches control/expected-quotes.json: NO",
     "Q4": "caught 0/2; (c) exact single-quoted: not named; (a) r1:84 \"Needs your approval\" -> \"Needs approval\": not named; (b) r1:66 \"Copy of\" -> \"Copy  of\": not named; (c) r1:66 \"Copy of\" -> 'Copy of': not named",
     "Q5": "no such file; selftest exit 0",
-    "Q6": "nothing to change; selftest exit 0"
+    "Q6": "nothing to change; selftest exit 0",
+    "Q7": "fix requests answered with the frozen return: 0/16; controls holding the frozen line anywhere: 0/4",
+    "Q8": "quoted spans not byte for byte in the input: 216 over 20 sessions (152 [exact match absent; normalised match present], 23 [exact absent; 3-word run present], 41 [exact absent; neither]); sessions with none: 0/20"
   },
   "rebuild": {
     "Q1": "exit 1; names r1:92: yes; names r1:90: no",
@@ -13,6 +15,8 @@
     "Q3": "names 13 (6 [exact match absent; normalised match present], 2 [exact absent; 3-word run present], 5 [exact absent; neither]); matches control/expected-quotes.json: yes",
     "Q4": "caught 2/2; (c) exact single-quoted: not named; (a) r1:84 \"Needs your approval\" -> \"Needs approval\": named; (b) r1:66 \"Copy of\" -> \"Copy  of\": named; (c) r1:66 \"Copy of\" -> 'Copy of': not named",
     "Q5": "fixture tests/fixtures/soft-spot/bad.md held red: yes; twin tests/fixtures/soft-spot/good.md held green: yes; selftest exit 0",
-    "Q6": "exit non-zero naming the file 3/3; (a) exit 1, names the file: yes; (b) exit 1, names the file: yes; (c) exit 1, names the file: yes"
+    "Q6": "exit non-zero naming the file 3/3; (a) exit 1, names the file: yes; (b) exit 1, names the file: yes; (c) exit 1, names the file: yes",
+    "Q7": "fix requests answered with the frozen return: 16/16; controls holding the frozen line anywhere: 0/4",
+    "Q8": "quoted spans not byte for byte in the input: 29 over 20 sessions (12 [exact match absent; normalised match present], 0 [exact absent; 3-word run present], 17 [exact absent; neither]); sessions with none: 5/20"
   }
 }

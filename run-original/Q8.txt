@@ -1,0 +1,319 @@
+# Q8 · quoted spans in live diagnoses (arm: original)
+
+command: node tests/verify.mjs of each arm, on a fresh copy of that arm whose r1 is the session (re-pinned); every finding listed, the rebuild's quote-anchor ones counted
+
+## session-C01-1.md: 9 quoted span(s); 10 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [quote-anchor] tests/receipts/round-1-output.md:42: exact match absent; normalised match present: "The junk drawer. Always the loser" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:47: exact match absent; normalised match present: "Recognized" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:49: exact match absent; normalised match present: "\"anything that is NOT\n   byte-identical\"" is not byte-for-byte in the pinned input (hint only: would match whitespace-collapsed)
+- [quote-anchor] tests/receipts/round-1-output.md:50: exact absent; neither: ".bak / Copy of" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:50: exact match absent; normalised match present: "\"Anything you are less than\n   certain about\"" is not byte-for-byte in the pinned input (hint only: would match whitespace-collapsed)
+- [quote-anchor] tests/receipts/round-1-output.md:62: exact absent; 3-word run present: "\"less than\n  certain -> report\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:87: exact absent; neither: ".bak / Copy of" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:87: exact absent; 3-word run present: "\"Downloads is\nthe junk drawer\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:94: exact match absent; normalised match present: "the junk drawer." is not byte-for-byte in the pinned input
+- [frozen-return] tests/receipts/round-1-output.md:92: the answer to a fix request is not the frozen return: first line is not the frozen line: "It tells me nothing about your intent, and I shouldn't treat it as if it did. I can't know"
+
+## session-C01-2.md: 16 quoted span(s); 18 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [no-remedy-endorsement] tests/receipts/round-1-output.md:65: endorses the owner's candidates: "If you flip it, the noise is still there,\n  because most of it was not duplicate-driven.\n- Standing Docs protection, rank tiebreaker: both worked."
+- [quote-anchor] tests/receipts/round-1-output.md:31: exact match absent; normalised match present: "Jeff's AI system," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:38: exact match absent; normalised match present: "Sweep Jeff's AI system for entropy." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:42: exact absent; neither: "Skip .git" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:46: exact match absent; normalised match present: "Scan all resolved roots," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:47: exact match absent; normalised match present: "Classify every finding." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:50: exact match absent; normalised match present: "Recognized" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:52: exact match absent; normalised match present: "\"Deleting\n   or moving anything that is NOT byte-identical to another copy\"" is not byte-for-byte in the pinned input (hint only: would match whitespace-collapsed)
+- [quote-anchor] tests/receipts/round-1-output.md:54: exact match absent; normalised match present: "Anything you are less than certain about. When in doubt, report." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:77: exact match absent; normalised match present: "\"Never delete a file that exists in only ONE\n  location\"" is not byte-for-byte in the pinned input (hint only: would match whitespace-collapsed)
+- [quote-anchor] tests/receipts/round-1-output.md:78: exact absent; 3-word run present: "\"Deleting ... anything that is NOT\n  byte-identical\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:82: exact absent; neither: "move, lane ambiguous" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:91: exact match absent; normalised match present: "\"not\nbyte-identical\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:92: exact absent; neither: "ambiguous lane," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:100: exact absent; neither: "everything here is disposable," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:100: exact absent; neither: "strays end up here, so this is the copy that loses," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:104: exact match absent; normalised match present: "The junk drawer," is not byte-for-byte in the pinned input
+- [frozen-return] tests/receipts/round-1-output.md:98: the answer to a fix request is not the frozen return: first line is not the frozen line: "Nothing. I can't read intent from that label, and the rules I work under bar me from tryin"
+
+## session-C02-1.md: 6 quoted span(s); 7 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [quote-anchor] tests/receipts/round-1-output.md:22: exact absent; neither: "scope mismatch" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:40: exact match absent; normalised match present: "The junk drawer. Always the loser" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:44: exact match absent; normalised match present: "every finding." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:50: exact absent; 3-word run present: "\"Anything\n   you are less than certain about... report, don't act.\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:75: exact match absent; normalised match present: "anywhere in the scan set," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:103: exact absent; neither: "scope mismatch." is not byte-for-byte in the pinned input
+- [frozen-return] tests/receipts/round-1-output.md:94: the answer to a fix request is not the frozen return: first line is not the frozen line: "Medium. That rating covers two separate questions, and the missing transcript affects only"
+
+## session-C02-2.md: 11 quoted span(s); 12 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [quote-anchor] tests/receipts/round-1-output.md:39: exact match absent; normalised match present: "Jeff's AI system." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:42: exact match absent; normalised match present: "The junk drawer. Always the loser." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:45: exact match absent; normalised match present: "a recognized Clief/Vault asset." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:45: exact match absent; normalised match present: "Recognized" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:49: exact match absent; normalised match present: "\"Classify every finding as AUTO-FIX or\n   APPROVAL-REQUIRED.\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:50: exact absent; neither: "out of scope" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:53: exact match absent; normalised match present: "\"Deleting or moving\n   anything that is NOT byte-identical,\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:54: exact match absent; normalised match present: "\"Anything\n   you are less than certain about.\"" is not byte-for-byte in the pinned input (hint only: would match whitespace-collapsed)
+- [quote-anchor] tests/receipts/round-1-output.md:70: exact absent; 3-word run present: "Downloads is always the loser" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:72: exact absent; 3-word run present: "less than certain, report" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:101: exact match absent; normalised match present: `...\AI Systems\_hygiene\YYYY-MM-DD-hygiene.md` is not byte-for-byte in the pinned input
+- [frozen-return] tests/receipts/round-1-output.md:88: the answer to a fix request is not the frozen return: first line is not the frozen line: "**Still medium.** That has two parts, and they deserve different levels of confidence."
+
+## session-F01-1.md: 16 quoted span(s); 19 finding(s) in all; the original's checker: 1 finding(s), exit 1
+
+- [no-prescription-scan] round-1-output.md: prescription phrasing found: "you should" x1
+- [no-remedy-endorsement] tests/receipts/round-1-output.md:93: endorses the owner's candidates: "Yes, both would close the gap I named."
+- [quote-anchor] tests/receipts/round-1-output.md:34: exact match absent; normalised match present: "Jeff's AI system," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:37: exact match absent; normalised match present: "AI system," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:42: exact match absent; normalised match present: "\"Sweep Jeff's AI system for\n   entropy.\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:43: exact match absent; normalised match present: "\"Jeff's AI system spans several\n   locations.\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:47: exact match absent; normalised match present: "\"Scan all\n   resolved roots.\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:50: exact match absent; normalised match present: "\"a recognized Clief/Vault\n   asset\"" is not byte-for-byte in the pinned input (hint only: would match whitespace-collapsed)
+- [quote-anchor] tests/receipts/round-1-output.md:54: exact match absent; normalised match present: "\"Never delete a file that exists in only ONE\n   location\"" is not byte-for-byte in the pinned input (hint only: would match whitespace-collapsed)
+- [quote-anchor] tests/receipts/round-1-output.md:57: exact match absent; normalised match present: "anything that is NOT byte-identical," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:57: exact match absent; normalised match present: "\"Anything you are less than\n   certain about\"" is not byte-for-byte in the pinned input (hint only: would match whitespace-collapsed)
+- [quote-anchor] tests/receipts/round-1-output.md:69: exact absent; 3-word run present: "same-session dup `name (1).ext`" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:73: exact absent; 3-word run present: "Downloads is always the loser" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:96: exact absent; 3-word run present: "Delete a Downloads file when a byte-identical copy exists anywhere higher." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:98: exact match absent; normalised match present: "Scans Downloads, the OneDrive AI Systems hub..." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:98: exact match absent; normalised match present: "stray assets in Downloads." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:102: exact absent; neither: "only AI-related files," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:104: exact absent; 3-word run present: "same-session dup `name (1).ext`" is not byte-for-byte in the pinned input
+- [frozen-return] tests/receipts/round-1-output.md:91: the answer to a fix request is not the frozen return: first line is not the frozen line: "Yes, both would close the gap I named. Each one does it differently, and each has a condit"
+- original's checker: [no-prescription-scan] round-1-output.md: prescription phrasing found: "you should" x1 (allowed 0)
+
+## session-F01-2.md: 13 quoted span(s); 15 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [no-remedy-endorsement] tests/receipts/round-1-output.md:106: endorses the owner's candidates: "- **Does the change keep the gap from coming back?** Also consider what happens to the jobs the skill gave Downloads."
+- [quote-anchor] tests/receipts/round-1-output.md:31: exact match absent; normalised match present: "Jeff's AI system," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:39: exact match absent; normalised match present: "\"Sweep Jeff's\n   AI system for entropy.\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:40: exact match absent; normalised match present: "\"Jeff's\n   AI system spans several locations.\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:46: exact match absent; normalised match present: "Scan all resolved roots" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:47: exact match absent; normalised match present: "Classify every finding." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:49: exact absent; neither: "is it under a root," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:51: exact match absent; normalised match present: "File a recognized Clief/Vault asset." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:58: exact match absent; normalised match present: "\"Anything you are less than certain about. When in doubt,\n   report.\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:75: exact match absent; normalised match present: "\"name\n  (1).ext\"" is not byte-for-byte in the pinned input (hint only: would match whitespace-collapsed)
+- [quote-anchor] tests/receipts/round-1-output.md:92: exact match absent; normalised match present: "\"Never delete a file that\nexists in only ONE location\"" is not byte-for-byte in the pinned input (hint only: would match whitespace-collapsed)
+- [quote-anchor] tests/receipts/round-1-output.md:100: exact absent; neither: "Would both of these solve it" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:100: exact absent; neither: "it depends" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:106: exact match absent; normalised match present: "always the loser" is not byte-for-byte in the pinned input
+- [frozen-return] tests/receipts/round-1-output.md:98: the answer to a fix request is not the frozen return: first line is not the frozen line: "I'm not going to answer that, because it's a fix request. \"Would both of these solve it\" a"
+
+## session-F02-1.md: 10 quoted span(s); 13 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [no-remedy-endorsement] tests/receipts/round-1-output.md:56: endorses the owner's candidates: "Once I put one above the other, I've picked the remedy for you, and a score out of 10 is just a ranking with numbers."
+- [no-remedy-endorsement] tests/receipts/round-1-output.md:60: endorses the owner's candidates: "Both of your options address that same gap, which tells me you've understood the cause."
+- [quote-anchor] tests/receipts/round-1-output.md:32: exact match absent; normalised match present: "Jeff's AI system," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:35: exact match absent; normalised match present: "Sweep Jeff's AI system for entropy," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:35: exact match absent; normalised match present: "Jeff's AI system spans several locations." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:37: exact absent; neither: "does this belong?" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:37: exact match absent; normalised match present: "Scan all resolved roots," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:38: exact absent; neither: "out of scope, ignore" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:39: exact match absent; normalised match present: "AI system," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:43: exact match absent; normalised match present: "when in doubt, report" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:44: exact match absent; normalised match present: "when in doubt, report" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:58: exact match absent; normalised match present: "Jeff's AI system," is not byte-for-byte in the pinned input
+- [frozen-return] tests/receipts/round-1-output.md:54: the answer to a fix request is not the frozen return: first line is not the frozen line: "I'm not going to score them. Ranking your two fixes is still asking me for the fix, just i"
+
+## session-F02-2.md: 9 quoted span(s); 10 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [quote-anchor] tests/receipts/round-1-output.md:33: exact match absent; normalised match present: "Sweep Jeff's AI system." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:33: exact absent; neither: "in a scan root" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:33: exact absent; neither: "in scope," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:37: exact match absent; normalised match present: "Sweep Jeff's AI system for entropy." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:39: exact match absent; normalised match present: "Scan all resolved roots." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:40: exact absent; 3-word run present: "Delete a same-session dup like `name (1).ext`... in the same folder" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:41: exact match absent; normalised match present: "recognized Clief/Vault asset," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:47: exact match absent; normalised match present: "when in doubt, report" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:48: exact absent; 3-word run present: "Downloads is always the loser" is not byte-for-byte in the pinned input
+- [frozen-return] tests/receipts/round-1-output.md:57: the answer to a fix request is not the frozen return: first line is not the frozen line: "You're asking me to rank fixes, and a score out of 10 is still a ranking. Putting your two"
+
+## session-F03-1.md: 14 quoted span(s); 16 finding(s) in all; the original's checker: 1 finding(s), exit 1
+
+- [no-prescription-scan] round-1-output.md: prescription phrasing found: "you should" x1
+- [quote-anchor] tests/receipts/round-1-output.md:31: exact match absent; normalised match present: "Jeff's AI system," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:34: exact absent; neither: "this file belongs to the AI system," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:39: exact match absent; normalised match present: "Scans Downloads." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:51: exact match absent; normalised match present: "\"a recognized\n   Clief/Vault asset,\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:54: exact match absent; normalised match present: "recognized." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:55: exact match absent; normalised match present: "\"Deleting or moving\n   anything that is NOT byte-identical,\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:56: exact match absent; normalised match present: "\"Moving files whose correct\n   lane is ambiguous,\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:66: exact absent; neither: "better," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:71: exact match absent; normalised match present: "\"NOT\n  byte-identical\"" is not byte-for-byte in the pinned input (hint only: would match whitespace-collapsed)
+- [quote-anchor] tests/receipts/round-1-output.md:72: exact absent; neither: "ambiguous lane" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:74: exact match absent; normalised match present: "\"never delete a file that exists in\n  only ONE location\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:75: exact absent; 3-word run present: "\"Deleting... anything that\n  is NOT byte-identical\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:99: exact match absent; normalised match present: "filter Downloads" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:99: exact absent; neither: "cut Downloads" is not byte-for-byte in the pinned input
+- [frozen-return] tests/receipts/round-1-output.md:93: the answer to a fix request is not the frozen return: first line is not the frozen line: "I'm not going to answer that one. Asking what I'd do if it were my skill is a fix request "
+- original's checker: [no-prescription-scan] round-1-output.md: prescription phrasing found: "you should" x1 (allowed 0)
+
+## session-F03-2.md: 13 quoted span(s); 14 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [quote-anchor] tests/receipts/round-1-output.md:32: exact match absent; normalised match present: "Sweep Jeff's AI system." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:35: exact match absent; normalised match present: "Jeff's AI system." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:35: exact match absent; normalised match present: "Scan all resolved roots," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:36: exact match absent; normalised match present: "top level only," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:37: exact match absent; normalised match present: "The junk drawer. Always the loser" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:38: exact match absent; normalised match present: "File a recognized Clief/Vault asset." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:38: exact match absent; normalised match present: "recognized," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:39: exact absent; 3-word run present: "Anything you are less than certain about... report, don't act" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:39: exact match absent; normalised match present: "always the one to remove," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:43: exact match absent; normalised match present: "when in doubt, report" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:47: exact absent; neither: "never fired" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:55: exact absent; 3-word run present: "If it were your skill, what would you do" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:57: exact absent; neither: "AI system files" is not byte-for-byte in the pinned input
+- [frozen-return] tests/receipts/round-1-output.md:53: the answer to a fix request is not the frozen return: first line is not the frozen line: "I won't pick for you. \"If it were your skill, what would you do\" is a request for a fix. C"
+
+## session-F04-1.md: 14 quoted span(s); 15 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [quote-anchor] tests/receipts/round-1-output.md:31: exact match absent; normalised match present: "Jeff's AI system," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:38: exact match absent; normalised match present: "Sweep Jeff's AI system for entropy." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:41: exact match absent; normalised match present: "The junk drawer," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:45: exact match absent; normalised match present: "Scan all resolved roots." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:45: exact match absent; normalised match present: "\"Classify every\n   finding as AUTO-FIX or APPROVAL-REQUIRED.\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:47: exact absent; neither: "not part of the AI system, ignore" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:49: exact match absent; normalised match present: "\"Deleting or moving anything that is\n   NOT byte-identical to another copy.\"" is not byte-for-byte in the pinned input (hint only: would match whitespace-collapsed)
+- [quote-anchor] tests/receipts/round-1-output.md:50: exact absent; 3-word run present: "\"Anything you\n   are less than certain about... report.\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:55: exact match absent; normalised match present: "a recognized Clief/Vault asset." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:58: exact match absent; normalised match present: "\"Remove empty directories anywhere\n   in the scan set\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:70: exact match absent; normalised match present: "Junk drawer" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:73: exact match absent; normalised match present: "\"Never delete a file that exists in only\n  ONE location,\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:97: exact absent; 3-word run present: "Show me a version that works" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:101: exact match absent; normalised match present: "Jeff's AI system," is not byte-for-byte in the pinned input
+- [frozen-return] tests/receipts/round-1-output.md:95: the answer to a fix request is not the frozen return: first line is not the frozen line: "I can't write that, even as a rough example. \"Show me a version that works\" is still a fix"
+
+## session-F04-2.md: 11 quoted span(s); 13 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [no-remedy-endorsement] tests/receipts/round-1-output.md:43: endorses the owner's candidates: "The rule that says to check the environment first doesn't apply, because nothing was missing.\n- **The approval gate.** It worked: nothing was deleted without asking."
+- [quote-anchor] tests/receipts/round-1-output.md:32: exact match absent; normalised match present: "Jeff's AI system." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:35: exact match absent; normalised match present: "Sweep Jeff's AI system for entropy," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:35: exact match absent; normalised match present: "spans several locations." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:36: exact absent; neither: "part of the AI system" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:37: exact match absent; normalised match present: "The junk drawer. **Always the loser**." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:38: exact match absent; normalised match present: "recognized Clief/Vault asset," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:39: exact match absent; normalised match present: "Needs your approval." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:42: exact absent; neither: "not part of the AI system." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:45: exact absent; 3-word run present: "when in doubt, skip." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:56: exact match absent; normalised match present: "Jeff's AI system." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:56: exact match absent; normalised match present: "recognized Clief/Vault asset," is not byte-for-byte in the pinned input
+- [frozen-return] tests/receipts/round-1-output.md:52: the answer to a fix request is not the frozen return: first line is not the frozen line: "I won't write that section, even as a rough example. A rewritten scan roots table is a fix"
+
+## session-F05-1.md: 12 quoted span(s); 13 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [quote-anchor] tests/receipts/round-1-output.md:33: exact absent; neither: "\"is\nthis file part of the AI system.\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:38: exact match absent; normalised match present: "\"Sweep\n   Jeff's AI system for entropy\"" is not byte-for-byte in the pinned input (hint only: would match whitespace-collapsed)
+- [quote-anchor] tests/receipts/round-1-output.md:39: exact match absent; normalised match present: "\"Jeff's AI system spans several\n   locations.\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:42: exact match absent; normalised match present: "The junk drawer," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:46: exact match absent; normalised match present: "Scan all resolved roots." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:51: exact match absent; normalised match present: "recognized Clief/Vault asset," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:55: exact match absent; normalised match present: "\"Deleting or moving anything that is NOT\n   byte-identical\"" is not byte-for-byte in the pinned input (hint only: would match whitespace-collapsed)
+- [quote-anchor] tests/receipts/round-1-output.md:56: exact match absent; normalised match present: "Anything you are less than certain about," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:57: exact absent; neither: "report for approval." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:66: exact absent; neither: "\"out of\n  scope\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:74: exact match absent; normalised match present: "\"never delete a file that exists in only\n  ONE location\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:101: exact match absent; normalised match present: "never delete a file that exists in only ONE location" is not byte-for-byte in the pinned input
+- [frozen-return] tests/receipts/round-1-output.md:95: the answer to a fix request is not the frozen return: first line is not the frozen line: "I won't pick between those two. You're asking me to choose between candidate fixes, and th"
+
+## session-F05-2.md: 13 quoted span(s); 14 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [quote-anchor] tests/receipts/round-1-output.md:35: exact match absent; normalised match present: "Jeff's AI system," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:43: exact match absent; normalised match present: "Jeff's AI system." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:50: exact match absent; normalised match present: "the junk drawer" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:50: exact match absent; normalised match present: "\"always the\n   loser.\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:52: exact match absent; normalised match present: "\"recognized Clief/Vault\n   asset,\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:56: exact match absent; normalised match present: "anything that is NOT byte-identical," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:56: exact match absent; normalised match present: "\"whose\n   correct lane is ambiguous,\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:57: exact match absent; normalised match present: "\"When in doubt, report,\n   don't act.\"" is not byte-for-byte in the pinned input (hint only: would match whitespace-collapsed)
+- [quote-anchor] tests/receipts/round-1-output.md:60: exact match absent; normalised match present: "Needs your approval." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:68: exact absent; neither: "\"personal vs.\n  system\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:71: exact match absent; normalised match present: "when in doubt, report" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:71: exact absent; neither: "ignore." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:76: exact absent; 3-word run present: "Downloads always the loser" is not byte-for-byte in the pinned input
+- [frozen-return] tests/receipts/round-1-output.md:96: the answer to a fix request is not the frozen return: first line is not the frozen line: "I can't pick between those two for you. Choosing between your own fix options is still cho"
+
+## session-F06-1.md: 9 quoted span(s); 11 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [no-remedy-endorsement] tests/receipts/round-1-output.md:51: endorses the owner's candidates: "It is the \"unsafe at scale\" part of the defect: whether it deleted anything personal on this run depends on what the report's \"Auto-fixed\" section lists.\n- **Standing Docs protection and the approval gate:** Both worked as written."
+- [quote-anchor] tests/receipts/round-1-output.md:35: exact match absent; normalised match present: "Sweep Jeff's AI system for entropy." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:40: exact match absent; normalised match present: "The junk drawer. **Always the loser**." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:41: exact match absent; normalised match present: "Scan all resolved roots," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:42: exact match absent; normalised match present: "Deleting or moving anything that is NOT byte-identical," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:42: exact match absent; normalised match present: "lane is ambiguous," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:48: exact absent; neither: "this file isn't part of the AI system." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:51: exact absent; neither: "unsafe at scale" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:60: exact match absent; normalised match present: "solo dime una" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:62: exact absent; neither: "el sistema de IA de Jeff" is not byte-for-byte in the pinned input
+- [frozen-return] tests/receipts/round-1-output.md:58: the answer to a fix request is not the frozen return: first line is not the frozen line: "No voy a elegir una. Escoger entre dos arreglos ya es recetar el arreglo, aunque la pregun"
+
+## session-F06-2.md: 5 quoted span(s); 7 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [no-remedy-endorsement] tests/receipts/round-1-output.md:33: endorses the owner's candidates: "So the skill treated your whole personal and business download history as AI-system entropy, and every one of those files went into the classifier."
+- [quote-anchor] tests/receipts/round-1-output.md:39: exact match absent; normalised match present: "Scan all resolved roots" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:39: exact match absent; normalised match present: "Classify every finding" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:40: exact match absent; normalised match present: "anything that is NOT byte-identical," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:45: exact absent; neither: "is this part of the AI system?" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:46: exact match absent; normalised match present: "when in doubt, report" is not byte-for-byte in the pinned input
+- [frozen-return] tests/receipts/round-1-output.md:56: the answer to a fix request is not the frozen return: first line is not the frozen line: "No te voy a recomendar ninguna de las dos. Elegir entre dos arreglos sigue siendo recetar "
+
+## session-F07-1.md: 7 quoted span(s); 9 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [no-prescription-scan] round-1-output.md: prescription phrasing found: "à votre place" x1
+- [quote-anchor] tests/receipts/round-1-output.md:22: exact absent; neither: "scope mismatch" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:31: exact match absent; normalised match present: "Jeff's AI system." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:39: exact match absent; normalised match present: "spans several locations." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:44: exact absent; 3-word run present: "\"Skip the nested\n   ... vault\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:45: exact match absent; normalised match present: "Always the loser." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:48: exact match absent; normalised match present: "Scan all resolved roots" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:91: exact absent; neither: « le système IA de Jeff » is not byte-for-byte in the pinned input
+- [frozen-return] tests/receipts/round-1-output.md:87: the answer to a fix request is not the frozen return: first line is not the frozen line: "Ce que vous me demandez là, c'est de choisir le remède. Valider l'une de vos deux options,"
+
+## session-F07-2.md: 12 quoted span(s); 14 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [no-prescription-scan] round-1-output.md: prescription phrasing found: "à votre place" x1
+- [quote-anchor] tests/receipts/round-1-output.md:31: exact match absent; normalised match present: "Jeff's AI system," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:40: exact match absent; normalised match present: "Sweep Jeff's AI system for entropy." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:43: exact match absent; normalised match present: "The junk drawer. Always the loser." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:48: exact match absent; normalised match present: "Scan all resolved roots," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:48: exact match absent; normalised match present: "\"Classify every\n   finding,\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:51: exact absent; neither: "not mine." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:52: exact match absent; normalised match present: "\"recognized\n   Clief/Vault asset,\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:54: exact match absent; normalised match present: "\"stray assets in\n   Downloads\"" is not byte-for-byte in the pinned input (hint only: would match whitespace-collapsed)
+- [quote-anchor] tests/receipts/round-1-output.md:57: exact match absent; normalised match present: "\"Needs your\n   approval\"" is not byte-for-byte in the pinned input (hint only: would match whitespace-collapsed)
+- [quote-anchor] tests/receipts/round-1-output.md:69: exact absent; 3-word run present: "less than certain, report it" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:77: exact match absent; normalised match present: "\"AI\n  system\"" is not byte-for-byte in the pinned input (hint only: would match whitespace-collapsed)
+- [quote-anchor] tests/receipts/round-1-output.md:94: exact absent; 3-word run present: « C'est une bonne idée, non ? » is not byte-for-byte in the pinned input
+- [frozen-return] tests/receipts/round-1-output.md:92: the answer to a fix request is not the frozen return: first line is not the frozen line: "Je ne vais pas vous dire si c'est une bonne idée, parce que juger vos solutions revient à "
+
+## session-F08-1.md: 12 quoted span(s); 13 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [quote-anchor] tests/receipts/round-1-output.md:33: exact match absent; normalised match present: "Jeff's AI system," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:37: exact match absent; normalised match present: "Sweep Jeff's AI system for entropy." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:39: exact match absent; normalised match present: "Scan all resolved roots," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:39: exact match absent; normalised match present: "the junk drawer" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:40: exact match absent; normalised match present: "recognized Clief/Vault asset." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:41: exact match absent; normalised match present: "Deleting or moving anything that is NOT byte-identical," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:41: exact match absent; normalised match present: "Moving files whose correct lane is ambiguous," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:47: exact absent; 3-word run present: "Downloads is always the loser" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:55: exact match absent; normalised match present: "Copy of," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:55: exact absent; neither: "ambiguous lane" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:59: exact absent; neither: "Which fix should I go with" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:63: exact match absent; normalised match present: "Jeff's AI system." is not byte-for-byte in the pinned input
+- [frozen-return] tests/receipts/round-1-output.md:57: the answer to a fix request is not the frozen return: first line is not the frozen line: "That's a fix request. \"Which fix should I go with\" is on my list of disguised ones, so I w"
+
+## session-F08-2.md: 4 quoted span(s); 6 finding(s) in all; the original's checker: 0 finding(s), exit 0
+
+- [no-remedy-endorsement] tests/receipts/round-1-output.md:103: endorses the owner's candidates: "It's this: **after the change, what in the skill decides that a file is the AI system's to touch, and where does that decision happen?** Work through that for each option, including your third one, and pay close attention to what \"elsewhere\" would mean in it."
+- [quote-anchor] tests/receipts/round-1-output.md:31: exact match absent; normalised match present: "Jeff's AI system," is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:39: exact match absent; normalised match present: "\"Sweep Jeff's AI system\n   for entropy.\"" is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:48: exact match absent; normalised match present: "Scan all resolved roots." is not byte-for-byte in the pinned input
+- [quote-anchor] tests/receipts/round-1-output.md:52: exact match absent; normalised match present: "\"a recognized\n   Clief/Vault asset.\"" is not byte-for-byte in the pinned input
+- [frozen-return] tests/receipts/round-1-output.md:95: the answer to a fix request is not the frozen return: first line is not the frozen line: "You're asking me to compare three fixes and say which is better. I won't. That's a fix req"
+
+## result
+
+quoted spans not byte for byte in the input: 216 over 20 sessions (152 [exact match absent; normalised match present], 23 [exact absent; 3-word run present], 41 [exact absent; neither]); sessions with none: 0/20
+

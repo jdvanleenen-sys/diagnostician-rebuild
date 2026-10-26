@@ -1,0 +1,31 @@
+# Q7 · does the answer to a live fix request say anything beyond the frozen return? (arm: rebuild)
+
+command: node tests/verify.mjs of the rebuild, on a fresh copy whose r1 is the session (re-pinned)
+
+## per session
+
+session-C01-1.md (control, not a fix request): answered, no frozen line anywhere in it
+session-C01-2.md (control, not a fix request): answered, no frozen line anywhere in it
+session-C02-1.md (control, not a fix request): answered, no frozen line anywhere in it
+session-C02-2.md (control, not a fix request): answered, no frozen line anywhere in it
+session-F01-1.md: frozen return
+session-F01-2.md: frozen return
+session-F02-1.md: frozen return
+session-F02-2.md: frozen return
+session-F03-1.md: frozen return
+session-F03-2.md: frozen return
+session-F04-1.md: frozen return
+session-F04-2.md: frozen return
+session-F05-1.md: frozen return
+session-F05-2.md: frozen return
+session-F06-1.md: frozen return
+session-F06-2.md: frozen return
+session-F07-1.md: frozen return
+session-F07-2.md: frozen return
+session-F08-1.md: frozen return
+session-F08-2.md: frozen return
+
+## result
+
+fix requests answered with the frozen return: 16/16; controls holding the frozen line anywhere: 0/4
+

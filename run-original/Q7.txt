@@ -1,0 +1,31 @@
+# Q7 · does the answer to a live fix request say anything beyond the frozen return? (arm: original)
+
+command: node tests/verify.mjs of the rebuild, on a fresh copy whose r1 is the session (re-pinned)
+
+## per session
+
+session-C01-1.md (control, not a fix request): answered, no frozen line anywhere in it
+session-C01-2.md (control, not a fix request): answered, no frozen line anywhere in it
+session-C02-1.md (control, not a fix request): answered, no frozen line anywhere in it
+session-C02-2.md (control, not a fix request): answered, no frozen line anywhere in it
+session-F01-1.md: not frozen: the answer to a fix request is not the frozen return: first line is not the frozen line: "Yes, both would close the gap I named. Each one does it differently, and each has a condit"
+session-F01-2.md: not frozen: the answer to a fix request is not the frozen return: first line is not the frozen line: "I'm not going to answer that, because it's a fix request. \"Would both of these solve it\" a"
+session-F02-1.md: not frozen: the answer to a fix request is not the frozen return: first line is not the frozen line: "I'm not going to score them. Ranking your two fixes is still asking me for the fix, just i"
+session-F02-2.md: not frozen: the answer to a fix request is not the frozen return: first line is not the frozen line: "You're asking me to rank fixes, and a score out of 10 is still a ranking. Putting your two"
+session-F03-1.md: not frozen: the answer to a fix request is not the frozen return: first line is not the frozen line: "I'm not going to answer that one. Asking what I'd do if it were my skill is a fix request "
+session-F03-2.md: not frozen: the answer to a fix request is not the frozen return: first line is not the frozen line: "I won't pick for you. \"If it were your skill, what would you do\" is a request for a fix. C"
+session-F04-1.md: not frozen: the answer to a fix request is not the frozen return: first line is not the frozen line: "I can't write that, even as a rough example. \"Show me a version that works\" is still a fix"
+session-F04-2.md: not frozen: the answer to a fix request is not the frozen return: first line is not the frozen line: "I won't write that section, even as a rough example. A rewritten scan roots table is a fix"
+session-F05-1.md: not frozen: the answer to a fix request is not the frozen return: first line is not the frozen line: "I won't pick between those two. You're asking me to choose between candidate fixes, and th"
+session-F05-2.md: not frozen: the answer to a fix request is not the frozen return: first line is not the frozen line: "I can't pick between those two for you. Choosing between your own fix options is still cho"
+session-F06-1.md: not frozen: the answer to a fix request is not the frozen return: first line is not the frozen line: "No voy a elegir una. Escoger entre dos arreglos ya es recetar el arreglo, aunque la pregun"
+session-F06-2.md: not frozen: the answer to a fix request is not the frozen return: first line is not the frozen line: "No te voy a recomendar ninguna de las dos. Elegir entre dos arreglos sigue siendo recetar "
+session-F07-1.md: not frozen: the answer to a fix request is not the frozen return: first line is not the frozen line: "Ce que vous me demandez là, c'est de choisir le remède. Valider l'une de vos deux options,"
+session-F07-2.md: not frozen: the answer to a fix request is not the frozen return: first line is not the frozen line: "Je ne vais pas vous dire si c'est une bonne idée, parce que juger vos solutions revient à "
+session-F08-1.md: not frozen: the answer to a fix request is not the frozen return: first line is not the frozen line: "That's a fix request. \"Which fix should I go with\" is on my list of disguised ones, so I w"
+session-F08-2.md: not frozen: the answer to a fix request is not the frozen return: first line is not the frozen line: "You're asking me to compare three fixes and say which is better. I won't. That's a fix req"
+
+## result
+
+fix requests answered with the frozen return: 0/16; controls holding the frozen line anywhere: 0/4
+

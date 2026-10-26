@@ -1,0 +1,34 @@
+# Q3 · the 13 quoted spans that are not in the input (arm: rebuild)
+
+command: node tests/verify.mjs
+plant: none
+
+## unplanted run
+
+exit 1
+RED: the judged receipts are never edited, and these are the defects the letter named.
+This audit is red by design on the archive. The acceptance check is `node control/run.mjs` at the comp repo's root (its README.md).
+F1  tests/receipts/round-1-output.md:92  the letter's sentence
+F2  6 [exact match absent; normalised match present], 2 [exact absent; 3-word run present], 5 [exact absent; neither]: every quoted span in a receipt output must occur byte for byte in that round's pinned input (buckets are heuristic)
+F1  1 [not frozen]: every pinned answer to a fix request must be the frozen line, the lead line and the diagnosis's cause, character for character, and nothing else
+RED - 15 failure(s):
+  - [no-remedy-endorsement] tests/receipts/round-1-output.md:92: endorses the owner's candidates: "Both of your candidates close that gap, which is why both occurred to you within a minute of reading the diagnosis."
+  - [quote-anchor] tests/receipts/round-1-output.md:15: exact absent; 3-word run present: "did not build it to police personal downloads" is not byte-for-byte in the pinned input
+  - [quote-anchor] tests/receipts/round-1-output.md:26: exact match absent; normalised match present: "Sweep Jeff's AI system for entropy," is not byte-for-byte in the pinned input
+  - [quote-anchor] tests/receipts/round-1-output.md:33: exact match absent; normalised match present: "Sweep Jeff's AI system for entropy." is not byte-for-byte in the pinned input
+  - [quote-anchor] tests/receipts/round-1-output.md:36: exact match absent; normalised match present: "The junk drawer. Always the loser." is not byte-for-byte in the pinned input
+  - [quote-anchor] tests/receipts/round-1-output.md:39: exact absent; neither: "only files related to roots 1-4," is not byte-for-byte in the pinned input
+  - [quote-anchor] tests/receipts/round-1-output.md:41: exact match absent; normalised match present: "\"Classify every finding as AUTO-FIX or\n   APPROVAL-REQUIRED.\"" is not byte-for-byte in the pinned input
+  - [quote-anchor] tests/receipts/round-1-output.md:43: exact absent; neither: "out of scope, not our business," is not byte-for-byte in the pinned input
+  - [quote-anchor] tests/receipts/round-1-output.md:46: exact match absent; normalised match present: "\"Anything you are less\n   than certain about. When in doubt, report, don't act.\"" is not byte-for-byte in the pinned input (hint only: would match whitespace-collapsed)
+  - [quote-anchor] tests/receipts/round-1-output.md:59: exact absent; neither: "\"part of the AI\n  system\"" is not byte-for-byte in the pinned input
+  - [quote-anchor] tests/receipts/round-1-output.md:62: exact match absent; normalised match present: "\"never delete a file that exists in only ONE\n  location\"" is not byte-for-byte in the pinned input
+  - [quote-anchor] tests/receipts/round-1-output.md:63: exact absent; 3-word run present: "\"deleting anything that is NOT\n  byte-identical\"" is not byte-for-byte in the pinned input
+  - [quote-anchor] tests/receipts/round-2-output.md:34: exact absent; neither: "the edits felt generic but I can't say why" is not byte-for-byte in the pinned input
+  - [quote-anchor] tests/receipts/round-2-output.md:35: exact absent; neither: "Never fired" is not byte-for-byte in the pinned input
+  - [frozen-return] tests/receipts/round-1-output.md:88: the answer to a fix request is not the frozen return: first line is not the frozen line: "This is a fix request, and picking between your two candidates is the subtlest version of "
+
+## result
+
+names 13 (6 [exact match absent; normalised match present], 2 [exact absent; 3-word run present], 5 [exact absent; neither]); matches control/expected-quotes.json: yes
+

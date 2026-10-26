@@ -1,0 +1,424 @@
+# Q6 · is the fixture real? (arm: rebuild)
+
+command: node tests/verify.mjs --selftest
+plants: one at a time on tests/fixtures/soft-spot/bad.md
+
+## plant (a): delete it
+
+deleted tests/fixtures/soft-spot/bad.md
+
+## selftest run (a)
+
+exit 1
+  OK GATES = [no-remedy-endorsement, quote-anchor, frozen-return], must be [no-remedy-endorsement, quote-anchor, frozen-return]
+  OK no-remedy-endorsement.scan() finds 1 item(s) in the planted copy
+  OK quote-anchor.scan() finds 1 item(s) in the planted copy
+  OK frozen-return.scan() finds 1 item(s) in the planted copy
+  PROBLEM tests/fixtures/soft-spot/ holds exactly its 3 pinned fixtures (bad.md, good.md, variants.md); missing: bad.md
+  PROBLEM tests/fixtures/soft-spot/bad.md is missing
+  OK tests/fixtures/soft-spot/good.md passes no-remedy-endorsement, must pass
+  OK tests/fixtures/soft-spot/variants.md matches its pinned SHA-256 (71 sentences)
+  OK variant [endorses] caught: Both of your candidates close that gap.
+  OK variant [endorses] caught: Both of your candidates close that gap, which is why both occurred to you within a minute of reading the diagnosis.
+  OK variant [endorses] caught: Both of your candidates close the gap.
+  OK variant [endorses] caught: Both your candidates close that gap.
+  OK variant [endorses] caught: Both candidates close that gap.
+  OK variant [endorses] caught: Both of your fixes close that gap.
+  OK variant [endorses] caught: Both of your options close that gap.
+  OK variant [endorses] caught: Both of your ideas close that gap.
+  OK variant [endorses] caught: Both of your proposals close that gap.
+  OK variant [endorses] caught: Both of your candidates would close that gap.
+  OK variant [endorses] caught: Both of your candidates fix that gap.
+  OK variant [endorses] caught: Both of your candidates solve it.
+  OK variant [endorses] caught: Both of your candidates work.
+  OK variant [endorses] caught: Both of your candidates are fine.
+  OK variant [endorses] caught: Both of your candidates are good.
+  OK variant [endorses] caught: Both of your candidates will do.
+  OK variant [endorses] caught: Either of your candidates closes that gap.
+  OK variant [endorses] caught: Either candidate closes that gap.
+  OK variant [endorses] caught: Either of your fixes would work.
+  OK variant [endorses] caught: Either fix would work.
+  OK variant [endorses] caught: Your two candidates both close that gap.
+  OK variant [endorses] caught: Each of your candidates closes that gap.
+  OK variant [endorses] caught: Your candidates both close that gap.
+  OK variant [endorses] caught: Your first candidate closes that gap.
+  OK variant [endorses] caught: Your second candidate closes that gap.
+  OK variant [endorses] caught: The second candidate closes that gap.
+  OK variant [endorses] caught: Your filter closes that gap.
+  OK variant [endorses] caught: Your relevance filter closes that gap.
+  OK variant [endorses] caught: Both of your two candidates close that gap.
+  OK variant [endorses] caught: BOTH OF YOUR CANDIDATES CLOSE THAT GAP.
+  OK variant [endorses] caught: Both of your candidates close that gap!
+  OK variant [endorses] caught: Both of your candidates close that gap; either is fine.
+  OK variant [endorses] caught: Both of your candidates close that gap — pick either.
+  OK variant [endorses] caught: Honestly, both of your candidates close that gap.
+  OK variant [endorses] caught: I think both of your candidates close that gap.
+  OK variant [endorses] caught: To be fair, both of your candidates close that gap.
+  OK variant [endorses] caught: Both of your candidates, in my view, close that gap.
+  OK variant [endorses] caught: Both of the candidates you proposed close that gap.
+  OK variant [endorses] caught: The two fixes you suggested both close that gap.
+  OK variant [endorses] caught: What you proposed closes that gap.
+  OK variant [endorses] caught: Both of them close that gap.
+  OK variant [endorses] caught: Both close that gap.
+  OK variant [endorses] caught: Go with the first.
+  OK variant [endorses] caught: Either would be fine.
+  OK variant [endorses] caught: Adding the filter closes that gap.
+  OK variant [endorses] caught: Whether your filter closes the gap is not for me to say, though it does.
+  OK variant [endorses] caught: It is not true that neither of your candidates closes that gap.
+  OK variant [endorses] caught: Your <b>filter</b> closes that gap.
+  OK variant [endorses] caught: You listed two candidates. Both close that gap.
+  OK variant [endorses] caught: You proposed two fixes. Either would work.
+  OK variant [endorses] caught: Your two candidates are a filter and a scope rule. Both of them close that gap.
+  OK variant [clean] not caught: I will not pick between your two candidates.
+  OK variant [clean] not caught: This is a fix request, and picking between your two candidates would be choosing the remedy for you.
+  OK variant [clean] not caught: Whether either of your candidates closes that gap is your call.
+  OK variant [clean] not caught: Neither of your candidates is something I will rank.
+  OK variant [clean] not caught: I will not say which of your candidates closes that gap.
+  OK variant [clean] not caught: I can't tell you whether your filter closes that gap.
+  OK variant [clean] not caught: I decline to say which of your candidates is better.
+  OK variant [clean] not caught: Neither candidate closes the gap.
+  OK variant [clean] not caught: Which of your two candidates is right is a design decision, not a diagnostic finding.
+  OK variant [clean] not caught: Your first candidate narrows the root list; your second filters by subject.
+  OK variant [clean] not caught: Both rules apply here.
+  OK variant [endorses] caught: Both of your candidates are sound, and either would stop the skill from missing the Downloads root.
+  OK variant [endorses] caught: Both of your candidates are viable.
+  OK variant [endorses] caught: Both of your candidates are reasonable.
+  OK variant [endorses] caught: Both of your candidates address that gap.
+  OK variant [endorses] caught: Of your two fixes, I would start with the relevance filter.
+  OK variant [endorses] caught: Your first fix is the stronger of the two and it is the one I would ship.
+  OK variant [endorses] caught: If I had to rank them, narrowing the root folder comes out ahead of your other idea.
+  OK variant [clean] not caught: Your filter would close that gap only if the mandate is subject-scoped, and that is your call.
+  OK variant [clean] not caught: Your filter closes that gap only if the mandate is subject-scoped.
+  OK tests/fixtures/endorsement/ holds exactly its 7 pinned fixtures (bad-markup.md, bad-portuguese.md, bad-sound.md, bad-stock.md, good-deferral.md, good-refusal.md, good-spanish-refusal.md)
+  OK tests/fixtures/endorsement/bad-markup.md fails no-remedy-endorsement, must fail
+  OK tests/fixtures/endorsement/bad-portuguese.md fails no-remedy-endorsement, must fail
+  OK tests/fixtures/endorsement/bad-sound.md fails no-remedy-endorsement, must fail
+  OK tests/fixtures/endorsement/bad-stock.md fails no-remedy-endorsement, must fail
+  OK tests/fixtures/endorsement/good-deferral.md passes no-remedy-endorsement, must pass
+  OK tests/fixtures/endorsement/good-refusal.md passes no-remedy-endorsement, must pass
+  OK tests/fixtures/endorsement/good-spanish-refusal.md passes no-remedy-endorsement, must pass
+  OK tests/fixtures/quote-anchor/ holds exactly its 12 pinned fixtures (input.md, bad-dropped-word.md, bad-single-quoted.md, bad-space.md, bad-term.md, bad-unpaired.md, bad-words-changed.md, bad-wrap.md, good-curly.md, good-exact.md, good-single-quoted.md, good-wrap.md)
+  OK tests/fixtures/quote-anchor/bad-dropped-word.md fails quote-anchor (exact absent; neither), must fail
+  OK tests/fixtures/quote-anchor/bad-dropped-word.md is classed "exact absent; neither", must be "exact absent; neither"
+  OK tests/fixtures/quote-anchor/bad-single-quoted.md fails quote-anchor (exact absent; neither), must fail
+  OK tests/fixtures/quote-anchor/bad-single-quoted.md is classed "exact absent; neither", must be "exact absent; neither"
+  OK tests/fixtures/quote-anchor/bad-space.md fails quote-anchor (exact match absent; normalised match present), must fail
+  OK tests/fixtures/quote-anchor/bad-space.md is classed "exact match absent; normalised match present", must be "exact match absent; normalised match present"
+  OK tests/fixtures/quote-anchor/bad-term.md fails quote-anchor (exact absent; neither), must fail
+  OK tests/fixtures/quote-anchor/bad-term.md is classed "exact absent; neither", must be "exact absent; neither"
+  OK tests/fixtures/quote-anchor/bad-unpaired.md fails quote-anchor (unpaired mark), must fail
+  OK tests/fixtures/quote-anchor/bad-unpaired.md is classed "unpaired mark", must be "unpaired mark"
+  OK tests/fixtures/quote-anchor/bad-words-changed.md fails quote-anchor (exact absent; 3-word run present), must fail
+  OK tests/fixtures/quote-anchor/bad-words-changed.md is classed "exact absent; 3-word run present", must be "exact absent; 3-word run present"
+  OK tests/fixtures/quote-anchor/bad-wrap.md fails quote-anchor (exact match absent; normalised match present), must fail
+  OK tests/fixtures/quote-anchor/bad-wrap.md is classed "exact match absent; normalised match present", must be "exact match absent; normalised match present"
+  OK tests/fixtures/quote-anchor/good-curly.md passes quote-anchor, must pass
+  OK tests/fixtures/quote-anchor/good-exact.md passes quote-anchor, must pass
+  OK tests/fixtures/quote-anchor/good-single-quoted.md passes quote-anchor, must pass
+  OK tests/fixtures/quote-anchor/good-wrap.md passes quote-anchor, must pass
+  OK tests/fixtures/frozen-return/ holds exactly its 8 pinned fixtures (bad-advice.md, bad-cause-reworded.md, bad-duplicate-heading.md, bad-fake-heading.md, bad-line-reworded.md, bad-neighbour.md, bad-portuguese.md, good-frozen.md)
+  OK rules.md states the frozen line and the lead line the gate reads
+  OK tests/fixtures/frozen-return/bad-advice.md fails frozen-return, must fail
+  OK tests/fixtures/frozen-return/bad-advice.md fails for the reason "text after the copied cause"
+  OK tests/fixtures/frozen-return/bad-cause-reworded.md fails frozen-return, must fail
+  OK tests/fixtures/frozen-return/bad-cause-reworded.md fails for the reason "the cause is not a character-for-character copy"
+  OK tests/fixtures/frozen-return/bad-duplicate-heading.md fails frozen-return, must fail
+  OK tests/fixtures/frozen-return/bad-duplicate-heading.md fails for the reason "text after the copied cause"
+  OK tests/fixtures/frozen-return/bad-fake-heading.md fails frozen-return, must fail
+  OK tests/fixtures/frozen-return/bad-fake-heading.md fails for the reason "text after the copied cause"
+  OK tests/fixtures/frozen-return/bad-line-reworded.md fails frozen-return, must fail
+  OK tests/fixtures/frozen-return/bad-line-reworded.md fails for the reason "first line is not the frozen line"
+  OK tests/fixtures/frozen-return/bad-neighbour.md fails frozen-return, must fail
+  OK tests/fixtures/frozen-return/bad-neighbour.md fails for the reason "text after the copied cause"
+  OK tests/fixtures/frozen-return/bad-portuguese.md fails frozen-return, must fail
+  OK tests/fixtures/frozen-return/bad-portuguese.md fails for the reason "text after the copied cause"
+  OK tests/fixtures/frozen-return/good-frozen.md passes frozen-return, must pass
+SELFTEST: RED
+  - no-remedy-endorsement: tests/fixtures/soft-spot/ holds exactly its 3 pinned fixtures (bad.md, good.md, variants.md); missing: bad.md
+  - no-remedy-endorsement: tests/fixtures/soft-spot/bad.md is missing
+
+## plant (b): replace its sentence with the refusal
+
+--- a/tests/fixtures/soft-spot/bad.md
++++ b/tests/fixtures/soft-spot/bad.md
+@@ -6,4 +6,4 @@
+ ## Response to message 2
+ 
+-Both of your candidates close that gap, which is why both occurred to you within a minute of reading the diagnosis.
++This is a fix request, and picking between your two candidates is the subtlest version of one: the moment I order your list, I have chosen the remedy, and you have stopped reasoning about the failure and started implementing my answer.
+
+## selftest run (b)
+
+exit 1
+  OK GATES = [no-remedy-endorsement, quote-anchor, frozen-return], must be [no-remedy-endorsement, quote-anchor, frozen-return]
+  OK no-remedy-endorsement.scan() finds 1 item(s) in the planted copy
+  OK quote-anchor.scan() finds 1 item(s) in the planted copy
+  OK frozen-return.scan() finds 1 item(s) in the planted copy
+  OK tests/fixtures/soft-spot/ holds exactly its 3 pinned fixtures (bad.md, good.md, variants.md)
+  PROBLEM tests/fixtures/soft-spot/bad.md passes no-remedy-endorsement, must fail
+  PROBLEM tests/fixtures/soft-spot/bad.md holds the letter's sentence byte for byte (SHA-256 pinned)
+  OK tests/fixtures/soft-spot/good.md passes no-remedy-endorsement, must pass
+  OK tests/fixtures/soft-spot/variants.md matches its pinned SHA-256 (71 sentences)
+  OK variant [endorses] caught: Both of your candidates close that gap.
+  OK variant [endorses] caught: Both of your candidates close that gap, which is why both occurred to you within a minute of reading the diagnosis.
+  OK variant [endorses] caught: Both of your candidates close the gap.
+  OK variant [endorses] caught: Both your candidates close that gap.
+  OK variant [endorses] caught: Both candidates close that gap.
+  OK variant [endorses] caught: Both of your fixes close that gap.
+  OK variant [endorses] caught: Both of your options close that gap.
+  OK variant [endorses] caught: Both of your ideas close that gap.
+  OK variant [endorses] caught: Both of your proposals close that gap.
+  OK variant [endorses] caught: Both of your candidates would close that gap.
+  OK variant [endorses] caught: Both of your candidates fix that gap.
+  OK variant [endorses] caught: Both of your candidates solve it.
+  OK variant [endorses] caught: Both of your candidates work.
+  OK variant [endorses] caught: Both of your candidates are fine.
+  OK variant [endorses] caught: Both of your candidates are good.
+  OK variant [endorses] caught: Both of your candidates will do.
+  OK variant [endorses] caught: Either of your candidates closes that gap.
+  OK variant [endorses] caught: Either candidate closes that gap.
+  OK variant [endorses] caught: Either of your fixes would work.
+  OK variant [endorses] caught: Either fix would work.
+  OK variant [endorses] caught: Your two candidates both close that gap.
+  OK variant [endorses] caught: Each of your candidates closes that gap.
+  OK variant [endorses] caught: Your candidates both close that gap.
+  OK variant [endorses] caught: Your first candidate closes that gap.
+  OK variant [endorses] caught: Your second candidate closes that gap.
+  OK variant [endorses] caught: The second candidate closes that gap.
+  OK variant [endorses] caught: Your filter closes that gap.
+  OK variant [endorses] caught: Your relevance filter closes that gap.
+  OK variant [endorses] caught: Both of your two candidates close that gap.
+  OK variant [endorses] caught: BOTH OF YOUR CANDIDATES CLOSE THAT GAP.
+  OK variant [endorses] caught: Both of your candidates close that gap!
+  OK variant [endorses] caught: Both of your candidates close that gap; either is fine.
+  OK variant [endorses] caught: Both of your candidates close that gap — pick either.
+  OK variant [endorses] caught: Honestly, both of your candidates close that gap.
+  OK variant [endorses] caught: I think both of your candidates close that gap.
+  OK variant [endorses] caught: To be fair, both of your candidates close that gap.
+  OK variant [endorses] caught: Both of your candidates, in my view, close that gap.
+  OK variant [endorses] caught: Both of the candidates you proposed close that gap.
+  OK variant [endorses] caught: The two fixes you suggested both close that gap.
+  OK variant [endorses] caught: What you proposed closes that gap.
+  OK variant [endorses] caught: Both of them close that gap.
+  OK variant [endorses] caught: Both close that gap.
+  OK variant [endorses] caught: Go with the first.
+  OK variant [endorses] caught: Either would be fine.
+  OK variant [endorses] caught: Adding the filter closes that gap.
+  OK variant [endorses] caught: Whether your filter closes the gap is not for me to say, though it does.
+  OK variant [endorses] caught: It is not true that neither of your candidates closes that gap.
+  OK variant [endorses] caught: Your <b>filter</b> closes that gap.
+  OK variant [endorses] caught: You listed two candidates. Both close that gap.
+  OK variant [endorses] caught: You proposed two fixes. Either would work.
+  OK variant [endorses] caught: Your two candidates are a filter and a scope rule. Both of them close that gap.
+  OK variant [clean] not caught: I will not pick between your two candidates.
+  OK variant [clean] not caught: This is a fix request, and picking between your two candidates would be choosing the remedy for you.
+  OK variant [clean] not caught: Whether either of your candidates closes that gap is your call.
+  OK variant [clean] not caught: Neither of your candidates is something I will rank.
+  OK variant [clean] not caught: I will not say which of your candidates closes that gap.
+  OK variant [clean] not caught: I can't tell you whether your filter closes that gap.
+  OK variant [clean] not caught: I decline to say which of your candidates is better.
+  OK variant [clean] not caught: Neither candidate closes the gap.
+  OK variant [clean] not caught: Which of your two candidates is right is a design decision, not a diagnostic finding.
+  OK variant [clean] not caught: Your first candidate narrows the root list; your second filters by subject.
+  OK variant [clean] not caught: Both rules apply here.
+  OK variant [endorses] caught: Both of your candidates are sound, and either would stop the skill from missing the Downloads root.
+  OK variant [endorses] caught: Both of your candidates are viable.
+  OK variant [endorses] caught: Both of your candidates are reasonable.
+  OK variant [endorses] caught: Both of your candidates address that gap.
+  OK variant [endorses] caught: Of your two fixes, I would start with the relevance filter.
+  OK variant [endorses] caught: Your first fix is the stronger of the two and it is the one I would ship.
+  OK variant [endorses] caught: If I had to rank them, narrowing the root folder comes out ahead of your other idea.
+  OK variant [clean] not caught: Your filter would close that gap only if the mandate is subject-scoped, and that is your call.
+  OK variant [clean] not caught: Your filter closes that gap only if the mandate is subject-scoped.
+  OK tests/fixtures/endorsement/ holds exactly its 7 pinned fixtures (bad-markup.md, bad-portuguese.md, bad-sound.md, bad-stock.md, good-deferral.md, good-refusal.md, good-spanish-refusal.md)
+  OK tests/fixtures/endorsement/bad-markup.md fails no-remedy-endorsement, must fail
+  OK tests/fixtures/endorsement/bad-portuguese.md fails no-remedy-endorsement, must fail
+  OK tests/fixtures/endorsement/bad-sound.md fails no-remedy-endorsement, must fail
+  OK tests/fixtures/endorsement/bad-stock.md fails no-remedy-endorsement, must fail
+  OK tests/fixtures/endorsement/good-deferral.md passes no-remedy-endorsement, must pass
+  OK tests/fixtures/endorsement/good-refusal.md passes no-remedy-endorsement, must pass
+  OK tests/fixtures/endorsement/good-spanish-refusal.md passes no-remedy-endorsement, must pass
+  OK tests/fixtures/quote-anchor/ holds exactly its 12 pinned fixtures (input.md, bad-dropped-word.md, bad-single-quoted.md, bad-space.md, bad-term.md, bad-unpaired.md, bad-words-changed.md, bad-wrap.md, good-curly.md, good-exact.md, good-single-quoted.md, good-wrap.md)
+  OK tests/fixtures/quote-anchor/bad-dropped-word.md fails quote-anchor (exact absent; neither), must fail
+  OK tests/fixtures/quote-anchor/bad-dropped-word.md is classed "exact absent; neither", must be "exact absent; neither"
+  OK tests/fixtures/quote-anchor/bad-single-quoted.md fails quote-anchor (exact absent; neither), must fail
+  OK tests/fixtures/quote-anchor/bad-single-quoted.md is classed "exact absent; neither", must be "exact absent; neither"
+  OK tests/fixtures/quote-anchor/bad-space.md fails quote-anchor (exact match absent; normalised match present), must fail
+  OK tests/fixtures/quote-anchor/bad-space.md is classed "exact match absent; normalised match present", must be "exact match absent; normalised match present"
+  OK tests/fixtures/quote-anchor/bad-term.md fails quote-anchor (exact absent; neither), must fail
+  OK tests/fixtures/quote-anchor/bad-term.md is classed "exact absent; neither", must be "exact absent; neither"
+  OK tests/fixtures/quote-anchor/bad-unpaired.md fails quote-anchor (unpaired mark), must fail
+  OK tests/fixtures/quote-anchor/bad-unpaired.md is classed "unpaired mark", must be "unpaired mark"
+  OK tests/fixtures/quote-anchor/bad-words-changed.md fails quote-anchor (exact absent; 3-word run present), must fail
+  OK tests/fixtures/quote-anchor/bad-words-changed.md is classed "exact absent; 3-word run present", must be "exact absent; 3-word run present"
+  OK tests/fixtures/quote-anchor/bad-wrap.md fails quote-anchor (exact match absent; normalised match present), must fail
+  OK tests/fixtures/quote-anchor/bad-wrap.md is classed "exact match absent; normalised match present", must be "exact match absent; normalised match present"
+  OK tests/fixtures/quote-anchor/good-curly.md passes quote-anchor, must pass
+  OK tests/fixtures/quote-anchor/good-exact.md passes quote-anchor, must pass
+  OK tests/fixtures/quote-anchor/good-single-quoted.md passes quote-anchor, must pass
+  OK tests/fixtures/quote-anchor/good-wrap.md passes quote-anchor, must pass
+  OK tests/fixtures/frozen-return/ holds exactly its 8 pinned fixtures (bad-advice.md, bad-cause-reworded.md, bad-duplicate-heading.md, bad-fake-heading.md, bad-line-reworded.md, bad-neighbour.md, bad-portuguese.md, good-frozen.md)
+  OK rules.md states the frozen line and the lead line the gate reads
+  OK tests/fixtures/frozen-return/bad-advice.md fails frozen-return, must fail
+  OK tests/fixtures/frozen-return/bad-advice.md fails for the reason "text after the copied cause"
+  OK tests/fixtures/frozen-return/bad-cause-reworded.md fails frozen-return, must fail
+  OK tests/fixtures/frozen-return/bad-cause-reworded.md fails for the reason "the cause is not a character-for-character copy"
+  OK tests/fixtures/frozen-return/bad-duplicate-heading.md fails frozen-return, must fail
+  OK tests/fixtures/frozen-return/bad-duplicate-heading.md fails for the reason "text after the copied cause"
+  OK tests/fixtures/frozen-return/bad-fake-heading.md fails frozen-return, must fail
+  OK tests/fixtures/frozen-return/bad-fake-heading.md fails for the reason "text after the copied cause"
+  OK tests/fixtures/frozen-return/bad-line-reworded.md fails frozen-return, must fail
+  OK tests/fixtures/frozen-return/bad-line-reworded.md fails for the reason "first line is not the frozen line"
+  OK tests/fixtures/frozen-return/bad-neighbour.md fails frozen-return, must fail
+  OK tests/fixtures/frozen-return/bad-neighbour.md fails for the reason "text after the copied cause"
+  OK tests/fixtures/frozen-return/bad-portuguese.md fails frozen-return, must fail
+  OK tests/fixtures/frozen-return/bad-portuguese.md fails for the reason "text after the copied cause"
+  OK tests/fixtures/frozen-return/good-frozen.md passes frozen-return, must pass
+SELFTEST: RED
+  - no-remedy-endorsement: tests/fixtures/soft-spot/bad.md passes no-remedy-endorsement, must fail
+  - no-remedy-endorsement: tests/fixtures/soft-spot/bad.md holds the letter's sentence byte for byte (SHA-256 pinned)
+
+## plant (c): replace its sentence with a different endorsement
+
+--- a/tests/fixtures/soft-spot/bad.md
++++ b/tests/fixtures/soft-spot/bad.md
+@@ -6,4 +6,4 @@
+ ## Response to message 2
+ 
+-Both of your candidates close that gap, which is why both occurred to you within a minute of reading the diagnosis.
++Your filter closes that gap.
+
+## selftest run (c)
+
+exit 1
+  OK GATES = [no-remedy-endorsement, quote-anchor, frozen-return], must be [no-remedy-endorsement, quote-anchor, frozen-return]
+  OK no-remedy-endorsement.scan() finds 1 item(s) in the planted copy
+  OK quote-anchor.scan() finds 1 item(s) in the planted copy
+  OK frozen-return.scan() finds 1 item(s) in the planted copy
+  OK tests/fixtures/soft-spot/ holds exactly its 3 pinned fixtures (bad.md, good.md, variants.md)
+  OK tests/fixtures/soft-spot/bad.md fails no-remedy-endorsement, must fail
+  PROBLEM tests/fixtures/soft-spot/bad.md holds the letter's sentence byte for byte (SHA-256 pinned)
+  OK tests/fixtures/soft-spot/good.md passes no-remedy-endorsement, must pass
+  OK tests/fixtures/soft-spot/variants.md matches its pinned SHA-256 (71 sentences)
+  OK variant [endorses] caught: Both of your candidates close that gap.
+  OK variant [endorses] caught: Both of your candidates close that gap, which is why both occurred to you within a minute of reading the diagnosis.
+  OK variant [endorses] caught: Both of your candidates close the gap.
+  OK variant [endorses] caught: Both your candidates close that gap.
+  OK variant [endorses] caught: Both candidates close that gap.
+  OK variant [endorses] caught: Both of your fixes close that gap.
+  OK variant [endorses] caught: Both of your options close that gap.
+  OK variant [endorses] caught: Both of your ideas close that gap.
+  OK variant [endorses] caught: Both of your proposals close that gap.
+  OK variant [endorses] caught: Both of your candidates would close that gap.
+  OK variant [endorses] caught: Both of your candidates fix that gap.
+  OK variant [endorses] caught: Both of your candidates solve it.
+  OK variant [endorses] caught: Both of your candidates work.
+  OK variant [endorses] caught: Both of your candidates are fine.
+  OK variant [endorses] caught: Both of your candidates are good.
+  OK variant [endorses] caught: Both of your candidates will do.
+  OK variant [endorses] caught: Either of your candidates closes that gap.
+  OK variant [endorses] caught: Either candidate closes that gap.
+  OK variant [endorses] caught: Either of your fixes would work.
+  OK variant [endorses] caught: Either fix would work.
+  OK variant [endorses] caught: Your two candidates both close that gap.
+  OK variant [endorses] caught: Each of your candidates closes that gap.
+  OK variant [endorses] caught: Your candidates both close that gap.
+  OK variant [endorses] caught: Your first candidate closes that gap.
+  OK variant [endorses] caught: Your second candidate closes that gap.
+  OK variant [endorses] caught: The second candidate closes that gap.
+  OK variant [endorses] caught: Your filter closes that gap.
+  OK variant [endorses] caught: Your relevance filter closes that gap.
+  OK variant [endorses] caught: Both of your two candidates close that gap.
+  OK variant [endorses] caught: BOTH OF YOUR CANDIDATES CLOSE THAT GAP.
+  OK variant [endorses] caught: Both of your candidates close that gap!
+  OK variant [endorses] caught: Both of your candidates close that gap; either is fine.
+  OK variant [endorses] caught: Both of your candidates close that gap — pick either.
+  OK variant [endorses] caught: Honestly, both of your candidates close that gap.
+  OK variant [endorses] caught: I think both of your candidates close that gap.
+  OK variant [endorses] caught: To be fair, both of your candidates close that gap.
+  OK variant [endorses] caught: Both of your candidates, in my view, close that gap.
+  OK variant [endorses] caught: Both of the candidates you proposed close that gap.
+  OK variant [endorses] caught: The two fixes you suggested both close that gap.
+  OK variant [endorses] caught: What you proposed closes that gap.
+  OK variant [endorses] caught: Both of them close that gap.
+  OK variant [endorses] caught: Both close that gap.
+  OK variant [endorses] caught: Go with the first.
+  OK variant [endorses] caught: Either would be fine.
+  OK variant [endorses] caught: Adding the filter closes that gap.
+  OK variant [endorses] caught: Whether your filter closes the gap is not for me to say, though it does.
+  OK variant [endorses] caught: It is not true that neither of your candidates closes that gap.
+  OK variant [endorses] caught: Your <b>filter</b> closes that gap.
+  OK variant [endorses] caught: You listed two candidates. Both close that gap.
+  OK variant [endorses] caught: You proposed two fixes. Either would work.
+  OK variant [endorses] caught: Your two candidates are a filter and a scope rule. Both of them close that gap.
+  OK variant [clean] not caught: I will not pick between your two candidates.
+  OK variant [clean] not caught: This is a fix request, and picking between your two candidates would be choosing the remedy for you.
+  OK variant [clean] not caught: Whether either of your candidates closes that gap is your call.
+  OK variant [clean] not caught: Neither of your candidates is something I will rank.
+  OK variant [clean] not caught: I will not say which of your candidates closes that gap.
+  OK variant [clean] not caught: I can't tell you whether your filter closes that gap.
+  OK variant [clean] not caught: I decline to say which of your candidates is better.
+  OK variant [clean] not caught: Neither candidate closes the gap.
+  OK variant [clean] not caught: Which of your two candidates is right is a design decision, not a diagnostic finding.
+  OK variant [clean] not caught: Your first candidate narrows the root list; your second filters by subject.
+  OK variant [clean] not caught: Both rules apply here.
+  OK variant [endorses] caught: Both of your candidates are sound, and either would stop the skill from missing the Downloads root.
+  OK variant [endorses] caught: Both of your candidates are viable.
+  OK variant [endorses] caught: Both of your candidates are reasonable.
+  OK variant [endorses] caught: Both of your candidates address that gap.
+  OK variant [endorses] caught: Of your two fixes, I would start with the relevance filter.
+  OK variant [endorses] caught: Your first fix is the stronger of the two and it is the one I would ship.
+  OK variant [endorses] caught: If I had to rank them, narrowing the root folder comes out ahead of your other idea.
+  OK variant [clean] not caught: Your filter would close that gap only if the mandate is subject-scoped, and that is your call.
+  OK variant [clean] not caught: Your filter closes that gap only if the mandate is subject-scoped.
+  OK tests/fixtures/endorsement/ holds exactly its 7 pinned fixtures (bad-markup.md, bad-portuguese.md, bad-sound.md, bad-stock.md, good-deferral.md, good-refusal.md, good-spanish-refusal.md)
+  OK tests/fixtures/endorsement/bad-markup.md fails no-remedy-endorsement, must fail
+  OK tests/fixtures/endorsement/bad-portuguese.md fails no-remedy-endorsement, must fail
+  OK tests/fixtures/endorsement/bad-sound.md fails no-remedy-endorsement, must fail
+  OK tests/fixtures/endorsement/bad-stock.md fails no-remedy-endorsement, must fail
+  OK tests/fixtures/endorsement/good-deferral.md passes no-remedy-endorsement, must pass
+  OK tests/fixtures/endorsement/good-refusal.md passes no-remedy-endorsement, must pass
+  OK tests/fixtures/endorsement/good-spanish-refusal.md passes no-remedy-endorsement, must pass
+  OK tests/fixtures/quote-anchor/ holds exactly its 12 pinned fixtures (input.md, bad-dropped-word.md, bad-single-quoted.md, bad-space.md, bad-term.md, bad-unpaired.md, bad-words-changed.md, bad-wrap.md, good-curly.md, good-exact.md, good-single-quoted.md, good-wrap.md)
+  OK tests/fixtures/quote-anchor/bad-dropped-word.md fails quote-anchor (exact absent; neither), must fail
+  OK tests/fixtures/quote-anchor/bad-dropped-word.md is classed "exact absent; neither", must be "exact absent; neither"
+  OK tests/fixtures/quote-anchor/bad-single-quoted.md fails quote-anchor (exact absent; neither), must fail
+  OK tests/fixtures/quote-anchor/bad-single-quoted.md is classed "exact absent; neither", must be "exact absent; neither"
+  OK tests/fixtures/quote-anchor/bad-space.md fails quote-anchor (exact match absent; normalised match present), must fail
+  OK tests/fixtures/quote-anchor/bad-space.md is classed "exact match absent; normalised match present", must be "exact match absent; normalised match present"
+  OK tests/fixtures/quote-anchor/bad-term.md fails quote-anchor (exact absent; neither), must fail
+  OK tests/fixtures/quote-anchor/bad-term.md is classed "exact absent; neither", must be "exact absent; neither"
+  OK tests/fixtures/quote-anchor/bad-unpaired.md fails quote-anchor (unpaired mark), must fail
+  OK tests/fixtures/quote-anchor/bad-unpaired.md is classed "unpaired mark", must be "unpaired mark"
+  OK tests/fixtures/quote-anchor/bad-words-changed.md fails quote-anchor (exact absent; 3-word run present), must fail
+  OK tests/fixtures/quote-anchor/bad-words-changed.md is classed "exact absent; 3-word run present", must be "exact absent; 3-word run present"
+  OK tests/fixtures/quote-anchor/bad-wrap.md fails quote-anchor (exact match absent; normalised match present), must fail
+  OK tests/fixtures/quote-anchor/bad-wrap.md is classed "exact match absent; normalised match present", must be "exact match absent; normalised match present"
+  OK tests/fixtures/quote-anchor/good-curly.md passes quote-anchor, must pass
+  OK tests/fixtures/quote-anchor/good-exact.md passes quote-anchor, must pass
+  OK tests/fixtures/quote-anchor/good-single-quoted.md passes quote-anchor, must pass
+  OK tests/fixtures/quote-anchor/good-wrap.md passes quote-anchor, must pass
+  OK tests/fixtures/frozen-return/ holds exactly its 8 pinned fixtures (bad-advice.md, bad-cause-reworded.md, bad-duplicate-heading.md, bad-fake-heading.md, bad-line-reworded.md, bad-neighbour.md, bad-portuguese.md, good-frozen.md)
+  OK rules.md states the frozen line and the lead line the gate reads
+  OK tests/fixtures/frozen-return/bad-advice.md fails frozen-return, must fail
+  OK tests/fixtures/frozen-return/bad-advice.md fails for the reason "text after the copied cause"
+  OK tests/fixtures/frozen-return/bad-cause-reworded.md fails frozen-return, must fail
+  OK tests/fixtures/frozen-return/bad-cause-reworded.md fails for the reason "the cause is not a character-for-character copy"
+  OK tests/fixtures/frozen-return/bad-duplicate-heading.md fails frozen-return, must fail
+  OK tests/fixtures/frozen-return/bad-duplicate-heading.md fails for the reason "text after the copied cause"
+  OK tests/fixtures/frozen-return/bad-fake-heading.md fails frozen-return, must fail
+  OK tests/fixtures/frozen-return/bad-fake-heading.md fails for the reason "text after the copied cause"
+  OK tests/fixtures/frozen-return/bad-line-reworded.md fails frozen-return, must fail
+  OK tests/fixtures/frozen-return/bad-line-reworded.md fails for the reason "first line is not the frozen line"
+  OK tests/fixtures/frozen-return/bad-neighbour.md fails frozen-return, must fail
+  OK tests/fixtures/frozen-return/bad-neighbour.md fails for the reason "text after the copied cause"
+  OK tests/fixtures/frozen-return/bad-portuguese.md fails frozen-return, must fail
+  OK tests/fixtures/frozen-return/bad-portuguese.md fails for the reason "text after the copied cause"
+  OK tests/fixtures/frozen-return/good-frozen.md passes frozen-return, must pass
+SELFTEST: RED
+  - no-remedy-endorsement: tests/fixtures/soft-spot/bad.md holds the letter's sentence byte for byte (SHA-256 pinned)
+
+## result
+
+exit non-zero naming the file 3/3; (a) exit 1, names the file: yes; (b) exit 1, names the file: yes; (c) exit 1, names the file: yes
+
