@@ -1,0 +1,22 @@
+# The acceptance check on every push, on four Node versions. It reads the saved runs and sessions only:
+# no model is called, no key is needed. The audit (rebuild/tests/verify.mjs) is red by design on the
+# archive, so it is not run here; its selftest is.
+name: acceptance check
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [18, 20, 22, 24]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: node control/run.mjs
+      - run: node rebuild/tests/verify.mjs --selftest
+      - run: node control/readers.mjs

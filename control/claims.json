@@ -26,6 +26,39 @@
       }
     },
     {
+      "claim": "live path Q7: frozen returns, original and rebuild",
+      "in": {
+        "README.md": "16 of 16, character for character.",
+        "results.md": "| 0 of 16 | 16 of 16 | win by construction"
+      }
+    },
+    {
+      "claim": "live path Q7: the original's frozen returns",
+      "in": {
+        "README.md": "original gave the frozen return 0 of 16 times"
+      }
+    },
+    {
+      "claim": "live path readers: the original's answers about the fixes",
+      "in": {
+        "README.md": "owner's fixes in 10 (Opus) and 16 (Sonnet) of its 16 answers",
+        "results.md": "| 10 / 16 of 16; an endorsement in 1 / 1; a pick in 0 / 0;"
+      }
+    },
+    {
+      "claim": "live path readers: the rebuild's answers",
+      "in": {
+        "results.md": "| 0 / 0 of 16 on every question |"
+      }
+    },
+    {
+      "claim": "live path Q8: quoted words found nowhere in the input",
+      "in": {
+        "README.md": "the words found nowhere in the input are 41 and 17",
+        "results.md": "| 216 over 20 sessions, 41 of them words nowhere in the input; 0 sessions clean | 29, of which 17 nowhere in the input; 5 sessions clean |"
+      }
+    },
+    {
       "claim": "gate version 1, the frozen checker: SHA-256 of run-rebuild/heldout/gate-v1/tests",
       "folder": "run-rebuild/heldout/gate-v1/tests",
       "text": "c0b4648028bf568cfb65ca812ddb803f1df0847eb4c9e930d12e66cc8582c7dd",
