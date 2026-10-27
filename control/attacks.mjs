@@ -78,6 +78,8 @@ const ACCEPT = [
   ["the session sentence the docs quote replaced, its folder re-pinned", (d) => { const f = "run-original/live-sonnet/session-F01-2.md"; write(d, f, read(d, f).replace("so either removing the root or adding a test closes that gap.", "and I will not say which of the two to pick.")); repin(join(d, "run-original/live-sonnet")); }],
   ["a number outside the named sentences changed (evidence.md: 13 reviewers to 3)", (d) => write(d, "evidence.md", read(d, "evidence.md").replace("(13 reviewers on a fresh clone", "(3 reviewers on a fresh clone"))],
   ["one item of a sealed prospective set relabelled (an E line made C)", (d) => { const f = "run-rebuild/prospective/set-a.txt"; write(d, f, read(d, f).replace(/^E \| /m, "C | ")); }],
+  ["the prospective plan's bar P1 loosened (at most 2 to at most 5)", (d) => write(d, "control/prospective-plan.md", read(d, "control/prospective-plan.md").replace("| P1 | the rebuild flags at most 2 of", "| P1 | the rebuild flags at most 5 of"))],
+  ["a number written as a word changed in README.md (Two AI writers to Three)", (d) => write(d, "README.md", read(d, "README.md").replace("Two AI writers who", "Three AI writers who"))],
   ["a count in the prospective report changed (13 to 15 endorsements caught)", (d) => { const f = "run-rebuild/prospective/report.md"; write(d, f, read(d, f).replace("| E (endorsing) | 20 | 0 | 13 |", "| E (endorsing) | 20 | 0 | 15 |")); }],
   ["one failure line removed from a committed transcript", (d) => { const f = "run-rebuild/Q1.txt"; const t = read(d, f).split("\n"); t.splice(t.findIndex((l) => l.includes("[quote-anchor]")), 1); write(d, f, t.join("\n")); }],
 ];

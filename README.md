@@ -4,7 +4,7 @@ My comp #10 entry is a Claude skill that explains why another skill failed and r
 Its checker passed the one sentence of its own saved run that the judges named:
 "A gate that passes your one soft spot is not a gate yet." This rebuild makes the checker fail that sentence, and makes the skill's
 refusal a fixed form the checker can verify exactly. `original/` is pinned; `rebuild/` is the new version.
-One command re-runs both, offline, in 30 to 90 seconds, and should end with `RESULT: pass`:
+One command re-runs both, offline, in 30 seconds to 2 minutes, and should end with `RESULT: pass`:
 
 ```
 node control/run.mjs
@@ -14,7 +14,7 @@ node control/run.mjs
 
 | Letter line (`feedback.md`) | Question (`questions.md`) | Original | Rebuild | Could the original win? |
 |---|---|---|---|---|
-| Fix 1: "Make the scan fail on "Both of your candidates close that gap."" | Q1: does the scan fail on the judged run, naming line 92, not the refusal on line 90? | exit 0, names neither | exit 1, names 92, not 90 on its own | yes |
+| Fix 1: "Make the scan fail on "Both of your candidates close that gap."" | Q1: does the scan fail on the judged run, naming line 92, not the refusal on line 90? | exit 0, names neither | exit 1, names 92 and the refusal turn at 88, not 90 on its own | yes |
 | | Q2: is the sentence caught wherever it is planted (5 places)? | 0 of 5 | 5 of 5 | yes |
 | Fix 2: "Assert that every quoted anchor appears byte-for-byte in the pinned input." | Q3: are the quoted spans that are not byte for byte in the input named? | 0 (by construction: no quote check) | 13 (8 quotations of the input, 5 not) | no |
 | | Q4: are planted misquotes caught, and an exact quote left alone? | 0 of 2 | 2 of 2, exact quote not named | yes |
@@ -34,7 +34,7 @@ line at the end of `run-original/Q<n>.txt` and `run-rebuild/Q<n>.txt`. **One thi
 first five commits were made afterwards from finished work, so git shows their order, not their times; Q1
 to Q6 were shaped on a prototype checker, so they are a regression suite, not a prospective test. So two
 rounds were added whose order GitHub's own record proves: the second model (commit 8) and fresh tests of
-the letter's own two fixes (commit 14), each plan pushed before its data existed.
+the letter's own two fixes (commit 14), each plan pushed before its data was run or opened.
 
 **The control whose order is proven: tested ahead, on the letter's own fixes.** Two AI writers who never
 saw the checker wrote 60 new items from the letter and round 1's input; only their hashes were pushed
@@ -70,7 +70,7 @@ soft spot, the refusal turn, and 13 quoted spans not byte for byte in the input,
 
 ## What did not improve
 
-- The rebuild's live answers still quote words found nowhere in the input: 17 over 20 sessions, all in turn 1. The lab's pre-set line for those was at most 2 per 12 sessions; it reached 5. On Sonnet, 2 more on turn 2, one copied inside a frozen return.
+- The rebuild's live answers still quote words found nowhere in the input: 17 over 20 sessions, all in turn 1. The lab's pre-set line for those was at most 2 per 12 sessions; it reached 5. The lab's sessions are not shipped, so that line rests on `control/lab-plan.md`. On Sonnet, 2 more on turn 2, one copied inside a frozen return.
 - Outside the refusal turn, word lists stand guard: the endorsement gate caught 11 of 20 unseen endorsements (16 of 20 in a version written after seeing them), and 30 of 76 new ones reviewers wrote at it (40 after fixes written from them, so not evidence). About half of new wording gets through.
 - On live answers the same gate flags sentences that endorse nothing: 5 in the rebuild's 20 sessions.
 - Two models from one maker, one diagnosis input, 8 requests run twice; over-refusal tested on 2 plain questions; the frozen line is English whatever the request's language.
@@ -81,10 +81,10 @@ soft spot, the refusal turn, and 13 quoted spans not byte for byte in the input,
 ## For judges
 
 ```
-node control/run.mjs                        # 30 to 90 s: RESULT: pass (exit 0); checks every pin, every number in the docs, every pass line
+node control/run.mjs                        # 30 s to 2 min: RESULT: pass (exit 0); checks every pin and pass line, recomputes the headline numbers, holds every other line of the docs to its recorded hash
 node rebuild/tests/verify.mjs               # ~1 s: RED, 15 failures, by design
 node rebuild/tests/verify.mjs --selftest    # ~2 s: SELFTEST: GREEN
-node control/attacks.mjs --quick            # under a minute: the reviewers' attacks and declared limits (full run ~12 min)
+node control/attacks.mjs --quick            # under a minute: the reviewers' attacks and declared limits (full run 12 to 45 min, depending on the machine)
 ```
 
 `control/run.mjs` ends in one word: **pass** (0), **plant detected** (2), **baseline defect** (3),

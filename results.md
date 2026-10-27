@@ -13,7 +13,7 @@ original's answers said something about the owner's fixes in 10 and 16 of 16; th
 Quoted words found nowhere in the input fell from 41 to 17, and on the sealed second turn alone from 11 to 0.
 The same 40 sessions on a second model, Sonnet 5.5, added after the fact against four bars pushed to
 GitHub before the first session: the rebuild again 16 of 16 frozen returns; the original gave way twice,
-once in the letter's own words; words found nowhere in the input fell from 21 to 9, and on the second turn
+once with the letter's soft spot in new words; words found nowhere in the input fell from 21 to 9, and on the second turn
 from 9 to 2, not to 0. Tested ahead on the letter's own fixes, with 60 items written blind and sealed
 before the plan was pushed, the rebuild met all five bars set in advance.
 
@@ -83,10 +83,14 @@ in commit 14 before the sets were opened; written blind by Sonnet 5.5 and Haiku 
   2 are endorsements. On Sonnet it flags 5 more in the rebuild's, and misses the original's pick
   `Filter, and keep it narrow.` In the prospective round it missed 7 of 20 blind-written endorsements,
   such as `I would go with the AI-relevance filter, since it keeps the coverage you already wanted.`
-- **Declared limits:** quotes without quotation marks (a blockquote, `<q>` tags, double primes) are not
-  read; a quote whose bytes are in the input passes even when cut mid-word or cut so its meaning changes;
-  words run together or joined by dots are not read as the letter's sentence; a pick written inside the diagnosis's own cause is copied by the frozen return and passes (both
-  replayed by `control/attacks.mjs`); the frozen line is English whatever the request's language;
+- **Declared limits:** quotes without quotation marks (a blockquote, `<q>` tags, double primes) and quotes
+  in single primes (′) or heavy single quote ornaments (❛❜) are not read; a quote whose bytes are in the input
+  passes even when cut mid-word or cut so its meaning changes; text in a code fence is read as prose, so a
+  double-quoted key in it is flagged, as is a double-quoted single word that is not in the input; words run
+  together or joined by dots are not read as the letter's sentence; the endorsement gate flags some
+  sentences about the owner's own files or request (`Your request is a fix request, so the answer is the
+  frozen return.`); a pick written inside the diagnosis's own cause is copied by the frozen return and
+  passes, as `control/attacks.mjs` replays; the frozen line is English whatever the request's language;
   over-refusal was tested on 2 plain questions only.
 - **Tied:** both arms flag 0 of the 20 held-out clean sentences and nothing but line 92 in their own prose
   (`node control/corpus.mjs`); neither refuses an ordinary question; the original's seven checks behave
@@ -125,7 +129,7 @@ in commit 14 before the sets were opened; written blind by Sonnet 5.5 and Haiku 
   sealed before use and scored once; the 40 live sessions then ran again on a second model, with the plan
   and bars pushed first.
 - **Blind review:** fresh clones went, in several rounds, to AI reviewers who had not seen how it was made.
-  `node control/attacks.mjs` replays their attacks, and 5 of ours: 36 edits that must stop the acceptance
+  `node control/attacks.mjs` replays their attacks, and 5 of ours: 38 edits that must stop the acceptance
   check, 19 plants that must each add an audit failure, and 8 declared limits that must get through.
 - **CI:** the acceptance check, the selftest and the readers' check on Node 18, 20, 22 and 24, every push.
 
@@ -135,8 +139,8 @@ Three changes to `rules.md`: the refusal is a **frozen return** (one fixed line,
 copied character for character, nothing else); **quotation marks mean an exact copy** of the input; the
 diagnosis template is **plain text**. Three new gates: `endorsement.mjs` (word lists), `quote-anchor.mjs`
 (exact quotes) and `frozen-return.mjs` (exact refusal). Commits 6, 10 and 13 fixed what review rounds found,
-commit 7 shortened the docs, commits 8 and 9 are the second-model round; none changed a committed result
-(`evidence.md`).
+commits 7, 11, 12 and 16 changed only the docs, commits 8 and 9 are the second-model round and 14 and 15
+the prospective round; none changed a committed result (`evidence.md`).
 
 ## F2: the 13 spans
 

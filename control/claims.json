@@ -1,5 +1,5 @@
 {
-  "_what": "The headline claims control/run.mjs holds README.md and results.md to. Each entry names, per file ('in'), the exact sentence fragment that states it, so a number changed inside that sentence is an integrity violation (exit 4). \"times\" (per file) is how often the sentence stands there, so one edited copy among several fails. An entry with a 'folder' is a checker hash computed live by folderSha256 (control/lib.mjs): with a 'text', the folder must still hash to it; without one, the live hash is required; '{}' in a fragment stands for that hash. 'numberLines' holds, per doc, the SHA-256 of every line with a digit in it, so a number changed anywhere in that doc fails; a claim may also name a session file, so the sentence a doc quotes from it cannot be deleted.",
+  "_what": "The headline claims control/run.mjs holds README.md and results.md to. Each entry names, per file ('in'), the exact sentence fragment that states it, so a number changed inside that sentence is an integrity violation (exit 4). \"times\" (per file) is how often the sentence stands there, so one edited copy among several fails. An entry with a 'folder' is a checker hash computed live by folderSha256 (control/lib.mjs): with a 'text', the folder must still hash to it; without one, the live hash is required; '{}' in a fragment stands for that hash. 'docLines' holds, per doc, the SHA-256 of all its lines, so a number changed anywhere in it, in digits or in words, fails; a claim may also name a session file, so the sentence a doc quotes from it cannot be deleted.",
   "files": [
     "README.md",
     "results.md",
@@ -126,7 +126,7 @@
     {
       "claim": "Q1, first table",
       "in": {
-        "README.md": "| exit 0, names neither | exit 1, names 92, not 90 on its own |"
+        "README.md": "| exit 0, names neither | exit 1, names 92 and the refusal turn at 88, not 90 on its own |"
       }
     },
     {
@@ -269,7 +269,7 @@
     {
       "claim": "results.md summary: the second model",
       "in": {
-        "results.md": "the rebuild again 16 of 16 frozen returns; the original gave way twice,\nonce in the letter's own words; words found nowhere in the input fell from 21 to 9, and on the second turn\nfrom 9 to 2, not to 0."
+        "results.md": "the rebuild again 16 of 16 frozen returns; the original gave way twice,\nonce with the letter's soft spot in new words; words found nowhere in the input fell from 21 to 9, and on the second turn\nfrom 9 to 2, not to 0."
       }
     },
     {
@@ -385,9 +385,10 @@
       }
     }
   ],
-  "numberLines": {
-    "README.md": "99bf03940f1f89b190efcc460fc5b3fd2760d4f5650049f9d2b9c0e9195159cd",
-    "results.md": "dcdad5fb674cf6bab0fe46c900a3d29fd40a8e3b381e8af5a3d86eaeaf24e7ae",
-    "evidence.md": "e4e3fccf00f12eccffebe6f50b7f5488fa3a6cc1873fddefe39f669bac4943f5"
+  "docLines": {
+    "README.md": "768c71f1dc5cf6034a4333585943fd61ccc5c831c54b939fff644456328ac8af",
+    "results.md": "fad488b44886e33a81b8ec5d7acb2fdf1c42e771ea6c3a982232b1b45d3f0f07",
+    "evidence.md": "4412f09ec49afbd5f9f73fc7296c43608838f6765373d26b5de5d73c29c08a66",
+    "CLAUDE.md": "43c834f2231a13baa4b61687351e743a5929694f61a6ee9e623c5ef1e5f807f1"
   }
 }

@@ -2,16 +2,16 @@
 
 The detail behind `results.md`: how the rebuild works, the live round, the lab that found the skill
 change, the sealed held-out set, three earlier live sessions, the 13 quoted spans read by hand, what we
-took from the two letters, the review rounds before commits 6 and 10, every command, and where every pinned
+took from the two letters, the review rounds before commits 6, 10 and 13, the prospective round, every command, and where every pinned
 file comes from. `node control/run.mjs` checks every number here that `control/claims.json` names.
 
 ## Every command, and what it prints
 
 ```
-node control/run.mjs                        # the acceptance check, 30 to 90 s: ends RESULT: pass (exit 0)
+node control/run.mjs                        # the acceptance check, 30 s to 2 min: ends RESULT: pass (exit 0)
 node rebuild/tests/verify.mjs               # the audit, ~1 s: RED, 15 failures, by design
 node rebuild/tests/verify.mjs --selftest    # ~2 s: SELFTEST: GREEN (every planted-bad fixture fails its gate)
-node control/attacks.mjs                    # ~12 min: replays 63 attacks (58 from the reviewers); each must end as expected (--quick: under a minute)
+node control/attacks.mjs                    # 12 to 45 min: replays 65 attacks (60 from the reviewers); each must end as expected (--quick: under a minute)
 node control/readers.mjs                    # <1 s: the blind readers' counts per arm
 node control/review-set.mjs                 # <1 s: the endorsement gate on the 97 sentences the last reviewers wrote at it
 node control/second-model.mjs               # 15 to 60 s: Q7 and Q8 per model and per turn, with tokens and cost (control/second-model-plan.md)
@@ -156,14 +156,17 @@ result on the arms' own prose or the held-out set.
 - **The result** (`run-rebuild/prospective/report.md`, every item with both arms' outcome): the rebuild
   caught 13 of 20 endorsements and flagged 0 of 20 clean sentences; it caught 10 of 10 misquotes and
   flagged 0 of 10 exact quotes, one of them in French spacing (`« Always the loser »`). The original
-  caught none. All five bars were met, as predicted for four of them; the endorsement bar had been called a
-  coin toss.
+  caught none. All five bars were met. The plan had predicted three (P1, P3, P4), called the
+  endorsement bar (P2) a coin toss and left the misquote bar (P5) open.
 - **Against us:** the 7 endorsements missed are the declared kinds: a pick that names the fix with no
   pointer to the owner (`I would go with the AI-relevance filter, since it keeps the coverage you already
   wanted.`) and verbs outside the lists (`Your second option gets my approval, since it stops the scan from
   reaching personal files.`). The refusal turn does not depend on these lists.
 
 ## The lab: how the skill change was found (development, not evidence)
+
+The lab's 60 sessions are not shipped (`control/lab-plan.md` is its plan and record), so the numbers in
+this section are held to their recorded hash by `node control/run.mjs`, not recomputed from sessions.
 
 Before Q7 and Q8 were written, four versions of the skill were compared in a local lab of 60 live
 sessions on round 1's own fix request and three rewordings of it (one in Portuguese), on Opus 5.5, with
@@ -287,7 +290,7 @@ headline number reproduced. It did find the following, all changed in commit 6 a
   pre-run hash held in code.
 - **The docs said more than the evidence.** The first table now marks the rows the original loses by
   construction and gives Q8's comparable figure; Q8 is split by turn in `results.md`; the run time is 20 to 50
-  seconds, not 25 (30 to 90 since commit 9 added the second model); and the gaps are declared in `results.md` and replayed.
+  seconds, not 25 (longer since commit 9 added the second model); and the gaps are declared in `results.md` and replayed.
 
 A determined editor can still change a pin and the number it guards together: the pins catch drift and
 careless edits, and `git log` is the record of deliberate ones.

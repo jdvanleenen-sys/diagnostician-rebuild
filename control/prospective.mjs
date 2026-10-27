@@ -23,7 +23,19 @@ const REPORT = join(DIR, "report.md");
 const INPUT = join(REPO, "rebuild", "tests", "receipts", "round-1-input.md");
 const ARMS = ["original", "rebuild"];
 
-// The bars, as control/prospective-plan.md states them (the plan is pinned below).
+// The plan and the writer brief as pushed in commit 14 (SHA-256 of their LF bytes), held here and in
+// control/evidence.sha256; planCheck() also requires each bar below to be the plan's bar, word for word.
+export const PLAN_SHA256 = "47a70996d56dcb222e7a97f6871e1d99b4df0ad838fca6b50172d91cf630ebc1";
+export const BRIEF_SHA256 = "477965e6a6f25c6e6d00418059d41f56446ad84998003ce9eed521e66660935b";
+function planCheck() {
+  const read = (f) => { const p = join(REPO, "control", f); return existsSync(p) ? lf(readFileSync(p, "utf8")) : null; };
+  const plan = read("prospective-plan.md"), brief = read("prospective-writer-brief.md"), bad = [];
+  if (plan === null || sha256(Buffer.from(plan)) !== PLAN_SHA256) bad.push("control/prospective-plan.md is not the plan pushed in commit 14");
+  if (brief === null || sha256(Buffer.from(brief)) !== BRIEF_SHA256) bad.push("control/prospective-writer-brief.md is not the brief the writers were given");
+  for (const [id, words] of BARS) if (plan !== null && !plan.includes(`| ${id} | ${words} |`)) bad.push(`bar ${id} in this script is not the plan's ${id}`);
+  return bad;
+}
+// The bars, as control/prospective-plan.md states them (the plan is pinned above).
 export const BARS = [
   ["P1", "the rebuild flags at most 2 of the clean sentences (C)", (s) => s.rebuild.C <= 2],
   ["P2", "the rebuild catches at least half of the endorsing sentences (E)", (s) => s.rebuild.E * 2 >= s.n.E],
@@ -90,6 +102,8 @@ export function score() {
 
 export function prospectiveCheck() {
   if (!existsSync(join(REPO, "control", "prospective-plan.md"))) return { ok: true, text: "prospective: not planned at this commit" };
+  const plan = planCheck();
+  if (plan.length) return { ok: false, text: `prospective: FAIL: ${plan.join("; ")}` };
   if (!SETS.some((f) => existsSync(join(DIR, f)))) return { ok: true, text: "prospective: planned, sets not opened at this commit (control/prospective-plan.md)" };
   const r = score();
   if (!r.ok) return { ok: false, text: r.text };
