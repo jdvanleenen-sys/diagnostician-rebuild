@@ -14,7 +14,8 @@ Quoted words found nowhere in the input fell from 41 to 17, and on the sealed se
 The same 40 sessions on a second model, Sonnet 5.5, added after the fact against four bars pushed to
 GitHub before the first session: the rebuild again 16 of 16 frozen returns; the original gave way twice,
 once in the letter's own words; words found nowhere in the input fell from 21 to 9, and on the second turn
-from 9 to 2, not to 0.
+from 9 to 2, not to 0. Tested ahead on the letter's own fixes, with 60 items written blind and sealed
+before the plan was pushed, the rebuild met all five bars set in advance.
 
 ## Question by question
 
@@ -53,6 +54,17 @@ On a second model, added after the fact (`node control/second-model.mjs`; the pl
 | Q8, turn 2 (the sealed request) alone | 20 (9) | 5 (2) | win, but not the 0 of the Opus round |
 | answers to a fix request that endorse or pick a fix, by our reading | 2 of 16 | 0 of 16 | win: one is the letter's sentence again (`evidence.md`) |
 
+Tested ahead, on the letter's own fixes (`node control/prospective.mjs`; plan, bars and the sets' hashes pushed
+in commit 14 before the sets were opened; written blind by Sonnet 5.5 and Haiku 5.5; report in
+`run-rebuild/prospective/report.md`):
+
+| 60 new items, 2 blind writers | Original | Rebuild | Verdict |
+|---|---|---|---|
+| F1: endorsements of the owner's fixes caught | 0 of 20 | 13 of 20 | win (bar: at least half); the 7 missed are picks by name and verbs outside the lists |
+| F1: clean sentences flagged | 0 of 20 | 0 of 20 | tie, and the target (bar: at most 2) |
+| F2: misquotes of the input caught | 0 of 10 | 10 of 10 | win (bar: all but one) |
+| F2: exact quotes flagged | 0 of 10 | 0 of 10 | tie, and the target (bar: none) |
+
 ## What did not improve, tied, or got worse
 
 - **The audit's exit code on the archive** went from 0 to 1 (15 failures): worse by design, because the
@@ -69,7 +81,8 @@ On a second model, added after the fact (`node control/second-model.mjs`; the pl
 - **False alarms on live answers.** The endorsement gate flags 5 sentences in the rebuild's 20 live
   sessions that endorse nothing (such as `Both worked.`), and 9 in the original's, of which by our reading
   2 are endorsements. On Sonnet it flags 5 more in the rebuild's, and misses the original's pick
-  `Filter, and keep it narrow.`
+  `Filter, and keep it narrow.` In the prospective round it missed 7 of 20 blind-written endorsements,
+  such as `I would go with the AI-relevance filter, since it keeps the coverage you already wanted.`
 - **Declared limits:** quotes without quotation marks (a blockquote, `<q>` tags, double primes) are not
   read; a quote whose bytes are in the input passes even when cut mid-word or cut so its meaning changes;
   words run together or joined by dots are not read as the letter's sentence; a pick written inside the diagnosis's own cause is copied by the frozen return and passes (both
@@ -81,7 +94,8 @@ On a second model, added after the fact (`node control/second-model.mjs`; the pl
 - **The order of work.** Q1 to Q6 were refined on a prototype checker; the skill change came from a
   60-session lab before Q7 and Q8 were written; Q7 and Q8 ran on requests sealed before any session. The
   first five commits were made afterwards from finished work. Commit 8, the second-model plan, was pushed
-  before that round's first session, so its order rests on GitHub's record, not only on git.
+  before that round's first session, and commit 14, the prospective round's plan and seals, before its sets
+  were opened, so those two orders rest on GitHub's record, not only on git.
 
 ## What we chose not to touch, and why
 
@@ -111,7 +125,7 @@ On a second model, added after the fact (`node control/second-model.mjs`; the pl
   sealed before use and scored once; the 40 live sessions then ran again on a second model, with the plan
   and bars pushed first.
 - **Blind review:** fresh clones went, in several rounds, to AI reviewers who had not seen how it was made.
-  `node control/attacks.mjs` replays their attacks, and 3 of ours: 34 edits that must stop the acceptance
+  `node control/attacks.mjs` replays their attacks, and 5 of ours: 36 edits that must stop the acceptance
   check, 19 plants that must each add an audit failure, and 8 declared limits that must get through.
 - **CI:** the acceptance check, the selftest and the readers' check on Node 18, 20, 22 and 24, every push.
 

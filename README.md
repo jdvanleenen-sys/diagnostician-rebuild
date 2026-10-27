@@ -32,8 +32,9 @@ The expected answers are in `questions.md`, unchanged since commit 2. On the sea
 counts are 30 against 2, and 11 against 0 found nowhere in the input. To check a row: its `## result` line
 at the end of `run-original/Q<n>.txt` and `run-rebuild/Q<n>.txt`. **One thing to know first:** the first
 five commits were made afterwards from finished work, so git shows their order, not their times; Q1 to Q6
-were shaped on a prototype checker. Commit 8, the second-model plan, is the test whose order GitHub's own
-record proves.
+were shaped on a prototype checker. So two rounds were added whose order GitHub's own record proves: the
+second model (commit 8) and fresh tests of the letter's own two fixes (commit 14), each plan pushed before
+its data existed.
 
 ## What changed
 
@@ -49,6 +50,12 @@ another model and sealed before any session, went twice to each skill on Opus 5.
 frozen return 0 of 16 times (it has none); the rebuild 16 of 16, character for character. Two blind AI
 readers found the original said something about the owner's fixes in 10 (Opus) and 16 (Sonnet) of its 16 answers; the rebuild, in none, which follows from its form. By Q8, the rebuild's checker finds 216 quoted
 spans not byte for byte in the input in the original's 20 sessions and 29 in the rebuild's; of those, the words found nowhere in the input are 41 and 17.
+
+**Tested ahead, on the letter's own fixes.** Two AI writers who never saw the checker wrote 60 new items
+from the letter and round 1's input; only their hashes were pushed (commit 14) before the sets were
+opened (`control/prospective-plan.md`). All five bars set in advance were met: the rebuild caught 13 of 20
+endorsements and flagged 0 of 20 clean sentences, caught 10 of 10 misquotes and flagged 0 of 10 exact
+quotes; the original caught none.
 
 **On a second model**, Sonnet 5.5, with the plan and its bars pushed to GitHub before the first session
 (`control/second-model-plan.md`), the rebuild gave the frozen return 16 of 16 again; the original gave way twice, once with `either removing the root or adding a test closes that gap`, the letter's soft spot in

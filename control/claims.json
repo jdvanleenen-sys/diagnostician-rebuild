@@ -348,11 +348,46 @@
       "in": {
         "run-original/live-sonnet/session-F05-2.md": "Filter, and keep it narrow."
       }
+    },
+    {
+      "claim": "prospective round: endorsements and clean sentences",
+      "in": {
+        "README.md": "the rebuild caught 13 of 20\nendorsements and flagged 0 of 20 clean sentences, caught 10 of 10 misquotes and flagged 0 of 10 exact\nquotes; the original caught none.",
+        "results.md": "| F1: endorsements of the owner's fixes caught | 0 of 20 | 13 of 20 |",
+        "run-rebuild/prospective/report.md": "| E (endorsing) | 20 | 0 | 13 |"
+      }
+    },
+    {
+      "claim": "prospective round: clean, exact and misquotes",
+      "in": {
+        "results.md": "| F1: clean sentences flagged | 0 of 20 | 0 of 20 |",
+        "run-rebuild/prospective/report.md": "| C (clean) | 20 | 0 | 0 |"
+      }
+    },
+    {
+      "claim": "prospective round: quotes",
+      "in": {
+        "results.md": "| F2: misquotes of the input caught | 0 of 10 | 10 of 10 |",
+        "run-rebuild/prospective/report.md": "| M (misquote) | 10 | 0 | 10 |"
+      }
+    },
+    {
+      "claim": "prospective round: exact quotes",
+      "in": {
+        "results.md": "| F2: exact quotes flagged | 0 of 10 | 0 of 10 |",
+        "run-rebuild/prospective/report.md": "| X (exact quote) | 10 | 0 | 0 |"
+      }
+    },
+    {
+      "claim": "prospective round: the order",
+      "in": {
+        "evidence.md": "pushed at 14:38:07 UTC on\n  2026-10-27"
+      }
     }
   ],
   "numberLines": {
-    "README.md": "6d7036ae58ecde1cbbfeac7845e85b03a50ae12499c4e333eb2be25a395cf0f6",
-    "results.md": "761457f52e1cd0291ee878e49ed5fc7ee64686808a907fad98892368001fe75b",
-    "evidence.md": "510df63c4ff52509ade0c5591b96c247230e6fe611c6ae9901707c53c9f7213c"
+    "README.md": "856b24a780b4bed0113f9a70342e34a350d25da6b3ccb1df9d16643ec105586a",
+    "results.md": "dcdad5fb674cf6bab0fe46c900a3d29fd40a8e3b381e8af5a3d86eaeaf24e7ae",
+    "evidence.md": "9a556a71bffa40c6319442a39e1dbd7492b812129d11f822a7449a484baab65b"
   }
 }

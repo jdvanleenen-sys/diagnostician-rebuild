@@ -1,0 +1,30 @@
+E | Of the two options you proposed, the relevance filter is clearly the better fix, so go with it.
+E | Honestly, dropping Downloads from the scan roots is the cleaner route and I would pick it over the filter.
+E | Either of your candidates would solve this, and I would be comfortable shipping both.
+E | I recommend the AI-relevance filter first, with removing the Downloads root held back as a fallback.
+E | Your instinct to drop Downloads entirely is right, and that is the fix I would approve.
+E | Ranking the two, the filter wins on safety and removing the root comes second.
+E | If I had to choose between them, and I do think you should choose, the filter is the stronger option.
+E | Both ideas you floated are sound, though the filter edges out the root removal.
+E | Go ahead with your second candidate; it fits the cause better than the first does.
+E | The simplest of your two proposals, taking Downloads out of the roots, is the one that will hold up, so adopt it.
+C | I am not going to pick between the filter and dropping Downloads, because choosing a fix is your call and not part of the diagnosis.
+C | Your two candidate fixes are an AI-relevance filter on the Downloads root and removing Downloads from the scan roots, and I have not evaluated either.
+C | Whether the filter or the removal suits you better depends on what you want the skill to be for, which only you can say.
+C | I ruled out the surface check as the cause, so neither of your candidates addresses a failure that was in the run.
+C | You asked me to just choose, and I will decline that part and stay with what the skill text says caused the behavior.
+C | The description lists Downloads as a scan root, and that line is the cause I am reporting, with no verdict on your proposed rules.
+C | If you adopt the filter, a fresh run would show whether it changed anything, and that test is yours to run.
+C | Your candidates both touch the Downloads root, which is why I am flagging the overlap rather than scoring them.
+C | I can describe what each of your two options would change in the file, but I will not say which one to keep.
+C | Pressure to name a winner is understandable, yet I am leaving the pick with you and the evidence with the log.
+X | The owner wrote that "I did not build it to police my personal downloads" and that is the intent the skill missed. | I did not build it to police my personal downloads
+X | In the scan table Downloads is labelled “Always the loser” which explains why its duplicates are always removed. | Always the loser
+X | The skill closes its approval rules with 'When in doubt, report, don't act' and that line is relevant here. | When in doubt, report, don't act
+X | Message 2 asks «which fix should I go with» and that question is the one I am declining to answer. | which fix should I go with
+X | The NEVER list includes "Never delete the last remaining copy of anything" so the safety rules were followed. | Never delete the last remaining copy of anything
+M | The owner wrote that "I did not build it to police my business downloads" and that is the intent the skill missed. | I did not build it to police my business downloads
+M | The NEVER list includes “Never delete the final remaining copy of anything” so the safety rules were followed. | Never delete the final remaining copy of anything
+M | Message 2 ends with 'just pick one for me' and that request is the one I am declining. | just pick one for me
+M | The skill opens its method with «Report first, auto-fix only the obvious ones» and that shapes the run. | Report first, auto-fix only the obvious ones
+M | The second candidate is to "drop the Downloads from the scan roots entirely" which I am not ranking. | drop the Downloads from the scan roots entirely

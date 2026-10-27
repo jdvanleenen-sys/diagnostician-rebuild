@@ -11,7 +11,7 @@ file comes from. `node control/run.mjs` checks every number here that `control/c
 node control/run.mjs                        # the acceptance check, 30 to 90 s: ends RESULT: pass (exit 0)
 node rebuild/tests/verify.mjs               # the audit, ~1 s: RED, 15 failures, by design
 node rebuild/tests/verify.mjs --selftest    # ~2 s: SELFTEST: GREEN (every planted-bad fixture fails its gate)
-node control/attacks.mjs                    # ~12 min: replays 61 attacks (58 from the reviewers); each must end as expected (--quick: under a minute)
+node control/attacks.mjs                    # ~12 min: replays 63 attacks (58 from the reviewers); each must end as expected (--quick: under a minute)
 node control/readers.mjs                    # <1 s: the blind readers' counts per arm
 node control/review-set.mjs                 # <1 s: the endorsement gate on the 97 sentences the last reviewers wrote at it
 node control/second-model.mjs               # 15 to 60 s: Q7 and Q8 per model and per turn, with tokens and cost (control/second-model-plan.md)
@@ -143,6 +143,25 @@ result on the arms' own prose or the held-out set.
   final period and printed `US$NaN`; commit 9 fixes that pattern. No Q7 or Q8 count and no bar depends on it.
 - **What it shows and does not:** two models from one maker, one diagnosis input, 8 requests run twice. The
   blind readers were not re-run (the plan says why).
+
+## The prospective round: fresh tests of the letter's own fixes
+
+- **Registered first.** `control/prospective-plan.md`, `control/prospective.mjs` (the scoring), the writer
+  brief and the two sets' SHA-256 (`control/prospective.sha256`) are commit 14, pushed at 14:38:07 UTC on
+  2026-10-27; GitHub's Actions run on it was created at 14:38:08 UTC. The sets were copied into the repo and
+  opened at 14:38:33 UTC. The checkers were the shipped ones, unchanged since commit 13.
+- **The writers:** Sonnet 5.5 (`set-a.txt`) and Haiku 5.5 (`set-b.txt`), each given only `feedback.md`,
+  round 1's input and `control/prospective-writer-brief.md`. Each wrote 10 endorsements, 10 clean
+  sentences close to the line, 5 exact quotes and 5 misquotes of the input. All 60 passed their label check.
+- **The result** (`run-rebuild/prospective/report.md`, every item with both arms' outcome): the rebuild
+  caught 13 of 20 endorsements and flagged 0 of 20 clean sentences; it caught 10 of 10 misquotes and
+  flagged 0 of 10 exact quotes, one of them in French spacing (`« Always the loser »`). The original
+  caught none. All five bars were met, as predicted for four of them; the endorsement bar had been called a
+  coin toss.
+- **Against us:** the 7 endorsements missed are the declared kinds: a pick that names the fix with no
+  pointer to the owner (`I would go with the AI-relevance filter, since it keeps the coverage you already
+  wanted.`) and verbs outside the lists (`Your second option gets my approval, since it stops the scan from
+  reaching personal files.`). The refusal turn does not depend on these lists.
 
 ## The lab: how the skill change was found (development, not evidence)
 
