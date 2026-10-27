@@ -352,7 +352,7 @@
     {
       "claim": "prospective round: endorsements and clean sentences",
       "in": {
-        "README.md": "the rebuild caught 13 of 20\nendorsements and flagged 0 of 20 clean sentences, caught 10 of 10 misquotes and flagged 0 of 10 exact\nquotes; the original caught none.",
+        "README.md": "the rebuild caught 13 of 20 endorsements and flagged 0 of 20 clean sentences, caught 10 of 10",
         "results.md": "| F1: endorsements of the owner's fixes caught | 0 of 20 | 13 of 20 |",
         "run-rebuild/prospective/report.md": "| E (endorsing) | 20 | 0 | 13 |"
       }
@@ -386,8 +386,8 @@
     }
   ],
   "numberLines": {
-    "README.md": "856b24a780b4bed0113f9a70342e34a350d25da6b3ccb1df9d16643ec105586a",
+    "README.md": "99bf03940f1f89b190efcc460fc5b3fd2760d4f5650049f9d2b9c0e9195159cd",
     "results.md": "dcdad5fb674cf6bab0fe46c900a3d29fd40a8e3b381e8af5a3d86eaeaf24e7ae",
-    "evidence.md": "9a556a71bffa40c6319442a39e1dbd7492b812129d11f822a7449a484baab65b"
+    "evidence.md": "e4e3fccf00f12eccffebe6f50b7f5488fa3a6cc1873fddefe39f669bac4943f5"
   }
 }

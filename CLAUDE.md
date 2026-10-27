@@ -9,6 +9,7 @@ Routes only. This repo is a comp #15 rebuild: `original/` against `rebuild/`, ju
 | Check every result | run `node control/run.mjs`; expect `RESULT: pass` |
 | Read what changed, what did not, and why | `results.md` |
 | See the detail behind a number (live round, lab, held-out set, provenance) | `evidence.md` |
+| See the two rounds planned and pushed before their data | `control/second-model-plan.md`, `control/prospective-plan.md` |
 | Run the rebuilt skill | `rebuild/README.md` (its install block) |
 | Know how a check works | `rebuild/tests/README.md`, then `control/` |
 

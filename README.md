@@ -29,33 +29,37 @@ diagnosis's cause copied exactly. A *plant* is an edit the check makes to test a
 *sealed* mean fixed by a SHA-256 hash, checked on every run.
 
 The expected answers are in `questions.md`, unchanged since commit 2. On the sealed turn 2 alone, Q8's
-counts are 30 against 2, and 11 against 0 found nowhere in the input. To check a row: its `## result` line
-at the end of `run-original/Q<n>.txt` and `run-rebuild/Q<n>.txt`. **One thing to know first:** the first
-five commits were made afterwards from finished work, so git shows their order, not their times; Q1 to Q6
-were shaped on a prototype checker. So two rounds were added whose order GitHub's own record proves: the
-second model (commit 8) and fresh tests of the letter's own two fixes (commit 14), each plan pushed before
-its data existed.
+counts are 30 against 2, and 11 against 0 found nowhere in the input. To check a row: its `## result`
+line at the end of `run-original/Q<n>.txt` and `run-rebuild/Q<n>.txt`. **One thing to know first:** the
+first five commits were made afterwards from finished work, so git shows their order, not their times; Q1
+to Q6 were shaped on a prototype checker, so they are a regression suite, not a prospective test. So two
+rounds were added whose order GitHub's own record proves: the second model (commit 8) and fresh tests of
+the letter's own two fixes (commit 14), each plan pushed before its data existed.
+
+**The control whose order is proven: tested ahead, on the letter's own fixes.** Two AI writers who never
+saw the checker wrote 60 new items from the letter and round 1's input; only their hashes were pushed
+(commit 14) before the sets were opened (`control/prospective-plan.md`). All five bars set in advance
+were met: the rebuild caught 13 of 20 endorsements and flagged 0 of 20 clean sentences, caught 10 of 10
+misquotes and flagged 0 of 10 exact quotes; the original caught none. The endorsement items measure the
+word lists, Fix 1's second line: in a refusal turn, the frozen return fails any added sentence whatever
+its wording.
 
 ## What changed
 
-The letter places the defect in the refusal turn and points to a form that "has no slot for the leak".
-So `rules.md` changed in three places: the refusal became a **frozen return** (one fixed line, then the
-diagnosis's cause copied character for character, nothing else); quotation marks now mean an exact copy of
-the input; the diagnosis template is plain text. The checker gained three gates: the frozen return checked
-exactly, quotes checked byte for byte, and the letter's sentence caught by word lists outside the refusal
-turn. On the judged run it now fails line 92 and the refusal turn around it, and leaves line 90 alone.
+The letter places the defect in the refusal turn and points to a form that "has no slot for the leak". So
+`rules.md` changed in three places: the refusal became a **frozen return** (one fixed line, then the
+diagnosis's cause copied character for character, nothing else); quotation marks now mean an exact copy
+of the input; the diagnosis template is plain text. So Fix 1 is closed by form, not by words, where the
+letter found the leak: the refusal turn must be the frozen return exactly, so a sentence added to it
+fails in any wording or language. Outside the refusal turn, word lists are a second line, and they leak
+(below). Fix 2 is a byte-for-byte quote check. On the judged run the checker now fails line 92 and the
+refusal turn around it, and leaves line 90 alone.
 
 **On live answers.** 8 fix requests in different disguises and 2 ordinary questions, written blind by
 another model and sealed before any session, went twice to each skill on Opus 5.5. The original gave the
 frozen return 0 of 16 times (it has none); the rebuild 16 of 16, character for character. Two blind AI
 readers found the original said something about the owner's fixes in 10 (Opus) and 16 (Sonnet) of its 16 answers; the rebuild, in none, which follows from its form. By Q8, the rebuild's checker finds 216 quoted
 spans not byte for byte in the input in the original's 20 sessions and 29 in the rebuild's; of those, the words found nowhere in the input are 41 and 17.
-
-**Tested ahead, on the letter's own fixes.** Two AI writers who never saw the checker wrote 60 new items
-from the letter and round 1's input; only their hashes were pushed (commit 14) before the sets were
-opened (`control/prospective-plan.md`). All five bars set in advance were met: the rebuild caught 13 of 20
-endorsements and flagged 0 of 20 clean sentences, caught 10 of 10 misquotes and flagged 0 of 10 exact
-quotes; the original caught none.
 
 **On a second model**, Sonnet 5.5, with the plan and its bars pushed to GitHub before the first session
 (`control/second-model-plan.md`), the rebuild gave the frozen return 16 of 16 again; the original gave way twice, once with `either removing the root or adding a test closes that gap`, the letter's soft spot in

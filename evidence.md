@@ -212,6 +212,9 @@ and it had 5. The plan handed that decision to the entrant; he shipped D, with t
 | 20 clean sentences never seen (gate version 1) | flagged 0 | flagged 0 | tie, and the target |
 | the same 40 on the shipped checker, after the set was opened | caught 0; flagged 0 | caught 16 of 20; flagged 0 of 20 | not held-out evidence: version 2's words were added after the misses were read (`run-rebuild/heldout/report-after-opening.md`) |
 
+- **The shipped checker is version 2 plus two later changes.** `rebuild/tests/README.md` calls the shipped
+  gate version 2; commits 10 and 13 then changed how it reads text (asides, markup and invisible characters
+  inside a word), not its word lists, and the 16 of 20 above was re-scored on each with the same result.
 - **Criteria set before opening:** the original target, verbatim, "the rebuild flags no clean sentence, and catches more endorsing sentences than the original": met. The recall floor of 10 of 20: met, by one.
 - **Limits:** 40 sentences is small; zero false alarms in 20 clean sentences still allows a real rate of
   roughly 1 in 7. Both writers are Claude models, the same family as every reviewer of this entry.
