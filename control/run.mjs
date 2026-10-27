@@ -36,6 +36,9 @@ import { runLive } from "./live.mjs";
 import { evidenceCheck, instrumentReady, liveCheck, q7, q8 } from "./livepath.mjs";
 import { secondModelCheck } from "./second-model.mjs";
 // The review-round set came with commit 10; before it, there is nothing to check.
+const prospectiveCheck = existsSync(new URL("./prospective.mjs", import.meta.url))
+  ? (await import("./prospective.mjs")).prospectiveCheck
+  : () => ({ ok: true, text: "prospective: not planned at this commit" });
 const reviewSetCheck = existsSync(new URL("./review-set.mjs", import.meta.url))
   ? (await import("./review-set.mjs")).reviewSetCheck
   : async () => ({ ok: true, text: "review set: not committed at this commit" });
@@ -290,7 +293,7 @@ async function main() {
     process.exit(!r.ok ? CODES["harness error"] : pins.ok && same ? 0 : CODES["integrity violation"]);
   }
   const EXPECTED = JSON.parse(readFileSync(join(REPO, "control", "expected.json"), "utf8"));
-  for (const c of [pinCheck(), feedbackCheck(), questionsCheck(), receiptsCheck(), claimsCheck(), liveCheck(), readersCheck(), evidenceCheck(), secondModelCheck(), await reviewSetCheck()]) { console.log(c.text); if (!c.ok) flags.integrity.push(c.text); }
+  for (const c of [pinCheck(), feedbackCheck(), questionsCheck(), receiptsCheck(), claimsCheck(), liveCheck(), readersCheck(), evidenceCheck(), secondModelCheck(), await reviewSetCheck(), prospectiveCheck()]) { console.log(c.text); if (!c.ok) flags.integrity.push(c.text); }
   const results = {}, texts = {};
   for (const arm of ARMS) {
     if (!existsSync(join(REPO, arm))) {
