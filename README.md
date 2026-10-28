@@ -31,8 +31,9 @@ diagnosis's cause copied exactly. A *plant* is an edit the check makes to test a
 The expected answers are in `questions.md`, unchanged since commit 2. On the sealed turn 2 alone, Q8's
 counts are 30 against 2, and 11 against 0 found nowhere in the input. To check a row: its `## result`
 line at the end of `run-original/Q<n>.txt` and `run-rebuild/Q<n>.txt`. **One thing to know first:** the
-first five commits were made afterwards from finished work, so git shows their order, not their times; Q1
-to Q6 were shaped on a prototype checker, so they are a regression suite, not a prospective test. So two
+first five commits were made afterwards from finished work and pushed three times that night (the Actions
+tab shows commit 5 run three times; `questions.md` is the same in all three), so git shows their order, not
+their times; Q1 to Q6 were shaped on a prototype checker, so they are a regression suite, not a prospective test. So two
 rounds were added whose order GitHub's own record proves: the second model (commit 8) and fresh tests of
 the letter's own two fixes (commit 14), each plan pushed before its data was run or opened.
 

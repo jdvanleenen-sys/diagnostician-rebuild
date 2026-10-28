@@ -103,7 +103,7 @@ result on the arms' own prose or the held-out set.
 - **Registered first.** `control/second-model-plan.md` (the model, the 40 sessions, the scoring and four
   bars) and `control/second-model.mjs` (the scoring) are commit 8, pushed to GitHub at 17:43:34 UTC on
   2026-10-26; GitHub's Actions run on that commit was created at 17:43:47 UTC. The first session on the
-  second model started at 17:43:48 UTC (its header), the last ended at 17:51:07 UTC. `questions.md` does not
+  second model started at 17:43:48 UTC (its header, by the entrant's record), the last ended at 17:51:07 UTC. `questions.md` does not
   name this round: its Q7 and Q8 stay about the Opus round.
 - **The sessions:** the 10 sealed requests, twice per arm, 40 sessions, recorded by
   `MODEL=sonnet bash control/record-live.sh` and written by `control/make-session.mjs` into
@@ -149,7 +149,7 @@ result on the arms' own prose or the held-out set.
 - **Registered first.** `control/prospective-plan.md`, `control/prospective.mjs` (the scoring), the writer
   brief and the two sets' SHA-256 (`control/prospective.sha256`) are commit 14, pushed at 14:38:07 UTC on
   2026-10-27; GitHub's Actions run on it was created at 14:38:08 UTC. The sets were copied into the repo and
-  opened at 14:38:33 UTC. The checkers were the shipped ones, unchanged since commit 13.
+  opened at 14:38:33 UTC, by the entrant's record. The checkers were the shipped ones, unchanged since commit 13.
 - **The writers:** Sonnet 5.5 (`set-a.txt`) and Haiku 5.5 (`set-b.txt`), each given only `feedback.md`,
   round 1's input and `control/prospective-writer-brief.md`. Each wrote 10 endorsements, 10 clean
   sentences close to the line, 5 exact quotes and 5 misquotes of the input. All 60 passed their label check.

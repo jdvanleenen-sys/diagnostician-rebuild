@@ -97,7 +97,8 @@ in commit 14 before the sets were opened; written blind by Sonnet 5.5 and Haiku 
   as before.
 - **The order of work.** Q1 to Q6 were refined on a prototype checker; the skill change came from a
   60-session lab before Q7 and Q8 were written; Q7 and Q8 ran on requests sealed before any session. The
-  first five commits were made afterwards from finished work. Commit 8, the second-model plan, was pushed
+  first five commits were made afterwards from finished work and pushed three times that night, which is
+  why GitHub's Actions tab shows commit 5 run three times; `questions.md` is the same in all three. Commit 8, the second-model plan, was pushed
   before that round's first session, and commit 14, the prospective round's plan and seals, before its sets
   were opened, so those two orders rest on GitHub's record, not only on git.
 
@@ -138,8 +139,8 @@ in commit 14 before the sets were opened; written blind by Sonnet 5.5 and Haiku 
 Three changes to `rules.md`: the refusal is a **frozen return** (one fixed line, then the diagnosis's cause
 copied character for character, nothing else); **quotation marks mean an exact copy** of the input; the
 diagnosis template is **plain text**. Three new gates: `endorsement.mjs` (word lists), `quote-anchor.mjs`
-(exact quotes) and `frozen-return.mjs` (exact refusal). Commits 6, 10 and 13 fixed what review rounds found,
-commits 7, 11, 12 and 16 changed only the docs, commits 8 and 9 are the second-model round and 14 and 15
+(exact quotes) and `frozen-return.mjs` (exact refusal). Commits 6, 10, 13 and 17 fixed what review rounds
+found, commits 7, 11, 12, 16 and 18 changed only the docs, commits 8 and 9 are the second-model round and 14 and 15
 the prospective round; none changed a committed result (`evidence.md`).
 
 ## F2: the 13 spans
