@@ -11,7 +11,7 @@
   },
   "rebuild": {
     "Q1": "exit 1; names r1:92: yes; names r1:90: no",
-    "Q2": "caught 5/5: (a) tests/receipts/round-1-output.md:93: caught; (b) tests/receipts/round-1-output.md:15: caught; (c) tests/receipts/round-1-output.md:99: caught; (d) examples.md:367: caught; (e) examples.md:223: caught",
+    "Q2": "caught 5/5: (a) tests/receipts/round-1-output.md:93: caught; (b) tests/receipts/round-1-output.md:15: caught; (c) tests/receipts/round-1-output.md:99: caught; (d) examples.md:397: caught; (e) examples.md:223: caught",
     "Q3": "names 13 (6 [exact match absent; normalised match present], 2 [exact absent; 3-word run present], 5 [exact absent; neither]); matches control/expected-quotes.json: yes",
     "Q4": "caught 2/2; (c) exact single-quoted: not named; (a) r1:84 \"Needs your approval\" -> \"Needs approval\": named; (b) r1:66 \"Copy of\" -> \"Copy  of\": named; (c) r1:66 \"Copy of\" -> 'Copy of': not named",
     "Q5": "fixture tests/fixtures/soft-spot/bad.md held red: yes; twin tests/fixtures/soft-spot/good.md held green: yes; selftest exit 0",

@@ -77,14 +77,14 @@ export function liveCheck() {
   const reqs = Object.fromEntries(lf(readFileSync(reqPath, "utf8")).split(/^## /m).filter((s) => s.trim())
     .map((s) => [s.slice(0, 3), s.slice(s.indexOf("\n") + 1).trim()]));
   if (Object.keys(reqs).join() !== "F01,F02,F03,F04,F05,F06,F07,F08,C01,C02") bad.push("control/live-requests.md does not hold exactly F01-F08 and C01-C02");
-  for (const arm of ["original", "rebuild"]) for (const sub of ["live", "live-sonnet"]) {
+  for (const [arm, sub] of [["original", "live"], ["original", "live-sonnet"], ["rebuild", "live"], ["rebuild", "live-sonnet"], ["rebuild", "live-v2"]]) {
     if (!existsSync(join(REPO, `run-${arm}`, sub))) continue;
     const names = readdirSync(join(REPO, `run-${arm}`, sub)).filter((f) => SESSION.test(f));
     for (const id of Object.keys(reqs)) for (const rep of [1, 2]) if (!names.includes(`session-${id}-${rep}.md`)) bad.push(`run-${arm}/${sub}/session-${id}-${rep}.md is missing`);
     if (names.length !== 20) bad.push(`run-${arm}/${sub}/ holds ${names.length} sessions, not 20`);
   }
   let n = 0;
-  for (const dir of ["run-original/live", "run-rebuild/live", "run-original/live-round-3", "run-original/live-sonnet", "run-rebuild/live-sonnet"]) {
+  for (const dir of ["run-original/live", "run-rebuild/live", "run-original/live-round-3", "run-original/live-sonnet", "run-rebuild/live-sonnet", "run-rebuild/live-v2"]) {
     const d = join(REPO, dir);
     if (!existsSync(d)) continue;
     const sums = join(d, "SHA256SUMS");
@@ -107,8 +107,11 @@ export function liveCheck() {
 // The skill the rebuild's live sessions ran on. rules.md's SHA-256 was recorded in the entrant's lab before
 // any live-path session ran; the product hash covers every file the sessions' copies held (the arm minus
 // tests/ and CHANGELOG.md). A change to the shipped skill after the run is an integrity violation.
+// Version 1 (the judged commit, eab1468) is what run-*/live/, run-*/live-sonnet/ and the blind readers ran on.
+// Version 2 adds one section to examples.md after judging; run-rebuild/live-v2/ ran on it (control/v2-plan.md).
 export const REBUILD_RULES_PRERUN = "b0b144f4052d35bc08be97a6f577b317142dd84e55a39f298a9f86075cfea7a3";
-export const REBUILD_PRODUCT = "bbb3cbd6dbb080221a42716b42edfa1c87fb9e64f454b8d72cf61b56756f2dc7";
+export const REBUILD_PRODUCT_V1 = "bbb3cbd6dbb080221a42716b42edfa1c87fb9e64f454b8d72cf61b56756f2dc7";
+export const REBUILD_PRODUCT = "f11a661f298ed89516edcbb8361bd70673cd231fc4ae1fa6649b97bfb9670917";
 export function productHash(arm) {
   const root = join(REPO, arm), files = [];
   const walk = (d) => { for (const n of readdirSync(d).sort()) { const p = join(d, n), r = relative(root, p).replaceAll("\\", "/");
@@ -126,7 +129,7 @@ export function evidenceCheck() {
   if (existsSync(join(REPO, "rebuild"))) {
     const r = join(REPO, "rebuild", "rules.md");
     if (!existsSync(r) || shaLF(readFileSync(r)) !== REBUILD_RULES_PRERUN) bad.push("rebuild/rules.md is not the rules.md the live sessions ran on");
-    if (productHash("rebuild") !== REBUILD_PRODUCT) bad.push("rebuild/'s skill files are not the ones the live sessions ran on");
+    if (productHash("rebuild") !== REBUILD_PRODUCT) bad.push("rebuild/'s skill files are not version 2, the ones control/v2-plan.md pinned for run-rebuild/live-v2/");
   }
   if (!final) return { ok: !bad.length, text: bad.length ? `evidence: FAIL: ${bad.join("; ")}` : "evidence: not checked here beyond the rebuild's skill files: results.md is not written yet at this commit" };
   for (const d of ["run-original/live", "run-rebuild/live", "run-original/live-round-3", "run-rebuild/live-readers", "run-rebuild/heldout"])
@@ -139,7 +142,7 @@ export function evidenceCheck() {
     if (!existsSync(join(REPO, file))) bad.push(`${file} is missing`);
     else if (shaLF(readFileSync(join(REPO, file))) !== h) bad.push(`${file} is off its SHA-256`);
   }
-  return { ok: !bad.length, text: bad.length ? `evidence: FAIL: ${bad.join("; ")}` : "evidence: every evidence folder present; control/evidence.sha256 pins hold; rebuild/'s skill files are the ones the live sessions ran on (rules.md as hashed before the run)" };
+  return { ok: !bad.length, text: bad.length ? `evidence: FAIL: ${bad.join("; ")}` : "evidence: every evidence folder present; control/evidence.sha256 pins hold; rebuild/'s skill files are version 2 (rules.md as hashed before the first live run; version 1, the judged commit's, is what live/, live-sonnet/ and the readers ran on)" };
 }
 
 // Before rebuild/ exists (the brief's order), the instrument does not exist yet: Q7 and Q8 wait for it.

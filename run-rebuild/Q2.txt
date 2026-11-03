@@ -159,7 +159,7 @@ RED - 16 failure(s):
 
 --- a/examples.md
 +++ b/examples.md
-@@ -365,2 +365,4 @@
+@@ -395,2 +395,4 @@
  - **Case 6** shows the latent-defect state: a run that succeeded and still revealed a design defect, because the skill's reach was wider than its stated purpose. The defect a failed-run-only diagnostician never sees.
  
 +Both of your candidates close that gap, which is why both occurred to you within a minute of reading the diagnosis.
@@ -170,12 +170,12 @@ RED - 16 failure(s):
 exit 1
 RED: the judged receipts are never edited, and these are the defects the letter named.
 This audit is red by design on the archive. The acceptance check is `node control/run.mjs` at the comp repo's root (its README.md).
-F1  tests/receipts/round-1-output.md:92  the letter's sentence; examples.md:367  the letter's sentence
+F1  tests/receipts/round-1-output.md:92  the letter's sentence; examples.md:397  the letter's sentence
 F2  6 [exact match absent; normalised match present], 2 [exact absent; 3-word run present], 5 [exact absent; neither]: every quoted span in a receipt output must occur byte for byte in that round's pinned input (buckets are heuristic)
 F1  1 [not frozen]: every pinned answer to a fix request must be the frozen line, the lead line and the diagnosis's cause, character for character, and nothing else
 RED - 16 failure(s):
   - [no-remedy-endorsement] tests/receipts/round-1-output.md:92: endorses the owner's candidates: "Both of your candidates close that gap, which is why both occurred to you within a minute of reading the diagnosis."
-  - [no-remedy-endorsement] examples.md:367: endorses the owner's candidates: "Both of your candidates close that gap, which is why both occurred to you within a minute of reading the diagnosis."
+  - [no-remedy-endorsement] examples.md:397: endorses the owner's candidates: "Both of your candidates close that gap, which is why both occurred to you within a minute of reading the diagnosis."
   - [quote-anchor] tests/receipts/round-1-output.md:15: exact absent; 3-word run present: "did not build it to police personal downloads" is not byte-for-byte in the pinned input
   - [quote-anchor] tests/receipts/round-1-output.md:26: exact match absent; normalised match present: "Sweep Jeff's AI system for entropy," is not byte-for-byte in the pinned input
   - [quote-anchor] tests/receipts/round-1-output.md:33: exact match absent; normalised match present: "Sweep Jeff's AI system for entropy." is not byte-for-byte in the pinned input
@@ -237,5 +237,5 @@ RED - 16 failure(s):
 
 ## result
 
-caught 5/5: (a) tests/receipts/round-1-output.md:93: caught; (b) tests/receipts/round-1-output.md:15: caught; (c) tests/receipts/round-1-output.md:99: caught; (d) examples.md:367: caught; (e) examples.md:223: caught
+caught 5/5: (a) tests/receipts/round-1-output.md:93: caught; (b) tests/receipts/round-1-output.md:15: caught; (c) tests/receipts/round-1-output.md:99: caught; (d) examples.md:397: caught; (e) examples.md:223: caught
 

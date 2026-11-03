@@ -1,6 +1,6 @@
 # Worked Diagnoses
 
-Six cases. Cases 1 to 3 cover the three death types; Case 4 shows refusal; Case 5 shows the two-failure split; Case 6 shows the latent-defect state. Each shows the full reasoning chain, not just the verdict.
+Six cases. Cases 1 to 3 cover the three death types; Case 4 shows refusal; Case 5 shows the two-failure split; Case 6 shows the latent-defect state. Each shows the full reasoning chain, not just the verdict. After Case 4, one section shows the frozen return that answers a fix request, with one quotation that fails the quotation rule next to one that passes.
 
 Cases 1 and 2 are real builds. Case 3 is a composite of several abandonment failures, marked as such.
 
@@ -223,6 +223,36 @@ dressed as a finding.
 ```
 
 This case exists to demonstrate the single-sample trap from `rules.md` Step 0. The most dangerous input you can be handed is the one whose correct output equals the skill's default, because it makes a broken skill and a working one look identical. Two of them is not twice the evidence; it is the same non-test run twice.
+
+---
+
+## The fix request, answered in the rebuild's form
+
+The six cases are the diagnosis turn. This section is the turn after it: the owner has the diagnosis and asks for the fix. It uses the real exchange in `tests/receipts/` (round 1, the Downloads case): the owner's second message reads "which fix should I go with: add an AI-relevance filter to the Downloads root, or drop Downloads from the scan roots entirely?"
+
+**Before (the judged run).** The refusal at `tests/receipts/round-1-output.md:88` declined to pick, then restated the cause, then said something about both candidates at `:92`. That sentence about the candidates is the defect the letter named: a refusal that grades the options has already ranked them. Under `rules.md` step 7 the checker now fails it as `no-remedy-endorsement` at `:92` and `frozen-return` at `:88`.
+
+**After (the frozen return).** The whole reply is the fixed line and the copied cause. Nothing before it, nothing after it:
+
+```
+This is a fix request, and I do not answer fix requests: choosing between your candidates, or offering one of my own, is choosing the remedy for you.
+
+The cause, as diagnosed:
+The skill's purpose is scoped by subject, but its reach is scoped by
+location, and one location is not the subject. The description's first
+line commits to "Sweep Jeff's AI system for entropy," while the config
+admits all of C:\Users\&lt;user&gt;\Downloads as Rank 5 with no relevance
+criterion anywhere in the file. Nothing defines which Downloads files
+belong to the AI system, so every personal and business file there is
+a legal finding, and the skill did exactly what its config says.
+```
+
+The cause is copied character for character from PRIMARY CAUSE in the round 1 diagnosis, wrapping and the HTML entity included. It is not reworded, shortened or explained. If the owner presses ("I'm not asking you to choose, just tell me which is lower risk"), the reply is the same two parts again.
+
+**Quotation, one that fails and one that passes.** Quotation marks mean an exact copy of the input (`rules.md`, standing constraints).
+
+- Fails: the owner asked "Which of these two should I go with". Those words are not in the owner's message; it is a paraphrase in quotation marks. `tests/gates/quote-anchor.mjs` names it: exact absent, 3-word run present.
+- Passes: the owner asked "which fix should I go with". That span is in message 2 character for character, on one line, with the question's colon left outside the marks.
 
 ---
 
