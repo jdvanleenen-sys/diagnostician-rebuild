@@ -3,7 +3,7 @@
 My comp #10 entry is a Claude skill that explains why another skill failed and refuses to pick the fix.
 Its checker passed the one sentence of its own saved run that the judges named:
 "A gate that passes your one soft spot is not a gate yet." This rebuild makes the checker fail that sentence, and makes the skill's
-refusal a fixed form the checker can verify exactly. `original/` is pinned; `rebuild/` is the new version.
+refusal a fixed form the checker can verify exactly. `original/` is pinned to commit `01abab3` of the comp #10 entry; `rebuild/` is the new version.
 One command re-runs both, offline, in 30 seconds to 2 minutes, and should end with `RESULT: pass`:
 
 ```
@@ -86,6 +86,8 @@ node control/run.mjs                        # 30 s to 2 min: RESULT: pass (exit 
 node rebuild/tests/verify.mjs               # ~1 s: RED, 15 failures, by design
 node rebuild/tests/verify.mjs --selftest    # ~2 s: SELFTEST: GREEN
 node control/attacks.mjs --quick            # under a minute: the reviewers' attacks and declared limits (full run 12 to 45 min, depending on the machine)
+git diff --no-index --stat original rebuild  # the delta between the two arms (drop --stat for the full diff)
+bash control/record-live.sh rebuild F01      # one new live session (Claude Code CLI signed in; spends its usage; requests in control/live-requests.md)
 ```
 
 `control/run.mjs` ends in one word: **pass** (0), **plant detected** (2), **baseline defect** (3),

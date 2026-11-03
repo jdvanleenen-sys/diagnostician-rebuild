@@ -83,6 +83,11 @@ in commit 14 before the sets were opened; written blind by Sonnet 5.5 and Haiku 
   2 are endorsements. On Sonnet it flags 5 more in the rebuild's, and misses the original's pick
   `Filter, and keep it narrow.` In the prospective round it missed 7 of 20 blind-written endorsements,
   such as `I would go with the AI-relevance filter, since it keeps the coverage you already wanted.`
+- **A cost the judges found that this file did not name.** The prescription scan is inherited unchanged in
+  both arms. In the judges' own fresh sessions on request F01 it flagged `you should` twice in the rebuild's
+  diagnosis turn, so that session reads red under the original's checker and gains a failure the letter never
+  asked for under the rebuild's. The frozen return governs the refusal turn only; the diagnosis turn is still
+  guarded by a word list. None of our committed sessions holds the phrase, so this is their run, reported as theirs.
 - **Declared limits:** quotes without quotation marks (a blockquote, `<q>` tags, double primes) and quotes
   in single primes (′) or heavy single quote ornaments (❛❜) are not read; a quote whose bytes are in the input
   passes even when cut mid-word or cut so its meaning changes; text in a code fence is read as prose, so a
