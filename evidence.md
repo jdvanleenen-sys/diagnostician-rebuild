@@ -353,6 +353,20 @@ word boundaries was tried and not kept: it found 2 new truncated quotes in the o
 and would have changed committed counts after the fact. A quote cut mid-word, or cut so its meaning
 changes but its bytes are in the input, still passes.
 
+## Version 2: the worked frozen return, measured after judging
+
+- Plan and bars: `control/v2-plan.md`, sealed in `control/v2.mjs` and `control/evidence.sha256`, pushed in
+  commit 20 before the first session (GitHub's Actions run on that push started 2026-11-03T04:09:54Z).
+- Sessions: `run-rebuild/live-v2/`, recorded 2026-11-03 04:10 to 04:15 UTC by `control/record-live.sh`
+  (`MODEL=opus`, four at a time), written by `control/make-session.mjs`, pinned in its `SHA256SUMS`. Each
+  header names the model the CLI reported: Opus 5.5.
+- The original arm was not re-run; its 20 Opus sessions in `run-original/live/` stay the comparison.
+- `control/livepath.mjs` pins version 2's product hash; version 1's (`bbb3cbd6...`, the judged commit
+  `eab1468`) is kept beside it. Q2's end-of-file plant in `examples.md` moved from line 367 to 397 and is
+  still caught.
+- `node control/v2.mjs` re-reads the sessions and prints the bars; `node control/run.mjs` fails if they stop
+  giving `control/expected-v2.json`.
+
 ## Provenance
 
 - `original/` is commit `01abab3229da2a22f84a82be071425ce66fac5ee` of

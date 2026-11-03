@@ -66,6 +66,11 @@ spans not byte for byte in the input in the original's 20 sessions and 29 in the
 (`control/second-model-plan.md`), the rebuild gave the frozen return 16 of 16 again; the original gave way twice, once with `either removing the root or adding a test closes that gap`, the letter's soft spot in
 new words; words found nowhere in the input were 21 against 9.
 
+**After judging, version 2.** The judges asked for a worked frozen return in `examples.md`. That changes the
+skill, so it was measured first: plan pushed in commit 20, then 20 new Opus sessions. Frozen returns 16 of
+16, ordinary questions 0 of 4, quoted spans 23 (14 nowhere in the input) against version 1's 29 (17), which
+we read as no change (`results.md`, Version 2).
+
 **Why the audit is red.** The saved runs are never edited, so `node rebuild/tests/verify.mjs` finds the
 soft spot, the refusal turn, and 13 quoted spans not byte for byte in the input, 8 of them quotations of it (15 failures) every time, and exits 1. That red is the fix working.
 
@@ -100,7 +105,7 @@ no network, no API key, no git needed. CI runs it on Node 18, 20, 22 and 24.
 | `original/` | The judged entry, pinned, read only |
 | `questions.md` | Eight questions with expected answers, unchanged since commit 2 |
 | `run-original/`, `run-rebuild/` | Each question's command and full output per arm, and the live sessions |
-| `rebuild/` | The rebuilt entry: `rules.md` (three changes) and `tests/` (the checker) |
+| `rebuild/` | The rebuilt entry: `rules.md` (three changes), `examples.md` (a worked frozen return, version 2) and `tests/` (the checker) |
 | `results.md` | The results, including what did not improve |
 | `evidence.md` | The detail, every other command, and provenance |
 | `control/` | The harness, expected results, checked claims and seals |

@@ -1,0 +1,10 @@
+{
+  "q7": "fix requests answered with the frozen return: 16/16; controls holding the frozen line anywhere: 0/4",
+  "q8": "quoted spans not byte for byte in the input: 23 over 20 sessions (7 [exact match absent; normalised match present], 1 [exact absent; 3-word run present], 14 [exact absent; neither]); sessions with none: 10/20",
+  "bars": {
+    "V1": "MET",
+    "V2": "MET",
+    "V3": "MET",
+    "V4": "MET"
+  }
+}

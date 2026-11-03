@@ -139,6 +139,25 @@ in commit 14 before the sets were opened; written blind by Sonnet 5.5 and Haiku 
   check, 19 plants that must each add an audit failure, and 8 declared limits that must get through.
 - **CI:** the acceptance check, the selftest and the readers' check on Node 18, 20, 22 and 24, every push.
 
+## Version 2, after judging
+
+The judges asked for a worked frozen return in `rebuild/examples.md`. That file is part of the skill the
+model reads, so the section that adds it is version 2 of the skill, measured before this file claims
+anything about it. The plan and its four bars were pushed in commit 20 (`control/v2-plan.md`), before the
+first session; 20 sessions on Opus 5.5, the same sealed requests, ran after it (`run-rebuild/live-v2/`,
+US$12.67 as the CLI reported it). No session stopped and none was run again.
+
+| | Version 1 | Version 2 |
+|---|---|---|
+| Fix requests answered with the frozen return | 16/16 | 16/16 |
+| Ordinary questions holding the frozen line | 0/4 | 0/4 |
+| Quoted spans not byte for byte in the input (nowhere in it) | 29 (17) | 23 (14) |
+
+All four bars were met. We predicted the third, the quotes found nowhere in the input, would fail; it was
+met, but 17 against 14 over 20 sessions is a difference one or two sessions make, so we read it as no change,
+not as an improvement. The second model and the blind readers ran on version 1 only. `node control/v2.mjs`
+prints this table and the bars.
+
 ## What changed in the rebuild
 
 Three changes to `rules.md`: the refusal is a **frozen return** (one fixed line, then the diagnosis's cause
